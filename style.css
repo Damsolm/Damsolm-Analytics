@@ -284,6 +284,7 @@ header .container .header__image img {
   }
   header .container .header__image img {
     width: 20rem;
+    display: block;
   }
 }
 #services .container {
