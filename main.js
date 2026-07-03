@@ -46,28 +46,28 @@ document.addEventListener("DOMContentLoaded", function () {
     const digitalProducts = [
         {
             title: "Beginner to Expert Power BI Course",
-            image: "./assets/Bi Image.png",
+            image: "./Bi Image.png",
             currentPrice: "₦5,000",
             oldPrice: "₦10,000",
             link: "https://selar.com/damsolmanalytics"
         },
         {
             title: "Intermediate to Expert Power BI Course",
-            image: "./assets/Expert image.png",
+            image: "./Expert image.png",
             currentPrice: "₦7,000",
             oldPrice: "₦11,000",
             link: "https://selar.com/expertpowerbi"
         },
         {
             title: "VBA Beginner Course",
-            image: "./assets/VBA Beginner Img.png",
+            image: "./VBA Beginner Img.png",
             currentPrice: "₦4,000",
             oldPrice: "₦9,000",
             link: "https://selar.com/vbabeginnercourse"
         },
         {
             title: "VBA Intermediate to Expert Course",
-            image: "./assets/Interm to Expert Img.png",
+            image: "./Interm to Expert Img.png",
             currentPrice: "₦7,000",
             oldPrice: "₦11,000",
             link: "https://selar.com/vbaexpertcourse"
@@ -106,28 +106,28 @@ document.addEventListener("DOMContentLoaded", function () {
     const topProducts = [
         {
             title: "Beginner to Expert Power BI Course",
-            image: "./assets/Bi Image.png",
+            image: "./Bi Image.png",
             currentPrice: "₦5,000",
             oldPrice: "₦10,000",
             link: "https://selar.com/damsolmanalytics"
         },
         {
             title: "Intermediate to Expert Power BI Course",
-            image: "./assets/Expert image.png",
+            image: "./Expert image.png",
             currentPrice: "₦7,000",
             oldPrice: "₦11,000",
             link: "https://selar.com/expertpowerbi"
         },
         {
             title: "VBA Beginner Course",
-            image: "./assets/VBA Beginner Img.png",
+            image: "./VBA Beginner Img.png",
             currentPrice: "₦4,000",
             oldPrice: "₦9,000",
             link: "https://selar.com/vbabeginnercourse"
         },
         {
             title: "VBA Intermediate to Expert Course",
-            image: "./assets/Interm to Expert Img.png",
+            image: "./Interm to Expert Img.png",
             currentPrice: "₦7,000",
             oldPrice: "₦11,000",
             link: "https://selar.com/vbaexpertcourse"
@@ -236,13 +236,13 @@ const customerReviews = [
     {
         name: "Christopher Thompson",
         role: "Dashboard Specialist",
-        avatar: "./assets/placeholder img.jpg",
+        avatar: "./placeholder img.jpg",
         review: "This Power BI Advanced Course has been incredibly insightful and exceeded my expectations. It covers everything I needed to know, from data modeling and Power Query to DAX calculations and interactive dashboard design. The explanations are clear, practical, and easy to follow, making even advanced concepts understandable. I especially appreciate the real-world examples and hands-on approach. I highly recommend this course to anyone looking to take their Power BI skills from intermediate to advanced level."
     },
     {
         name: "Ignatus Williams",
         role: "Business Owner / Retailer",
-        avatar: "./assets/placeholder img.jpg",
+        avatar: "./placeholder img.jpg",
         review: "I didn't buy this for a corporate job; I bought it to get a clearer picture of my sales and inventory. Connecting Power BI to my spreadsheets using the methods taught here has opened my eyes to where my profit leaks are. It gives you the kind of deep insights that would cost thousands to hire a consultant for. Total steal!"
     },
     {
@@ -254,25 +254,25 @@ const customerReviews = [
     {
         name: "Blessing Jeremiah",
         role: "Aspiring Data Analyst",
-        avatar: "./assets/placeholder img.jpg",
+        avatar: "./placeholder img.jpg",
         review: "I’m transitioning from a non-tech background into Data Analytics and needed something practical to build my portfolio. This material didn't just teach me buttons to click; it taught me the logic behind data visualization. The project ideas inside are so realistic that I'm already modifying one for my GitHub portfolio. Extremely high value for money."
     },
     {
         name: "Ibrahim Suleiman",
         role: "Operations Analyst",
-        avatar: "./assets/placeholder img.jpg",
+        avatar: "./placeholder img.jpg",
         review: "What used to take me a whole day of manual copy-pasting in Excel is now a automated 5-minute refresh in Power BI, all thanks to the Power Query hacks taught in this material. The section on cleaning messy data alone is worth 5x the price of the whole course. If you value your time, this is a no-brainer investment."
     },
     {
         name: "Chidinma Oghechi",
         role: "Data Management Trainee",
-        avatar: "./assets/placeholder img.jpg",
+        avatar: "./placeholder img.jpg",
         review: "YouTube videos almost gave me a headache with all the technical jargon. I took a chance on this Selar material, and I’m so glad I did. The way the concepts were broken down made DAX feel less intimidating. For the first time, CALCULATE and RELATED actually make sense to me. If you’re scared of data, just get this. It’s worth every penny."
     },
     {
         name: "Feyi Oluwasegun",
         role: "Report Developer",
-        avatar: "./assets/placeholder img.jpg",
+        avatar: "./placeholder img.jpg",
         review: "This Power BI course has been incredibly useful and practical. I absolutely love it because it focuses on real-world applications and gets the job done. The lessons are clear, hands-on, and easy to follow, making it easy to apply what I learn immediately in my work. It has significantly improved my understanding of Power BI and helped me build reports and dashboards with confidence. I highly recommend this course to anyone looking to gain practical Power BI skills. It delivered exactly what it promised."
     }
 ];
