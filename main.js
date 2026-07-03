@@ -85,7 +85,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     <img src="${product.image}" alt="${product.title}">
                 </div>
                 <div class="specialist__details">
-                    <h5>${product.title}</h5>
+                    <a href="${product.link}" target="_blank" style="text-decoration: none; color: inherit;">
+                        <h5>${product.title}</h5>
+                    </a>
                     <small>Price: <span style="font-weight: bold; color: green;">${product.currentPrice}</span> <del style="color: red; text-decoration-color: red; margin-left: 5px;">${product.oldPrice}</del></small>
                 </div> 
                 <div class="specialist__socials">
@@ -145,7 +147,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     <img src="${product.image}" alt="${product.title}">
                 </div>
                 <div class="specialist__details">
-                    <h5>${product.title}</h5>
+                     <a href="${product.link}" target="_blank" style="text-decoration: none; color: inherit;">
+                        <h5>${product.title}</h5>
+                    </a>
                     <small>Price: <span style="font-weight: bold; color: green;">${product.currentPrice}</span> <del style="color: red; text-decoration-color: red; margin-left: 5px;">${product.oldPrice}</del></small>
                 </div> 
                 <div class="specialist__socials">
