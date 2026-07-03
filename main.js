@@ -248,7 +248,7 @@ const customerReviews = [
     {
         name: "Kolawole Festus",
         role: "Finance Professional",
-        avatar: "./assets/placeholder img.jpg",
+        avatar: "./placeholder img.jpg",
         review: "As a finance professional, standard reporting can get incredibly tedious. This material showed me how to connect multiple data sources seamlessly and create dynamic variance analysis reports. It has given me a serious competitive edge in my department. It’s an absolute bargain for the transformation it delivers."
     },
     {
