@@ -267,7 +267,7 @@ header .container .header__image img {
 /* ==============================MEDIA QUERIES (MEDIUM SCREEN)==========================*/
 @media screen and (max-width: 600px) {
   header {
-    height: 30rem; /* Change from 100vh to auto so the image doesn't overflow the screen height on small devices */
+    height: 40rem; /* Change from 100vh to auto so the image doesn't overflow the screen height on small devices */
     padding-top: 5rem;
     padding-bottom: 3rem;
   }
