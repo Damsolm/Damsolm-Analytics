@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Damsolm Analytics</title>
+    <link rel="stylesheet" href="style.css">
+
+    
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
+     <style>
+        /* Paste all your slider CSS rules here */
+        .header__image {
+            top: 2rem;
+            position: relative;
+            width: 100%;
+            min-height: 300px;
+        }
+
+        .image-slider {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .image-slider .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            z-index: 1;
+        }
+
+        .image-slider .slide.active {
+            opacity: 1;
+            z-index: 2;
+        }
+    </style>
+
+</head>
+<body>
+<nav>
+    <div class="container">
+        <a href="#" class="nav__logo"><h3>Damsolm Analytics</h3></a>
+
+        <ul id="nav__items">
+            <li><a href="#">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#Products">Products</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="AllProduct.html" class="btn">All Products</a></li>
+        </ul>
+
+        <button id="open__nav-btn"><i class='bx bx-menu'></i></button>
+        <button id="close__nav-btn"><i class='bx bx-x'></i></button>
+    </div>
+</nav>
+   <header>
+    <div class="container">
+        <div class="header__content">
+            <h2>Turning Raw Corporate Data into Scalable Solutions</h2>
+            <p>We eliminate repetitive operational tasks and build interactive data ecosystems that power smarter, faster business choices daily.</p>
+            <a href="#Products" class="btn">Top Selling Products</a>
+        </div>
+        <div class="header__image">
+            <div class="image-slider">
+                <!-- Keep your initial image active, and stack the others underneath -->
+                <img src="./assets/1-Photoroom.png" alt="Header Image 1" class="slide active">
+                <img src="./assets/19197062-Photoroom.png" alt="Header Image 2" class="slide">
+                <img src="./assets/6.-Photoroom.png" alt="Header Image 4" class="slide">
+                <img src="./assets/36909-Photoroom.png" alt="Header Image 4" class="slide">
+                <img src="./assets/20943777-Photoroom.png" alt="Header Image 4" class="slide">
+        </div>
+    </div>
+</header>
+
+       <section id="services">
+        <h2>Our Services</h2>
+        <p>Premium automation, robust data architecture, and intuitive executive dashboards engineered to streamline your enterprise workflow.</p>
+        <div class="container">
+            <article>
+                <i class='bx bx-data'></i>
+                <div>
+                    <h4>Data Analysis & Modeling</h4>
+                    <small>Cleaning complex, messy raw data into structured, highly efficient relational data models optimized for business insights.</small>
+                </div>
+            </article>
+            <article>
+                <i class='bx bx-bar-chart-alt-2'></i>          
+                <div>
+                    <h4>Power BI Architecture</h4>
+                    <small>Building live, interactive cloud dashboards with advanced DAX programming to monitor KPIs in real time.</small>
+                </div>
+            </article>
+            <article>
+                <i class='bx bx-code-block'></i>
+                <div>
+                    <h4>Excel VBA Automation</h4>
+                    <small>Writing clean, optimized VBA macros to convert repetitive, manual daily routines into permanent, single-click operations.</small>
+                </div>
+            </article>
+            <article>
+                <i class='bx bx-grid-alt'></i>                
+                <div>
+                    <h4>Executive Dashboards</h4>
+                    <small>Designing high-retention visual reporting layouts that tell an instant, clear story for finance, sales, and operations heads.</small>
+                </div>
+            </article>
+            <article>
+                <i class='bx bx-trending-up'></i>                
+                <div>
+                    <h4>Financial Modeling</h4>
+                    <small>Developing adaptive, formula-driven forecasting sheets to track recurring revenue channels, sales projections, and operational cash flow.</small>
+                </div>
+            </article>
+            <article>
+                <i class='bx bx-support'></i>          
+                <div>
+                    <h4>Bespoke Consultancy</h4>
+                    <small>Direct architectural support tailored to fix critical pipeline blocks across internal finance and HR operations.</small>
+                </div>
+            </article>
+        </div>
+    </section>
+
+       <section id="Products">
+    <h2>Our Top Selling Products</h2>
+    <p>Accelerate your growth using our field-tested framework courses and pre-built operational templates.</p>
+    <div class="container" id="top-products-grid">
+
+        </div>
+</section>
+
+              <section id="testimonials" class="swiper mySwiper">
+    <h2>What Our Customers Say</h2>
+    <p>Verified stories from professionals and businesses operating with zero manual data errors.</p>
+    
+    <div class="swiper-wrapper" id="testimonials-target"></div>
+    
+    <div class="swiper-pagination"></div>
+    <div class="autoplay-progress"></div>
+    <span></span>
+</section>
+<!-- END OF TESTIMONIALS -->
+
+
+
+<section id="faqs">
+    <h2>Frequently Asked Questions</h2>
+    <p>Everything you need to know about our data automation assets, course access, and system frameworks.</p>
+    
+    <div class="container faq__container">
+        <!-- FAQ Item 1 -->
+        <article class="faq__item">
+            <div class="faq__question">
+                <h4>How long do I have access to the courses and templates?</h4>
+                <div class="faq__icon"><i class='bx bx-plus'></i></div>
+            </div>
+            <div class="faq__answer">
+                <p>You get lifetime access to all purchased materials. This includes immediate downloads of pre-built Excel/VBA kits and anytime access to updated Power BI modules as platform environments evolve.</p>
+            </div>
+        </article>
+
+        <!-- FAQ Item 2 -->
+        <article class="faq__item">
+            <div class="faq__question">
+                <h4>Do I need prior coding experience for the VBA Mastery course?</h4>
+                <div class="faq__icon"><i class='bx bx-plus'></i></div>
+            </div>
+            <div class="faq__answer">
+                <p>No prior coding experience is required. The curriculum is built to transition you smoothly from plain spreadsheet operations into building permanent, scalable automation ecosystems using VBA macros step-by-step.</p>
+            </div>
+        </article>
+
+        <!-- FAQ Item 3 -->
+        <article class="faq__item">
+            <div class="faq__question">
+                <h4>Are the dashboard templates customizable for my specific company data?</h4>
+                <div class="faq__icon"><i class='bx bx-plus'></i></div>
+            </div>
+            <div class="faq__answer">
+                <p>Absolutely. All trackers and templates are fully unlocked. You can drop in your raw data rows, adjust metric formulas, and alter themes using tools like Canva or built-in layouts to map perfectly to your team's specific pipeline KPIs.</p>
+            </div>
+        </article>
+
+        <!-- FAQ Item 4 -->
+        <article class="faq__item">
+            <div class="faq__question">
+                <h4>How are payments processed, and do you support local currencies?</h4>
+                <div class="faq__icon"><i class='bx bx-plus'></i></div>
+            </div>
+            <div class="faq__answer">
+                <p>All checkout transactions are handled securely via Selar. The system natively accepts Naira (₦) payments alongside international cards, automatically granting you instant access to assets upon successful checkout.</p>
+            </div>
+        </article>
+    </div>
+</section>
+
+
+<section id="appointment">
+<div class="container">
+<div class="info">
+<h2>Order Custom Digital Solution Guide</h2>
+<p>Need a hyper-specific digital workspace asset? Specify your business requirements below to receive a custom PDF blueprint, manual, or direct functional asset tailored to your operational ecosystem.</p>
+
+<article>
+<div class="info__icon">
+    <i class='bx bx-layer'></i>
+</div>
+<div>
+<h4>Custom Dynamic Sales Dashboards</h4>
+<small>Get a structured structural template setup to automatically ingest raw daily sales records and visualize immediate pipeline conversion trends cleanly.</small>
+</div>
+</article>
+<article>
+<div class="info__icon">
+    <i class='bx bx-extension'></i>
+</div>
+<div>
+<h4>Specific Target Problem Areas</h4>
+<small>Isolate localized workspace pain points within Power BI formulas, multi-sheet Excel tracking systems, or broken corporate database bridges.</small>
+</div>
+</article>
+<article>
+<div class="info__icon">
+    <i class='bx bx-terminal' ></i>                
+</div>
+<div>
+<h4>VBA Macro Solution Scripts</h4>
+<small>Describe your manual daily data bottleneck to receive automated, clean custom backend scripts written strictly to handle data parsing loops safely.</small>
+</div>
+</article>
+</div>
+
+<form action="https://formspree.io/f/xayzkjjn" method="POST">
+    <div class="form__group">
+        <label for="name">Full Name</label>
+        <input type="text" placeholder="Enter Your Name" name="Client's Name" id="name" required>
+    </div>
+    <div class="form__group">
+        <label for="phone">WhatsApp Phone Number</label>
+        <input type="number" placeholder="Enter Phone Number" name="Phone Number" id="phone" required>
+    </div>
+    <div class="form__group">
+        <label for="name">Email Address</label>
+        <input type="text" placeholder="Enter Your Email" name="Client's Email" id="Email" required>
+    </div>
+    <div class="form__group">
+        <label for="date">Desired Delivery Target Date</label>
+        <input type="date" name="Target Date" id="date" required>
+    </div>
+    <div class="form__group">
+        <label for="department">Select Core Framework Tool</label>
+        <select name="Core Framework Tool" id="department" required>
+            <option value="Microsoft Excel Professional">Microsoft Excel Professional</option>
+            <option value="Advanced VBA Macro Automation">Advanced VBA Macro Automation</option>
+            <option value="Power BI Data Ecosystem">Power BI Data Ecosystem</option>
+            <option value="Interactive Executive Dashboard Architecture">Interactive Executive Dashboard Architecture</option>
+        </select>
+    </div>
+    <div class="form__group">
+        <label for="doctor">Select Asset Output Format</label>
+        <select name="Asset Output Format" id="doctor" required>
+            <option value="Custom Guided Solution (PDF Manual Blueprint)">Custom Guided Solution (PDF Manual Blueprint)</option>
+            <option value="Functional Asset Template + Macro Code Script File">Functional Asset Template + Macro Code Script File</option>
+            <option value="Complete Analytics Architecture Implementation Kit">Complete Analytics Architecture Implementation Kit</option>
+        </select>
+    </div>
+
+    <div class="form__group">
+        <label for="message">Detailed Data Pain Point / Solution Needs</label>
+        <textarea name="Project Solution Brief" id="message" rows="6" placeholder="Describe the specific solution asset you need (e.g., Build custom Sales Dashboard layout utilizing Excel VBA)..." required></textarea>
+    </div>
+    <button class="btn-primary">Submit Custom Solution Request</button>
+</form>
+</div>
+</section>
+
+
+
+<footer>
+    <div class="container">
+        <article>
+            <a href="#" class="footer__logo"><h3>Damsolm Analytics</h3></a>
+            <p>Engineering permanent, high-retention automation and strategic reporting workflows for forward-thinking business teams.</p>
+            <div>
+                <i class="bx bxs-phone"></i>
+                <small>+2349162924103</small>
+            </div>
+            <div>
+                <i class="bx bx-mail-send"></i>
+                <small>olorunfemid2016@gmail.com</small>
+            </div>
+        </article>
+
+        <article>
+            <h3>Support</h3>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Cookie Policy</a>
+            <a href="#">Purchasing Policy</a>
+            <a href="#">Terms & Conditions</a>
+        </article>
+
+        <article>
+            <h3>Permalinks</h3>
+            <a href="#">Home </a>
+            <a href="#services">Services </a>
+            <a href="#Products">Products</a>
+            <a href="#testimonials">Testimonials </a>
+            <a href="#appointment" class="btn-primary"> Custom Asset Request</a>
+        </article>
+       
+       
+        <article>
+            <h3>Contact Us</h3>
+            <p>FAQs</p>
+            <p>Direct Support Channel</p>
+            <div class="footer__socials">
+                <a href="#"><i class="bx bxl-linkedin"></i></a>
+                <a href="#"><i class="bx bxl-twitter"></i></a>
+                <a href="#"><i class="bx bxl-facebook"></i></a>
+                <a href="#"><i class="bx bxl-instagram"></i></a>
+            </div>
+        </article>
+    </div>
+    <div class="copyright">
+        <small>&copy; Copyright DAMSOLM ANALYTICS, All Rights Reserved</small>
+    </div>
+</footer>
+
+
+ <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+<script src="main.js"></script>
+
+<script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const slides = document.querySelectorAll(".image-slider .slide");
+            let currentSlideIndex = 0;
+            const slideIntervalTime = 5000; 
+
+            function nextSlide() {
+                slides[currentSlideIndex].classList.remove("active");
+                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                slides[currentSlideIndex].classList.add("active");
+            }
+
+            if (slides.length > 1) {
+                setInterval(nextSlide, slideIntervalTime);
+            }
+        });
+    </script>
+</body>
+</html>
