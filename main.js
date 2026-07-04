@@ -87,22 +87,22 @@ document.addEventListener("DOMContentLoaded", function () {
     const digitalProducts = [
         {
             title: "Beginner to Expert Power BI Course",
-            image: "./assets/Bi Image.png",
+            image: "./Bi Image.png",
             link: "https://selar.com/damsolmanalytics"
         },
         {
             title: "Intermediate to Expert Power BI Course",
-            image: "./assets/Expert image.png",
+            image: "./Expert image.png",
             link: "https://selar.com/expertpowerbi"
         },
         {
             title: "VBA Beginner Course",
-            image: "./assets/VBA Beginner Img.png",
+            image: "./VBA Beginner Img.png",
             link: "https://selar.com/vbabeginnercourse"
         },
         {
             title: "VBA Intermediate to Expert Course",
-            image: "./assets/Interm to Expert Img.png",
+            image: "./Interm to Expert Img.png",
             link: "https://selar.com/vbaexpertcourse"
         }
     ];
@@ -287,22 +287,22 @@ document.addEventListener("DOMContentLoaded", function () {
     const topProducts = [
         {
             title: "Beginner to Expert Power BI Course",
-            image: "./assets/Bi Image.png",
+            image: "./Bi Image.png",
             link: "https://selar.com/damsolmanalytics"
         },
         {
             title: "Intermediate to Expert Power BI Course",
-            image: "./assets/Expert image.png",
+            image: "./Expert image.png",
             link: "https://selar.com/expertpowerbi"
         },
         {
             title: "VBA Beginner Course",
-            image: "./assets/VBA Beginner Img.png",
+            image: "./VBA Beginner Img.png",
             link: "https://selar.com/vbabeginnercourse"
         },
         {
             title: "VBA Intermediate to Expert Course",
-            image: "./assets/Interm to Expert Img.png",
+            image: "./Interm to Expert Img.png",
             link: "https://selar.com/vbaexpertcourse"
         }
     ];
