@@ -649,11 +649,13 @@ footer .copyright {
 .faq__question h4 {
     font-size: 1.05rem;
     font-weight: 600;
+    color: #fff;
 }
 
 .faq__icon i {
     font-size: 1.6rem;
     transition: transform 0.3s ease;
+    color: #fff;
 }
 
 .faq__answer {
