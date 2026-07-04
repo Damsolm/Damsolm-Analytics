@@ -244,6 +244,27 @@ header .container .header__image img {
   height: 30rem;
 }
 
+/* ================= ALL PRODUCTS BUTTON CENTER ================= */
+.btn__all-products {
+    display: block;          /* Changes the anchor from inline to block level */
+    width: max-content;      /* Shrinks the button width tightly to fit just the text */
+    margin: 3rem auto 0 auto; /* Centering trick: 'auto' on left/right shifts it perfectly to the middle */
+    text-align: center;
+    text-decoration: none;
+    
+    /* Optional visual polish to match a premium corporate UI layout */
+    padding: 0.8rem 2rem;
+    background: #00A2ED;
+    color: #fff;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background 0.3s ease;
+}
+
+.btn__all-products:hover {
+    background: #0081BD;    /* Darkens smoothly on hover states */
+}
+
 /* ==============================MEDIA QUERIES (MEDIUM SCREEN)==========================*/
 @media screen and (max-width: 1024px) {
   header {
