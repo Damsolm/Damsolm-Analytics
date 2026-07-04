@@ -234,7 +234,7 @@ header .container .header__content p {
   font-size: 1.1rem;
 }
 header .container .header__image {
-  width: fit-content;
+  width: 40rem;
   height: 30rem;
   margin: 0 auto;
 }
