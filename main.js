@@ -453,37 +453,37 @@ const customerReviews = [
     {
         name: "Christopher Thompson",
         role: "Dashboard Specialist",
-        avatar: "./assets/placeholder img.jpg",
+        avatar: "./placeholder img.jpg",
         review: "This Power BI Advanced Course has been incredibly insightful and exceeded my expectations. It covers everything I needed to know, from data modeling and Power Query to DAX calculations and interactive dashboard design. The explanations are clear, practical, and easy to follow, making even advanced concepts understandable. I especially appreciate the real-world examples and hands-on approach. I highly recommend this course to anyone looking to take their Power BI skills from intermediate to advanced level."
     },
     {
         name: "Ignatus Williams",
         role: "Business Owner / Retailer",
-        avatar: "./assets/placeholder img.jpg",
+        avatar: "./placeholder img.jpg",
         review: "I didn't buy this for a corporate job; I bought it to get a clearer picture of my sales and inventory. Connecting Power BI to my spreadsheets using the methods taught here has opened my eyes to where my profit leaks are. It gives you the kind of deep insights that would cost thousands to hire a consultant for. Total steal!"
     },
     {
         name: "Kolawole Festus",
         role: "Finance Professional",
-        avatar: "./assets/placeholder img.jpg",
+        avatar: "./placeholder img.jpg",
         review: "As a finance professional, standard reporting can get incredibly tedious. This material showed me how to connect multiple data sources seamlessly and create dynamic variance analysis reports. It has given me a serious competitive edge in my department. It’s an absolute bargain for the transformation it delivers."
     },
     {
         name: "Blessing Jeremiah",
         role: "Aspiring Data Analyst",
-        avatar: "./assets/placeholder img.jpg",
+        avatar: "./placeholder img.jpg",
         review: "I’m transitioning from a non-tech background into Data Analytics and needed something practical to build my portfolio. This material didn't just teach me buttons to click; it taught me the logic behind data visualization. The project ideas inside are so realistic that I'm already modifying one for my GitHub portfolio. Extremely high value for money."
     },
     {
         name: "Ibrahim Suleiman",
         role: "Operations Analyst",
-        avatar: "./assets/placeholder img.jpg",
+        avatar: "./placeholder img.jpg",
         review: "What used to take me a whole day of manual copy-pasting in Excel is now a automated 5-minute refresh in Power BI, all thanks to the Power Query hacks taught in this material. The section on cleaning messy data alone is worth 5x the price of the whole course. If you value your time, this is a no-brainer investment."
     },
     {
         name: "Chidinma Oghechi",
         role: "Data Management Trainee",
-        avatar: "./assets/placeholder img.jpg",
+        avatar: "./placeholder img.jpg",
         review: "YouTube videos almost gave me a headache with all the technical jargon. I took a chance on this Selar material, and I’m so glad I did. The way the concepts were broken down made DAX feel less intimidating. For the first time, CALCULATE and RELATED actually make sense to me. If you’re scared of data, just get this. It’s worth every penny."
     },
     {
