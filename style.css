@@ -272,7 +272,7 @@ header .container .header__image img {
     background: #2D324D;
     color: #fff;
     border-color: #fff;
-
+}
 .filter-btn.active {
     background: #00A2ED; /* Highlighting active brand color when targeted */
     color: #fff;
