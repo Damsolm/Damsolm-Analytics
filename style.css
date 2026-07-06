@@ -244,6 +244,54 @@ header .container .header__image img {
   height: 30rem;
 }
 
+/* ================= PRODUCT CATEGORY FILTERS ================= */
+.product__filters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem auto 3rem auto;
+    flex-wrap: wrap;
+    max-width: 600px;
+}
+
+.filter-btn {
+    background: #1E2235; /* Coordinates with your dark theme container color */
+    color: #A0A5C0;
+    border: 1px solid #2D324D;
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+    background: #2D324D;
+    color: #fff;
+    border-color: #00A2ED;
+}
+
+.filter-btn.active {
+    background: #00A2ED; /* Highlighting active brand color when targeted */
+    color: #fff;
+    border-color: #00A2ED;
+    box-shadow: 0 4px 15px rgba(0, 162, 237, 0.3);
+}
+
+@media screen and (max-width: 600px) {
+    .product__filters {
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+    }
+    .filter-btn {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.8rem;
+    }
+}
+
 /* ================= ALL PRODUCTS BUTTON CENTER ================= */
 .btn__all-products {
     display: block;          /* Changes the anchor from inline to block level */
