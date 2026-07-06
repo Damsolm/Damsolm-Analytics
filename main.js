@@ -511,3 +511,37 @@ const customerReviews = [
     // 4. YOUR SWIPER INITIALIZATION CODE (Keep your existing Swiper code block right here)
     // var swiper = new Swiper(".mySwiper", { ... });
 });
+
+
+// reveal/ fade in section animation
+
+document.addEventListener("DOMContentLoaded", function () {
+    const sections = document.querySelectorAll("section");
+
+    // Initialize: Add the base hidden class to all sections immediately
+    sections.forEach(section => {
+        section.classList.add("scroll-reveal");
+    });
+
+    // Configuration for the Intersection Observer
+    const observerOptions = {
+        root: null,          // Uses the viewport
+        rootMargin: "0px",
+        threshold: 0.15      // Triggers when 15% of the section is visible
+    };
+
+    const sectionObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            // Check if the section has scrolled into view
+            if (entry.isIntersecting) {
+                entry.target.classList.add("revealed");
+                observer.unobserve(entry.target); // Stops observing once revealed (improves performance)
+            }
+        });
+    }, observerOptions);
+
+    // Attach observer to each section
+    sections.forEach(section => {
+        sectionObserver.observe(section);
+    });
+});
