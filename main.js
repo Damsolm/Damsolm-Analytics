@@ -52,42 +52,42 @@ document.addEventListener("DOMContentLoaded", function () {
             pbi_exp: { current: "₦7,000", old: "₦18,000" },
             vba_beg: { current: "₦4,000", old: "₦9,000" },
             vba_exp: { current: "₦7,000", old: "₦18,000" },
-            pdf_guide1: { current: "₦2,500", old: "₦5,000" } // Example PDF Guide
+            // pdf_guide1: { current: "₦2,500", old: "₦5,000" } // Example PDF Guide
         },
         US: {
             pbi_beg: { current: "$9.99", old: "$24.99" },
             pbi_exp: { current: "$19.99", old: "$39.99" },
             vba_beg: { current: "$7.99", old: "$19.99" },
             vba_exp: { current: "$19.99", old: "$39.99" },
-            pdf_guide1: { current: "$4.99", old: "$9.99" }
+            // pdf_guide1: { current: "$4.99", old: "$9.99" }
         },
         GB: {
             pbi_beg: { current: "£7.99", old: "£19.99" },
             pbi_exp: { current: "£14.99", old: "£34.99" },
             vba_beg: { current: "£5.99", old: "£14.99" },
             vba_exp: { current: "£14.99", old: "£34.99" },
-            pdf_guide1: { current: "£3.99", old: "£7.99" }
+            // pdf_guide1: { current: "£3.99", old: "£7.99" }
         },
         GH: {
             pbi_beg: { current: "GH₵120", old: "GH₵250" },
             pbi_exp: { current: "GH₵220", old: "GH₵450" },
             vba_beg: { current: "GH₵100", old: "GH₵200" },
             vba_exp: { current: "GH₵220", old: "GH₵450" },
-            pdf_guide1: { current: "GH₵60", old: "GH₵120" }
+            // pdf_guide1: { current: "GH₵60", old: "GH₵120" }
         },
         KE: {
             pbi_beg: { current: "KSh 1,100", old: "KSh 2,500" },
             pbi_exp: { current: "KSh 2,200", old: "KSh 4,500" },
             vba_beg: { current: "KSh 900", old: "KSh 2,000" },
             vba_exp: { current: "KSh 2,200", old: "KSh 4,500" },
-            pdf_guide1: { current: "KSh 600", old: "KSh 1,200" }
+            // pdf_guide1: { current: "KSh 600", old: "KSh 1,200" }
         },
         ZA: {
             pbi_beg: { current: "R 140", old: "R 300" },
             pbi_exp: { current: "R 280", old: "R 550" },
             vba_beg: { current: "R 110", old: "R 220" },
             vba_exp: { current: "R 280", old: "R 550" },
-            pdf_guide1: { current: "R 75", old: "R 150" }
+            // pdf_guide1: { current: "R 75", old: "R 150" }
         }
     };
 
