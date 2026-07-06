@@ -258,7 +258,7 @@ header .container .header__image img {
 .filter-btn {
     background: #fff; /* Coordinates with your dark theme container color */
     color: #000;
-    border: 1px solid #2D324D;
+    border: 1px solid lightgray;
     padding: 0.6rem 1.5rem;
     font-size: 0.9rem;
     font-weight: 600;
