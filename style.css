@@ -256,9 +256,9 @@ header .container .header__image img {
 }
 
 .filter-btn {
-    background: #1E2235; /* Coordinates with your dark theme container color */
-    color: #A0A5C0;
-    border: 1px solid #2D324D;
+    background: #fff; /* Coordinates with your dark theme container color */
+    color: #000;
+    border: 1px solid #000;
     padding: 0.6rem 1.5rem;
     font-size: 0.9rem;
     font-weight: 600;
@@ -271,8 +271,7 @@ header .container .header__image img {
 .filter-btn:hover {
     background: #2D324D;
     color: #fff;
-    border-color: #00A2ED;
-}
+    border-color: #fff;
 
 .filter-btn.active {
     background: #00A2ED; /* Highlighting active brand color when targeted */
