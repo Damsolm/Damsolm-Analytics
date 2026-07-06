@@ -48,6 +48,20 @@ section > p {
   margin: 0.6rem auto 2.5rem;
 }
 
+/* --- NEW REVEAL ANIMATION STYLES --- */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(40px); /* Shifts the section down slightly */
+  transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+  will-change: opacity, transform; /* Optimizes rendering performance */
+}
+
+/* Class injected by JavaScript when section enters viewport */
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .btn {
   display: inline-block;
   width: fit-content;
