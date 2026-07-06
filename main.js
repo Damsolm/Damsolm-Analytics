@@ -121,13 +121,13 @@ document.addEventListener("DOMContentLoaded", function () {
             image: "./Interm to Expert Img.png",
             link: "https://selar.com/vbaexpertcourse"
         },
-        {
-            id: "pdf_guide1",
-            category: "PDF GUIDE",
-            title: "Data Clean & Transformation Playbook",
-            image: "./VBA Beginner Img.png", // Replace with your true PDF thumbnail asset path
-            link: "https://selar.com/"
-        }
+        // {
+        //     id: "pdf_guide1",
+        //     category: "PDF GUIDE",
+        //     title: "Data Clean & Transformation Playbook",
+        //     image: "./VBA Beginner Img.png", // Replace with your true PDF thumbnail asset path
+        //     link: "https://selar.com/"
+        // }
     ];
 
     const gridTarget = document.getElementById("product-grid-target");
