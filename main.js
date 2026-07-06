@@ -432,7 +432,7 @@ faqItems.forEach(item => {
     });
 });
 
-
+// Reviews
 
 document.addEventListener("DOMContentLoaded", function () {
    // 1. Array filled with your specific new user reviews and text profiles
@@ -478,6 +478,12 @@ const customerReviews = [
         role: "Report Developer",
         avatar: "./assets/placeholder img.jpg",
         review: "This Power BI course has been incredibly useful and practical. I absolutely love it because it focuses on real-world applications and gets the job done. The lessons are clear, hands-on, and easy to follow, making it easy to apply what I learn immediately in my work. It has significantly improved my understanding of Power BI and helped me build reports and dashboards with confidence. I highly recommend this course to anyone looking to gain practical Power BI skills. It delivered exactly what it promised."
+    },
+    {
+        name: "Samuel Oye",
+        role: "Financial Analyts",
+        avatar: "./assets/placeholder img.jpg",
+        review: "Well explanatory and easy to understand"
     }
 ];
 
