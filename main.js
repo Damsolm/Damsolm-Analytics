@@ -82,14 +82,14 @@ document.addEventListener("DOMContentLoaded", function () {
             vba_beg: { current: "KSh 900", old: "KSh 1500" },
             vba_exp: { current: "KSh 1,100", old: "KSh 2,000" },
             // pdf_guide1: { current: "KSh 600", old: "KSh 1,200" }
-      
+        },
         ZA: {
             pbi_beg: { current: "R 140", old: "R 300" },
             pbi_exp: { current: "R 280", old: "R 550" },
             vba_beg: { current: "R 110", old: "R 220" },
             vba_exp: { current: "R 280", old: "R 550" },
             // pdf_guide1: { current: "R 75", old: "R 150" }
-        }
+        },
     };
 
     // 2. Structured digital catalog carrying explicit category definitions
