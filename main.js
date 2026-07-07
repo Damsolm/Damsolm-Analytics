@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
             pbi_beg: { current: "KSh 800", old: "KSh 1,500" },
             pbi_exp: { current: "KSh 1,100", old: "KSh 2000" },
             vba_beg: { current: "KSh 900", old: "KSh 1500" },
-            vba_exp: { current: "KSh 2,200", old: "KSh 4,500" },
+            vba_exp: { current: "KSh 1,100", old: "KSh 2,000" },
             // pdf_guide1: { current: "KSh 600", old: "KSh 1,200" }
         },
         ZA: {
