@@ -67,6 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
             vba_beg: { current: "£5.99", old: "£14.99" },
             vba_exp: { current: "£14.99", old: "£34.99" },
             // pdf_guide1: { current: "£3.99", old: "£7.99" }
+         
         },
         GH: {
             pbi_beg: { current: "GH₵120", old: "GH₵250" },
@@ -81,13 +82,14 @@ document.addEventListener("DOMContentLoaded", function () {
             vba_beg: { current: "KSh 900", old: "KSh 1500" },
             vba_exp: { current: "KSh 1,100", old: "KSh 2,000" },
             // pdf_guide1: { current: "KSh 600", old: "KSh 1,200" }
-        },
+      
         ZA: {
             pbi_beg: { current: "R 140", old: "R 300" },
             pbi_exp: { current: "R 280", old: "R 550" },
             vba_beg: { current: "R 110", old: "R 220" },
             vba_exp: { current: "R 280", old: "R 550" },
             // pdf_guide1: { current: "R 75", old: "R 150" }
+         
         }
     };
 
@@ -243,6 +245,7 @@ document.addEventListener("DOMContentLoaded", function () {
             { current: "$19.99", old: "$39.99" },
             { current: "$7.99", old: "$19.99" },
             { current: "$19.99", old: "$39.99" }
+         
         ],
         GB: [
             { current: "£7.99", old: "£19.99" },
@@ -255,12 +258,14 @@ document.addEventListener("DOMContentLoaded", function () {
             { current: "GH₵220", old: "GH₵450" },
             { current: "GH₵100", old: "GH₵200" },
             { current: "GH₵220", old: "GH₵450" }
+         
         ],
         KE: [
-            { current: "KSh 1,100", old: "KSh 2,500" },
-            { current: "KSh 2,200", old: "KSh 4,500" },
-            { current: "KSh 900", old: "KSh 2,000" },
-            { current: "KSh 2,200", old: "KSh 4,500" }
+              { current: "KSh 800", old: "KSh 1,500" },
+            { current: "KSh 1,100", old: "KSh 2,000" },
+            { current: "KSh 900", old: "KSh 1,500" },
+            { current: "KSh 1,100", old: "KSh 2,000" }
+        },
         ],
         ZA: [
             { current: "R 140", old: "R 300" },
