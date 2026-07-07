@@ -89,7 +89,6 @@ document.addEventListener("DOMContentLoaded", function () {
             vba_beg: { current: "R 110", old: "R 220" },
             vba_exp: { current: "R 280", old: "R 550" },
             // pdf_guide1: { current: "R 75", old: "R 150" }
-         
         }
     };
 
@@ -265,7 +264,6 @@ document.addEventListener("DOMContentLoaded", function () {
             { current: "KSh 1,100", old: "KSh 2,000" },
             { current: "KSh 900", old: "KSh 1,500" },
             { current: "KSh 1,100", old: "KSh 2,000" }
-        },
         ],
         ZA: [
             { current: "R 140", old: "R 300" },
