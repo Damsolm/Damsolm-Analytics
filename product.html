@@ -109,8 +109,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const price = activePricing[productId] || globalPricingGrid["US"][productId];
 
-        // The button has been modified to a standard Selar HTML anchor trigger element.
-        // This structural link architecture handles the payment modal internally without throwing CORS errors.
+        // EXPLICIT FIX: We use Selar's precise data attributes. 
+        // This is exactly what their internal script checks to intercept the redirect and mount the modal.
         container.innerHTML = `
             <div class="details-left">
                 <img src="${selectedProduct.image}" alt="${selectedProduct.title}">
@@ -123,16 +123,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
                 <p class="prod-description">${selectedProduct.desc}</p>
                 <a href="https://selar.co/${selectedProduct.selarSlug}" 
-                   class="checkout-anchor-btn selar-custom-btn" 
-                   data-selar-open-in-iframe="true">
+                   class="checkout-anchor-btn selar-pbb" 
+                   data-selar-product-slug="${selectedProduct.selarSlug}" 
+                   data-open-in-iframe="true">
                     <i class='bx bx-credit-card'></i> Proceed to Pay
                 </a>
             </div>
         `;
 
-        // Inject the script element dynamically inside the local frame context to avoid browser blocking
+        // Load the explicit Selar SDK built to intercept elements marked with 'selar-pbb'
         const selarScript = document.createElement("script");
-        selarScript.src = "https://selar.co/js/embed.js";
+        selarScript.src = "https://sdk.selar.co/js/embed.js";
         selarScript.async = true;
         document.body.appendChild(selarScript);
     }
