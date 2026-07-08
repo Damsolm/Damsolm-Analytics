@@ -55,9 +55,6 @@
     </div>
 </footer>
 
-<!-- FIXED OFFICIAL INTERACTIVE EMBED ROUTE FROM SELAR SERVERS (REMOVED .JS FOR ACCURATE SDK LINKING) -->
-<script src="https://sdk.selar.co/js/v1/checkout"></script>
-
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const globalPricingGrid = {
@@ -70,14 +67,13 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     const allCatalogProducts = [
-        { title: "Beginner to Expert Power BI Course", image: "./Bi Image.png", desc: "Master asset mapping and data shaping pipelines from absolute scratch. Includes fully managed custom dashboards and workflow metrics.", selarSlug: "damsolmanalytics" },
-        { title: "Intermediate to Expert Power BI Course", image: "./Expert image.png", desc: "Advanced relational data modeling blueprints, enterprise DAX optimizations, and robust production matrix tracking paradigms.", selarSlug: "expertpowerbi" },
-        { title: "VBA Beginner Course", image: "./VBA Beginner Img.png", desc: "Eliminate repetitive tasks. Learn custom syntax configurations, execution statement loops, and deep environment macro recording controls.", selarSlug: "vbabeginnercourse" },
-        { title: "VBA Intermediate to Expert Course", image: "./Interm to Expert Img.png", desc: "Object-oriented scripting schemas, multi-app database link controls, and advanced automated application design models.", selarSlug: "vbaexpertcourse" }
+        { title: "Beginner to Expert Power BI Course", image: "./assets/Bi Image.png", desc: "Master asset mapping and data shaping pipelines from absolute scratch. Includes fully managed custom dashboards and workflow metrics.", selarSlug: "damsolmanalytics" },
+        { title: "Intermediate to Expert Power BI Course", image: "./assets/Expert image.png", desc: "Advanced relational data modeling blueprints, enterprise DAX optimizations, and robust production matrix tracking paradigms.", selarSlug: "expertpowerbi" },
+        { title: "VBA Beginner Course", image: "./assets/VBA Beginner Img.png", desc: "Eliminate repetitive tasks. Learn custom syntax configurations, execution statement loops, and deep environment macro recording controls.", selarSlug: "vbabeginnercourse" },
+        { title: "VBA Intermediate to Expert Course", image: "./assets/Interm to Expert Img.png", desc: "Object-oriented scripting schemas, multi-app database link controls, and advanced automated application design models.", selarSlug: "vbaexpertcourse" }
     ];
 
     const container = document.getElementById("target-product-container");
-    
     const urlParams = new URLSearchParams(window.location.search);
     const productId = parseInt(urlParams.get('id')) || 0;
     const selectedProduct = allCatalogProducts[productId];
@@ -96,10 +92,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 const data = await res.json();
                 if (globalPricingGrid[data.country_code]) activePricing = globalPricingGrid[data.country_code];
             } else {
-                throw new Error("Rate limit encountered");
+                throw new Error("429");
             }
         } catch (err) { 
-            console.warn("ipapi fallback triggered. Initializing backup ip2c pipeline...");
             try {
                 const bkRes = await fetch("https://ip2c.org/s");
                 const text = await bkRes.text();
@@ -108,12 +103,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     activePricing = globalPricingGrid[parts[1]];
                 }
             } catch (fallbackErr) {
-                console.error("All geolocation lookup services exhausted.");
+                console.error("All lookups failed.");
             }
         }
 
         const price = activePricing[productId] || globalPricingGrid["US"][productId];
 
+        // The button has been modified to a standard Selar HTML anchor trigger element.
+        // This structural link architecture handles the payment modal internally without throwing CORS errors.
         container.innerHTML = `
             <div class="details-left">
                 <img src="${selectedProduct.image}" alt="${selectedProduct.title}">
@@ -125,31 +122,19 @@ document.addEventListener("DOMContentLoaded", function () {
                     <del>${price.old}</del>
                 </div>
                 <p class="prod-description">${selectedProduct.desc}</p>
-                <button id="triggerSelarPay" class="checkout-anchor-btn">
+                <a href="https://selar.co/${selectedProduct.selarSlug}" 
+                   class="checkout-anchor-btn selar-custom-btn" 
+                   data-selar-open-in-iframe="true">
                     <i class='bx bx-credit-card'></i> Proceed to Pay
-                </button>
+                </a>
             </div>
         `;
 
-        // Interactive modal instantiation layer
-        document.getElementById("triggerSelarPay").addEventListener("click", function() {
-            if (typeof SelarCheckout === "undefined") {
-                alert("The Selar checkout service is still initializing. Please check your network and try again in a moment.");
-                return;
-            }
-            
-            SelarCheckout.init({
-                token: "sat_4y14t0s30jf311jp813i4813l1chg737g0428", 
-                product_slug: selectedProduct.selarSlug,
-                onClose: function() {
-                    console.log("Checkout modal wrapper closed.");
-                },
-                onSuccess: function(data) {
-                    console.log("Transaction successfully completed:", data);
-                    window.location.href = "success.html"; 
-                }
-            });
-        });
+        // Inject the script element dynamically inside the local frame context to avoid browser blocking
+        const selarScript = document.createElement("script");
+        selarScript.src = "https://selar.co/js/embed.js";
+        selarScript.async = true;
+        document.body.appendChild(selarScript);
     }
 
     setupSingleView();
