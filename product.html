@@ -17,7 +17,6 @@
         .price-panel del { font-size: 1.2rem; color: #ef4444; margin-left: 10px; }
         .prod-description { color: #64748b; line-height: 1.7; font-size: 1rem; margin-bottom: 2rem; }
         
-        /* STYLED FOR SELAR'S NATIVE SDK CALL LAYER */
         .checkout-anchor-btn { background: #7b1fa2; color: #fff; border: none; padding: 16px 32px; font-size: 1.1rem; font-weight: 600; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 12px; transition: 0.3s ease; text-decoration: none; width: fit-content; }
         .checkout-anchor-btn:hover { background: #4a148c; transform: translateY(-2px); }
 
@@ -112,8 +111,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const price = activePricing[productId] || globalPricingGrid["US"][productId];
 
-        // Structural fix: class="selar-pbb" paired with data-selar-product-slug binds 
-        // cleanly to the SDK engine, intercepting redirects and handling checkout visually in-page.
+        // CRITICAL UPDATE HERE:
+        // 1. Added ?buy=true to the end of the href attribute.
+        // 2. Used class="selar-pbb" along with the data-selar-product-slug attribute.
         container.innerHTML = `
             <div class="details-left">
                 <img src="${selectedProduct.image}" alt="${selectedProduct.title}">
@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <del>${price.old}</del>
                 </div>
                 <p class="prod-description">${selectedProduct.desc}</p>
-                <a href="https://selar.co/${selectedProduct.selarSlug}" 
+                <a href="https://selar.co/${selectedProduct.selarSlug}?buy=true" 
                    class="checkout-anchor-btn selar-pbb" 
                    data-selar-product-slug="${selectedProduct.selarSlug}" 
                    data-open-in-iframe="true">
@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
         `;
 
-        // Native script wrapper execution
+        // Inject the verified integration script to handle the trigger interceptor
         const selarScript = document.createElement("script");
         selarScript.src = "https://sdk.selar.co/js/embed.js";
         selarScript.async = true;
