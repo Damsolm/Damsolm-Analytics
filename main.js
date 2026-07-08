@@ -227,15 +227,13 @@ window.addEventListener('scroll', () => {
 //     initAllProductsStore();
 // });
 
-
 document.addEventListener("DOMContentLoaded", function () {
-    // 1. Unified geographic pricing lookup matching catalog sequence
     const globalPricingGrid = {
         NG: [
-            { current: "₦5,000", old: "₦12,500" },  // Index 0: Power BI Beginner
-            { current: "₦7,000", old: "₦18,000" },  // Index 1: Power BI Expert
-            { current: "₦4,000", old: "₦9,000" },   // Index 2: VBA Beginner
-            { current: "₦7,000", old: "₦18,000" }   // Index 3: VBA Expert
+            { current: "₦5,000", old: "₦12,500" },  
+            { current: "₦7,000", old: "₦18,000" },  
+            { current: "₦4,000", old: "₦9,000" },   
+            { current: "₦7,000", old: "₦18,000" }   
         ],
         US: [
             { current: "$9.99", old: "$24.99" }, { current: "$19.99", old: "$39.99" },
@@ -259,7 +257,6 @@ document.addEventListener("DOMContentLoaded", function () {
         ]
     };
 
-    // 2. Comprehensive Master Catalog with structural tags matching filters
     const allCatalogProducts = [
         {
             title: "Beginner to Expert Power BI Course",
@@ -298,7 +295,6 @@ document.addEventListener("DOMContentLoaded", function () {
     async function initCatalogGrid() {
         if (!gridTarget) return;
 
-        // Run Geo IP Routing with absolute fallback support
         try {
             const res = await fetch("https://ipapi.co/json/");
             if (res.ok) {
@@ -307,10 +303,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     activePricing = globalPricingGrid[data.country_code];
                 }
             } else {
-                throw new Error("Primary Geo IP endpoint rate-limited or unavailable");
+                throw new Error("429 Rate Limit hit");
             }
         } catch (e) {
-            console.warn("ipapi failed, attempting backup ip2c resolution pipeline...");
+            console.warn("ipapi rate limited or blocked, running ip2c resolution...");
             try {
                 const bkRes = await fetch("https://ip2c.org/s");
                 const text = await bkRes.text();
@@ -319,7 +315,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     activePricing = globalPricingGrid[parts[1]];
                 }
             } catch (err) {
-                console.error("All currency lookups exhausted. Defaulting to international dollar tiers.");
+                console.error("Using default USD pricing.");
             }
         }
 
@@ -360,7 +356,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     initCatalogGrid();
 });
-
 
 // TOP SELLING PRODUCTS
 
