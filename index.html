@@ -361,7 +361,7 @@
         const checkoutUrl = `https://selar.co/${slug}?buy=true`;
 
         // Modern, lightweight check for mobile screen sizes or touch capabilities
-        const isMobile = window.matchMedia("(max-width: 768px)").matches || 
+        const isMobile = window.matchMedia("(max-width: 600px)").matches || 
                          ('ontouchstart' in window) || 
                          (navigator.maxTouchPoints > 0);
 
@@ -371,12 +371,12 @@
             return;
         }
 
-        // Calculate responsive window sizes for desktop screens
-        const screenW = window.screen.availWidth;
-        const screenH = window.screen.availHeight;
+        // Calculate responsive window sizes for desktop screens (with sensible minimum bounds)
+        const screenW = window.screen.availWidth || window.innerWidth;
+        const screenH = window.screen.availHeight || window.innerHeight;
         
-        const width = Math.floor(screenW * 0.70);
-        const height = Math.floor(screenH * 0.85);
+        const width = Math.max(450, Math.floor(screenW * 0.70));
+        const height = Math.max(600, Math.floor(screenH * 0.85));
         const left = Math.floor((screenW / 2) - (width / 2));
         const top = Math.floor((screenH / 2) - (height / 2));
         
@@ -386,8 +386,17 @@
         // Open centered popup
         const checkoutWindow = window.open(checkoutUrl, "SelarSecureCheckout", windowFeatures);
         
-        // Fallback: If a desktop popup blocker stops it, gracefully fall back to opening a normal tab
-        if (!checkoutWindow || checkoutWindow.closed || typeof checkoutWindow.closed === 'undefined') {
+        // Fallback & Focus Management
+        try {
+            if (!checkoutWindow || checkoutWindow.closed || typeof checkoutWindow.closed === 'undefined') {
+                // Desktop popup blocker triggered -> gracefully fall back to opening a normal tab
+                window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
+            } else {
+                // Popup opened successfully -> bring to front if it already existed
+                checkoutWindow.focus();
+            }
+        } catch (e) {
+            // Safe catch-all fallback for strict cross-origin security behaviors in modern browsers
             window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
         }
     }
