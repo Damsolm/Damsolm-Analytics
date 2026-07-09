@@ -360,7 +360,7 @@ function openDirectSelar(slug) {
     const checkoutUrl = `https://selar.co/${slug}?buy=true`;
     
     // Comprehensive mobile detection (Screen width + Device Type check)
-    const isMobile = window.matchMedia("(max-width: 768px)").matches || 
+    const isMobile = window.matchMedia("(max-width: 600px)").matches || 
                      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     
     if (isMobile) {
