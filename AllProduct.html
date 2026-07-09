@@ -179,26 +179,40 @@
     </script>
 
     <!-- Global Pop-up Checkout Handler -->
-    <script>
-        function openDirectSelar(slug) {
-            const checkoutUrl = `https://selar.co/${slug}?buy=true`;
-            const isMobile = window.matchMedia("(max-width: 768px)").matches || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+   <script>
+    function openDirectSelar(slug) {
+        const checkoutUrl = `https://selar.co/${slug}?buy=true`;
+        
+        // Matches your 600px mobile breakpoint or typical mobile user agents
+        const isMobile = window.matchMedia("(max-width: 600px)").matches || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        // Matches your 1024px medium screen breakpoint
+        const isMediumScreen = window.matchMedia("(min-width: 601px) and (max-width: 1024px)").matches;
 
-            if (isMobile) {
-                window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
-                return;
-            }
-
-            const width = Math.floor(window.screen.availWidth * 0.70);
-            const height = Math.floor(window.screen.availHeight * 0.85);
-            const left = Math.floor((window.screen.availWidth / 2) - (width / 2));
-            const top = Math.floor((window.screen.availHeight / 2) - (height / 2));
-            
-            const windowFeatures = `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,resizable=yes,status=no,location=no,toolbar=no,menubar=no`;
-            window.open(checkoutUrl, "SelarSecureCheckout", windowFeatures);
+        // Force simple new tab behavior on mobile (600px or below)
+        if (isMobile) {
+            window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
+            return;
         }
-    </script>
 
+        // Configuration for screens larger than 600px (Desktop and Medium Screens)
+        let widthPercentage = 0.70; // Default for large desktops
+        let heightPercentage = 0.85;
+
+        // Optional: Adjust popup size dynamically if it's a medium screen (1024px)
+        if (isMediumScreen) {
+            widthPercentage = 0.85;  // Make popup wider on medium screens
+            heightPercentage = 0.90; // Make popup taller on medium screens
+        }
+
+        const width = Math.floor(window.screen.availWidth * widthPercentage);
+        const height = Math.floor(window.screen.availHeight * heightPercentage);
+        const left = Math.floor((window.screen.availWidth / 2) - (width / 2));
+        const top = Math.floor((window.screen.availHeight / 2) - (height / 2));
+        
+        const windowFeatures = `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,resizable=yes,status=no,location=no,toolbar=no,menubar=no`;
+        window.open(checkoutUrl, "SelarSecureCheckout", windowFeatures);
+    }
+</script>
     <script src="main.js"></script>
 
 </body>
