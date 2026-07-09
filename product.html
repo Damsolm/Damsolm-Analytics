@@ -74,6 +74,20 @@
 </footer>
 
 <script>
+// Global function to launch Selar in a clean, isolated modal window
+function openSelarPopup(url) {
+    const width = 460;
+    const height = 700;
+    
+    // Position the window exactly in the center of the user's monitor screen
+    const left = (screen.width / 2) - (width / 2);
+    const top = (screen.height / 2) - (height / 2);
+    
+    const windowFeatures = `scrollbars=yes,resizable=yes,status=no,location=no,toolbar=no,menubar=no,width=${width},height=${height},top=${top},left=${left}`;
+    
+    window.open(url, "SelarSecureCheckout", windowFeatures);
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     const globalPricingGrid = {
         NG: [{ current: "₦5,000", old: "₦12,500" }, { current: "₦7,000", old: "₦18,000" }, { current: "₦4,000", old: "₦9,000" }, { current: "₦7,000", old: "₦18,000" }],
@@ -126,11 +140,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         const price = activePricing[productId] || globalPricingGrid["US"][productId];
-        
-        // Appending ?buy=true triggers Selar's checkout engine instantly upon loading
         const absoluteCheckoutUrl = `https://selar.co/${selectedProduct.selarSlug}?buy=true`;
 
-        // Switch to an anchor <a> tag targeting blank with clear security relations
         container.innerHTML = `
             <div class="details-left">
                 <img src="${selectedProduct.image}" alt="${selectedProduct.title}">
@@ -142,12 +153,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     <del>${price.old}</del>
                 </div>
                 <p class="prod-description">${selectedProduct.desc}</p>
-                <a href="${absoluteCheckoutUrl}" 
-                   target="_blank" 
-                   rel="noopener noreferrer" 
-                   class="checkout-anchor-btn">
+                <button type="button" class="checkout-anchor-btn" onclick="openSelarPopup('${absoluteCheckoutUrl}')">
                     <i class='bx bx-credit-card'></i> Proceed to Pay
-                </a>
+                </button>
             </div>
         `;
     }
