@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | Damsolm Analytics</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        .product-view-layout { padding: 6rem 0 4rem; min-height: 80vh; }
+        .details-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; background: #fff; padding: 2.5rem; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .details-left img { width: 100%; border-radius: 12px; object-fit: cover; box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
+        .details-right { display: flex; flex-direction: column; justify-content: center; }
+        .details-right h2 { font-size: 2.2rem; margin-bottom: 1rem; color: #1e1e24; line-height: 1.2; }
+        .price-panel { font-size: 1.8rem; font-weight: bold; color: #22c55e; margin: 1.5rem 0; }
+        .price-panel del { font-size: 1.2rem; color: #ef4444; margin-left: 10px; }
+        .prod-description { color: #64748b; line-height: 1.7; font-size: 1rem; margin-bottom: 2rem; }
+        
+        /* MATCHES YOUR BRAND DESIGN */
+        .checkout-anchor-btn { background: #7b1fa2; color: #fff; border: none; padding: 16px 32px; font-size: 1.1rem; font-weight: 600; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 12px; transition: 0.3s ease; text-decoration: none; width: fit-content; }
+        .checkout-anchor-btn:hover { background: #4a148c; transform: translateY(-2px); }
+
+        @media (max-width: 768px) { .details-wrapper { grid-template-columns: 1fr; gap: 2rem; padding: 1.5rem; } .product-view-layout { padding: 4rem 0 2rem; } .checkout-anchor-btn { width: 100%; } }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="container">
+        <a href="index.html" class="nav__logo"><h3>Damsolm Analytics</h3></a>
+        <ul id="nav__items">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#services">Services</a></li>
+            <li><a href="allproduct.html#Products">Products</a></li>
+            <li><a href="allproduct.html" class="btn">All Products</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main class="product-view-layout">
+    <div class="container">
+        <div id="target-product-container" class="details-wrapper">
+            <p style="padding:2rem; text-align:center; color:#64748b; width:100%;">Locating selected item record parameters...</p>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <article>
+            <a href="#" class="footer__logo"><h3>Damsolm Analytics</h3></a>
+            <p>Engineering permanent, high-retention automation and strategic reporting workflows.</p>
+        </article>
+    </div>
+    <div class="copyright">
+        <small>&copy; Copyright DAMSOLM ANALYTICS, All Rights Reserved</small>
+    </div>
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Multi-currency price definitions to display matching localized figures on your page frontend
+    const globalPricingGrid = {
+        NG: [{ current: "₦5,000", old: "₦12,500" }, { current: "₦7,000", old: "₦18,000" }, { current: "₦4,000", old: "₦9,000" }, { current: "₦7,000", old: "₦18,000" }],
+        US: [{ current: "$9.99", old: "$24.99" }, { current: "$19.99", old: "$39.99" }, { current: "$7.99", old: "$19.99" }, { current: "$19.99", old: "$39.99" }],
+        GB: [{ current: "£7.99", old: "£19.99" }, { current: "£14.99", old: "£34.99" }, { current: "£5.99", old: "£14.99" }, { current: "£14.99", old: "£34.99" }],
+        GH: [{ current: "GH₵120", old: "GH₵250" }, { current: "GH₵220", old: "GH₵450" }, { current: "GH₵100", old: "GH₵200" }, { current: "GH₵220", old: "GH₵450" }],
+        KE: [{ current: "KSh 1,100", old: "KSh 2,500" }, { current: "KSh 2,200", old: "KSh 4,500" }, { current: "KSh 900", old: "KSh 2,000" }, { current: "KSh 2,200", old: "KSh 4,500" }],
+        ZA: [{ current: "R 140", old: "R 300" }, { current: "R 280", old: "R 550" }, { current: "R 110", old: "R 220" }, { current: "R 280", old: "R 550" }]
+    };
+
+    // Central database catalog paired mapping metrics matching your exact Selar listing slugs
+    const allCatalogProducts = [
+        { title: "Beginner to Expert Power BI Course", image: "./Bi Image.png", desc: "Master asset mapping and data shaping pipelines from absolute scratch. Includes fully managed custom dashboards and workflow metrics.", selarSlug: "damsolmanalytics" },
+        { title: "Intermediate to Expert Power BI Course", image: "./Expert image.png", desc: "Advanced relational data modeling blueprints, enterprise DAX optimizations, and robust production matrix tracking paradigms.", selarSlug: "expertpowerbi" },
+        { title: "VBA Beginner Course", image: "./VBA Beginner Img.png", desc: "Eliminate repetitive tasks. Learn custom syntax configurations, execution statement loops, and deep environment macro recording controls.", selarSlug: "vbabeginnercourse" },
+        { title: "VBA Intermediate to Expert Course", image: "./Interm to Expert Img.png", desc: "Object-oriented scripting schemas, multi-app database link controls, and advanced automated application design models.", selarSlug: "vbaexpertcourse" }
+    ];
+
+    const container = document.getElementById("target-product-container");
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = parseInt(urlParams.get('id')) || 0;
+    const selectedProduct = allCatalogProducts[productId];
+
+    if (!selectedProduct) {
+        container.innerHTML = `<p style='text-align:center; width:100%; color:red;'>Product record not located. Return to catalog.</p>`;
+        return;
+    }
+
+    async function setupSingleView() {
+        let activePricing = globalPricingGrid["US"];
+        
+        try {
+            const res = await fetch("https://ipapi.co/json/");
+            if (res.ok) {
+                const data = await res.json();
+                if (globalPricingGrid[data.country_code]) activePricing = globalPricingGrid[data.country_code];
+            } else {
+                throw new Error("429");
+            }
+        } catch (err) { 
+            try {
+                const bkRes = await fetch("https://ip2c.org/s");
+                const text = await bkRes.text();
+                const parts = text.split(";");
+                if (parts[0] === "1" && globalPricingGrid[parts[1]]) {
+                    activePricing = globalPricingGrid[parts[1]];
+                }
+            } catch (fallbackErr) {
+                console.error("Using fallback metrics configuration.");
+            }
+        }
+
+        const price = activePricing[productId] || globalPricingGrid["US"][productId];
+
+        // This structural setup dynamically passes down your distinct product variations 
+        // to Selar's embed interceptor cleanly without hardcoding files
+        container.innerHTML = `
+            <div class="details-left">
+                <img src="${selectedProduct.image}" alt="${selectedProduct.title}">
+            </div>
+            <div class="details-right">
+                <h2>${selectedProduct.title}</h2>
+                <div class="price-panel">
+                    <span>${price.current}</span>
+                    <del>${price.old}</del>
+                </div>
+                <p class="prod-description">${selectedProduct.desc}</p>
+                <a href="https://selar.co/${selectedProduct.selarSlug}?buy=true" 
+                   class="checkout-anchor-btn selar-pbb" 
+                   data-selar-product-slug="${selectedProduct.selarSlug}" 
+                   data-open-in-iframe="true">
+                    <i class='bx bx-credit-card'></i> Proceed to Pay
+                </a>
+            </div>
+        `;
+
+        // Load Selar SDK dynamically after the DOM nodes are loaded
+        const selarScript = document.createElement("script");
+        selarScript.src = "https://sdk.selar.co/js/embed.js";
+        selarScript.async = true;
+        document.body.appendChild(selarScript);
+    }
+
+    setupSingleView();
+});
+</script>
+</body>
+</html>
