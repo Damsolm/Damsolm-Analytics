@@ -337,7 +337,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <a href="javascript:void(0)" onclick="openDirectSelar('${prod.selarSlug}')" style="text-decoration: none; color: inherit;">
                             <h5>${prod.title}</h5>
                         </a>
-                        <small>Price: <span style="font-weight:bold; color:green;">${price.current}</span> <del style="color:red; margin-left:5px;">${price.old}</del></small>
+                        <small>Price: <span style="font-weight:bold; color:green;">${price.current}</span> <span style="color:red; text-decoration:line-through; margin-left:5px;">${price.old}</span></small>
                     </div>
                     <a href="javascript:void(0)" class="specialist__whatsapp" onclick="openDirectSelar('${prod.selarSlug}')"> View </a>
                 </article>
@@ -620,7 +620,7 @@ document.addEventListener("DOMContentLoaded", function () {
                          <a href="javascript:void(0)" onclick="openDirectSelar('${product.selarSlug}')" style="text-decoration: none; color: inherit;">
                             <h5>${product.title}</h5>
                         </a>
-                        <small>Price: <span style="font-weight: bold; color: green;">${priceInfo.current}</span> <del style="color: red; text-decoration-color: red; margin-left: 5px;">${priceInfo.old}</del></small>
+                     <small>Price: <span style="font-weight:bold; color:green;">${price.current}</span> <span style="color:red; text-decoration:line-through; margin-left:5px;">${price.old}</span></small>
                     </div> 
                     <div class="specialist__socials">
                         <a href="https://linkedin.com" target="_blank"><i class='bx bxl-linkedin'></i></a>
