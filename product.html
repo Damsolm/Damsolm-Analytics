@@ -60,7 +60,6 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    // Multi-currency price definitions to display matching localized figures on your page frontend
     const globalPricingGrid = {
         NG: [{ current: "₦5,000", old: "₦12,500" }, { current: "₦7,000", old: "₦18,000" }, { current: "₦4,000", old: "₦9,000" }, { current: "₦7,000", old: "₦18,000" }],
         US: [{ current: "$9.99", old: "$24.99" }, { current: "$19.99", old: "$39.99" }, { current: "$7.99", old: "$19.99" }, { current: "$19.99", old: "$39.99" }],
@@ -70,12 +69,11 @@ document.addEventListener("DOMContentLoaded", function () {
         ZA: [{ current: "R 140", old: "R 300" }, { current: "R 280", old: "R 550" }, { current: "R 110", old: "R 220" }, { current: "R 280", old: "R 550" }]
     };
 
-    // Central database catalog paired mapping metrics matching your exact Selar listing slugs
     const allCatalogProducts = [
-        { title: "Beginner to Expert Power BI Course", image: "./Bi Image.png", desc: "Master asset mapping and data shaping pipelines from absolute scratch. Includes fully managed custom dashboards and workflow metrics.", selarSlug: "damsolmanalytics" },
-        { title: "Intermediate to Expert Power BI Course", image: "./Expert image.png", desc: "Advanced relational data modeling blueprints, enterprise DAX optimizations, and robust production matrix tracking paradigms.", selarSlug: "expertpowerbi" },
-        { title: "VBA Beginner Course", image: "./VBA Beginner Img.png", desc: "Eliminate repetitive tasks. Learn custom syntax configurations, execution statement loops, and deep environment macro recording controls.", selarSlug: "vbabeginnercourse" },
-        { title: "VBA Intermediate to Expert Course", image: "./Interm to Expert Img.png", desc: "Object-oriented scripting schemas, multi-app database link controls, and advanced automated application design models.", selarSlug: "vbaexpertcourse" }
+        { title: "Beginner to Expert Power BI Course", image: "./assets/Bi Image.png", desc: "Master asset mapping and data shaping pipelines from absolute scratch. Includes fully managed custom dashboards and workflow metrics.", selarSlug: "damsolmanalytics" },
+        { title: "Intermediate to Expert Power BI Course", image: "./assets/Expert image.png", desc: "Advanced relational data modeling blueprints, enterprise DAX optimizations, and robust production matrix tracking paradigms.", selarSlug: "expertpowerbi" },
+        { title: "VBA Beginner Course", image: "./assets/VBA Beginner Img.png", desc: "Eliminate repetitive tasks. Learn custom syntax configurations, execution statement loops, and deep environment macro recording controls.", selarSlug: "vbabeginnercourse" },
+        { title: "VBA Intermediate to Expert Course", image: "./assets/Interm to Expert Img.png", desc: "Object-oriented scripting schemas, multi-app database link controls, and advanced automated application design models.", selarSlug: "vbaexpertcourse" }
     ];
 
     const container = document.getElementById("target-product-container");
@@ -114,8 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const price = activePricing[productId] || globalPricingGrid["US"][productId];
 
-        // This structural setup dynamically passes down your distinct product variations 
-        // to Selar's embed interceptor cleanly without hardcoding files
+        // 1. Render the HTML dynamically
         container.innerHTML = `
             <div class="details-left">
                 <img src="${selectedProduct.image}" alt="${selectedProduct.title}">
@@ -136,7 +133,11 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
         `;
 
-        // Load Selar SDK dynamically after the DOM nodes are loaded
+        // 2. Clear out any previous instances of the script to prevent duplicates
+        const existingScript = document.querySelector('script[src*="selar.co/js/embed.js"]');
+        if (existingScript) existingScript.remove();
+
+        // 3. Inject the script ONLY AFTER the HTML button is fully drawn in the DOM
         const selarScript = document.createElement("script");
         selarScript.src = "https://sdk.selar.co/js/embed.js";
         selarScript.async = true;
