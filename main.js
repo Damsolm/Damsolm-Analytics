@@ -337,9 +337,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         <h5>${prod.title}</h5>
                         <small>Price: <span style="font-weight:bold; color:green;">${price.current}</span> <del style="color:red; margin-left:5px;">${price.old}</del></small>
                     </div>
-                    <button type="button" class="btn btn-primary" onclick="openDirectSelar('${prod.selarSlug}')">
-                        View
-                    </button>
+                    <a href="javascript:void(0)" class="btn btn-primary" onclick="openDirectSelar('${prod.selarSlug}')">
+    View
+</a>
                 </article>
             `;
         }).join("");
