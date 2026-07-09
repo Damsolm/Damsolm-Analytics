@@ -74,25 +74,6 @@
 </footer>
 
 <script>
-// Expose modal triggers to the global browser scope cleanly
-function launchSecureCheckout(targetCheckoutUrl) {
-    const frameElement = document.getElementById("secureCheckoutFrame");
-    const overlayElement = document.getElementById("customCheckoutOverlay");
-    
-    frameElement.src = targetCheckoutUrl;
-    overlayElement.style.display = "block";
-    document.body.style.overflow = "hidden"; // Stops parent page scrolling during checkout
-}
-
-function closeSecureCheckout() {
-    const frameElement = document.getElementById("secureCheckoutFrame");
-    const overlayElement = document.getElementById("customCheckoutOverlay");
-    
-    overlayElement.style.display = "none";
-    frameElement.src = ""; // Completely breaks active layout instances to preserve system memory
-    document.body.style.overflow = "auto";
-}
-
 document.addEventListener("DOMContentLoaded", function () {
     const globalPricingGrid = {
         NG: [{ current: "₦5,000", old: "₦12,500" }, { current: "₦7,000", old: "₦18,000" }, { current: "₦4,000", old: "₦9,000" }, { current: "₦7,000", old: "₦18,000" }],
@@ -146,9 +127,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const price = activePricing[productId] || globalPricingGrid["US"][productId];
         
-        // Dynamically pass the secure checkout path directly into our localized interaction engine
+        // Appending ?buy=true triggers Selar's checkout engine instantly upon loading
         const absoluteCheckoutUrl = `https://selar.co/${selectedProduct.selarSlug}?buy=true`;
 
+        // Switch to an anchor <a> tag targeting blank with clear security relations
         container.innerHTML = `
             <div class="details-left">
                 <img src="${selectedProduct.image}" alt="${selectedProduct.title}">
@@ -160,9 +142,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     <del>${price.old}</del>
                 </div>
                 <p class="prod-description">${selectedProduct.desc}</p>
-                <button type="button" class="checkout-anchor-btn" onclick="launchSecureCheckout('${absoluteCheckoutUrl}')">
+                <a href="${absoluteCheckoutUrl}" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="checkout-anchor-btn">
                     <i class='bx bx-credit-card'></i> Proceed to Pay
-                </button>
+                </a>
             </div>
         `;
     }
