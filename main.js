@@ -516,7 +516,6 @@ document.addEventListener("DOMContentLoaded", function () {
             { current: "$19.99", old: "$39.99" },
             { current: "$7.99", old: "$19.99" },
             { current: "$19.99", old: "$39.99" }
-         
         ],
         GB: [
             { current: "£7.99", old: "£19.99" },
@@ -529,7 +528,6 @@ document.addEventListener("DOMContentLoaded", function () {
             { current: "GH₵220", old: "GH₵450" },
             { current: "GH₵100", old: "GH₵200" },
             { current: "GH₵220", old: "GH₵450" }
-         
         ],
         KE: [
             { current: "KSh 800", old: "KSh 1,500" },
@@ -628,18 +626,17 @@ document.addEventListener("DOMContentLoaded", function () {
                         <a href="https://linkedin.com" target="_blank"><i class='bx bxl-linkedin'></i></a>
                         <a href="https://twitter.com" target="_blank"><i class='bx bxl-twitter'></i></a>
                     </div>
-                               <a href="javascript:void(0)" class="specialist__whatsapp" onclick="openDirectSelar('${prod.selarSlug}')">
-    View
-</a>
+                    <a href="javascript:void(0)" class="specialist__whatsapp" onclick="openDirectSelar('${product.selarSlug}')">
+                        View
+                    </a>
                 </article>
             `;
         }).join('');
     }
 
-    // Crucial: Fire the function execution!
+    // Fire the function execution
     initDynamicStore();
 });
-
 
 // TESTIMONIALS SECTION (swiper js)
 const progressContent = document.querySelector(".autoplay-progress span");
