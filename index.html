@@ -355,51 +355,36 @@
 
 <!-- Global Pop-up Checkout Handler -->
 <script>
-    function openDirectSelar(slug) {
-        if (!slug) return;
+function openSelarLink(productSlug) {
+    // Define the full Selar URL using your product slug
+    var selarUrl = "https://selar.co/" + productSlug;
+    
+    // Check if the screen width corresponds to a mobile device
+    if (window.innerWidth <= 768) {
+        // Option A: Direct redirect in the exact same tab (Best mobile experience)
+        window.location.href = selarUrl;
         
-        const checkoutUrl = `https://selar.co/${slug}?buy=true`;
-
-        // Explicit breakpoint checks matching your layout rules
-        const isMobileView = window.matchMedia("(max-width: 600px)").matches;
-        const isTabletView = window.matchMedia("(max-width: 1024px)").matches;
-        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-
-        // STAGE 1: Mobile (<= 600px) & Tablet/Medium (<= 1024px) 
-        // Completely bypasses popup rules to preserve native mobile formatting
-        if (isMobileView || isTabletView || isTouchDevice) {
-            window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
-            return;
-        }
-
-        // STAGE 2: Large Screens Only (> 1024px Desktop)
-        // Only initializes window features for wide desktop environments
-        const screenW = window.screen.availWidth || window.innerWidth;
-        const screenH = window.screen.availHeight || window.innerHeight;
+        // Option B: If you prefer opening a clean, standard new tab instead, 
+        // uncomment the line below and comment out the line above:
+        // window.open(selarUrl, '_blank');
+    } else {
+        // Desktop behavior: Keep your centered pop-up dimensions
+        var width = 500;
+        var height = 650;
+        var left = (window.innerWidth / 2) - (width / 2);
+        var top = (window.innerHeight / 2) - (height / 2);
         
-        const width = Math.floor(screenW * 0.65);
-        const height = Math.floor(screenH * 0.85);
-        const left = Math.floor((screenW / 2) - (width / 2));
-        const top = Math.floor((screenH / 2) - (height / 2));
-        
-        const windowFeatures = `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,resizable=yes`;
-        
-        const checkoutWindow = window.open(checkoutUrl, "SelarSecureCheckout", windowFeatures);
-        
-        // Pop-up blocker fallback management for desktop
-        try {
-            if (!checkoutWindow || checkoutWindow.closed || typeof checkoutWindow.closed === 'undefined') {
-                window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
-            } else {
-                checkoutWindow.focus();
-            }
-        } catch (e) {
-            window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
-        }
+        window.open(
+            selarUrl, 
+            "SelarCheckout", 
+            "width=" + width + ",height=" + height + ",top=" + top + ",left=" + left + ",scrollbars=yes,resizable=yes"
+        );
     }
+}
 </script>
 
-    
+<!-- Example Usage in your HTML buttons -->
+<button onclick="openSelarLink('your-product-slug')">Buy Now</button>    
 
 </body>
 </html>
