@@ -360,43 +360,44 @@
         
         const checkoutUrl = `https://selar.co/${slug}?buy=true`;
 
-        // Modern, lightweight check for mobile screen sizes or touch capabilities
-        const isMobile = window.matchMedia("(max-width: 600px)").matches || 
-                         ('ontouchstart' in window) || 
-                         (navigator.maxTouchPoints > 0);
+        // Check for specific screen width ranges matching media screen breakpoints
+        const isMobileScreen = window.matchMedia("(max-width: 600px)").matches;
+        const isTabletOrSmallScreen = window.matchMedia("(max-width: 1024px)").matches;
+        const hasTouchCapabilities = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
-        if (isMobile) {
-            // Direct standard tab open for mobile browsers
+        // If it's a mobile screen (<= 600px), tablet/small screen (<= 1024px), or has touch, open in a new tab
+        if (isMobileScreen || isTabletOrSmallScreen || hasTouchCapabilities) {
+            // Direct standard tab open for mobile, tablet, and smaller devices
             window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
             return;
         }
 
-        // Calculate responsive window sizes for desktop screens (with sensible minimum bounds)
+        // Implementation for larger screens (> 1024px) -> Open a centered popup
         const screenW = window.screen.availWidth || window.innerWidth;
         const screenH = window.screen.availHeight || window.innerHeight;
         
-        const width = Math.max(450, Math.floor(screenW * 0.70));
-        const height = Math.max(600, Math.floor(screenH * 0.85));
+        // Tailored sizing optimized specifically for larger displays
+        const width = Math.max(500, Math.floor(screenW * 0.65));
+        const height = Math.max(700, Math.floor(screenH * 0.80));
         const left = Math.floor((screenW / 2) - (width / 2));
         const top = Math.floor((screenH / 2) - (height / 2));
         
-        // Removed deprecated flags like status, location, toolbar, menubar for clean code
         const windowFeatures = `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,resizable=yes`;
         
-        // Open centered popup
+        // Open centered popup on larger screens
         const checkoutWindow = window.open(checkoutUrl, "SelarSecureCheckout", windowFeatures);
         
         // Fallback & Focus Management
         try {
             if (!checkoutWindow || checkoutWindow.closed || typeof checkoutWindow.closed === 'undefined') {
-                // Desktop popup blocker triggered -> gracefully fall back to opening a normal tab
+                // Popup blocker triggered on desktop -> gracefully fall back to a normal tab
                 window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
             } else {
-                // Popup opened successfully -> bring to front if it already existed
+                // Popup opened successfully -> bring to front
                 checkoutWindow.focus();
             }
         } catch (e) {
-            // Safe catch-all fallback for strict cross-origin security behaviors in modern browsers
+            // Safe cross-origin catch-all fallback
             window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
         }
     }
