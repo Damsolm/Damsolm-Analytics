@@ -364,6 +364,144 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // TOP SELLING PRODUCTS
 
+// document.addEventListener("DOMContentLoaded", function () {
+//     // 1. Geographic pricing matrix matching your product order
+//     const globalPricingGrid = {
+//         NG: [
+//             { current: "₦5,000", old: "₦12,500" },  // Power BI Beginner
+//             { current: "₦7,000", old: "₦18,000" },  // Power BI Expert
+//             { current: "₦4,000", old: "₦9,000" },   // VBA Beginner
+//             { current: "₦7,000", old: "₦18,000" }   // VBA Expert
+//         ],
+//         US: [
+//             { current: "$9.99", old: "$24.99" },
+//             { current: "$19.99", old: "$39.99" },
+//             { current: "$7.99", old: "$19.99" },
+//             { current: "$19.99", old: "$39.99" }
+         
+//         ],
+//         GB: [
+//             { current: "£7.99", old: "£19.99" },
+//             { current: "£14.99", old: "£34.99" },
+//             { current: "£5.99", old: "£14.99" },
+//             { current: "£14.99", old: "£34.99" }
+//         ],
+//         GH: [
+//             { current: "GH₵120", old: "GH₵250" },
+//             { current: "GH₵220", old: "GH₵450" },
+//             { current: "GH₵100", old: "GH₵200" },
+//             { current: "GH₵220", old: "GH₵450" }
+         
+//         ],
+//         KE: [
+//               { current: "KSh 800", old: "KSh 1,500" },
+//             { current: "KSh 1,100", old: "KSh 2,000" },
+//             { current: "KSh 900", old: "KSh 1,500" },
+//             { current: "KSh 1,100", old: "KSh 2,000" }
+//         ],
+//         ZA: [
+//             { current: "R 140", old: "R 300" },
+//             { current: "R 280", old: "R 550" },
+//             { current: "R 110", old: "R 220" },
+//             { current: "R 280", old: "R 550" }
+//         ]
+//     };
+
+//     // 2. Your structural array
+//     const topProducts = [
+//         {
+//             title: "Beginner to Expert Power BI Course",
+//             image: "./Bi Image.png",
+//             link: "https://selar.com/damsolmanalytics"
+//         },
+//         {
+//             title: "Intermediate to Expert Power BI Course",
+//             image: "./Expert image.png",
+//             link: "https://selar.com/expertpowerbi"
+//         },
+//         {
+//             title: "VBA Beginner Course",
+//             image: "./VBA Beginner Img.png",
+//             link: "https://selar.com/vbabeginnercourse"
+//         },
+//         {
+//             title: "VBA Intermediate to Expert Course",
+//             image: "./Interm to Expert Img.png",
+//             link: "https://selar.com/vbaexpertcourse"
+//         }
+//     ];
+
+//     const topGridTarget = document.getElementById("top-products-grid");
+
+//     // 3. Execution function to find location and inject correct structure
+//     async function initDynamicStore() {
+//         if (!topGridTarget) return;
+
+//         let activePricing = globalPricingGrid['US']; // Global default fallback
+//         let country = null;
+
+//         try {
+//             // Primary attempt using ipapi.co
+//             const response = await fetch('https://ipapi.co/json/');
+//             if (response.ok) {
+//                 const geoData = await response.json();
+//                 country = geoData.country_code;
+//             } else {
+//                 throw new Error("ipapi.co failed");
+//             }
+//         } catch (error) {
+//             console.warn("Primary IP lookup failed or blocked. Trying secure backup...");
+//             try {
+//                 // Secondary absolute bulletproof backup (ip2c.org supports free SSL/HTTPS)
+//                 const backupResponse = await fetch('https://ip2c.org/s');
+//                 if (backupResponse.ok) {
+//                     const text = await backupResponse.text();
+//                     const parts = text.split(';');
+//                     if (parts[0] === '1') {
+//                         country = parts[1]; // Returns 2-letter ISO country code (e.g., NG, US)
+//                     }
+//                 }
+//             } catch (backupError) {
+//                 console.error("All IP lookups failed. Defaulting to standard USD prices.", backupError);
+//             }
+//         }
+
+//         // Apply country pricing grid if found
+//         if (country && globalPricingGrid[country]) {
+//             activePricing = globalPricingGrid[country];
+//         }
+
+//         // 4. Render DOM elements mapping item structural details with geolocated prices
+//         topGridTarget.innerHTML = topProducts.map((product, index) => {
+//             const priceInfo = activePricing[index] || globalPricingGrid['US'][index];
+            
+//             return `
+//                 <article>
+//                     <div class="specialist__image">
+//                         <img src="${product.image}" alt="${product.title}">
+//                     </div>
+//                     <div class="specialist__details">
+//                          <a href="${product.link}" target="_blank" style="text-decoration: none; color: inherit;">
+//                             <h5>${product.title}</h5>
+//                         </a>
+//                         <small>Price: <span style="font-weight: bold; color: green;">${priceInfo.current}</span> <del style="color: red; text-decoration-color: red; margin-left: 5px;">${priceInfo.old}</del></small>
+//                     </div> 
+//                     <div class="specialist__socials">
+//                         <a href="https://linkedin.com" target="_blank"><i class='bx bxl-linkedin'></i></a>
+//                         <a href="https://twitter.com" target="_blank"><i class='bx bxl-twitter'></i></a>
+//                     </div>
+//                     <a href="${product.link}" class="specialist__whatsapp" target="_blank">View</a>
+//                 </article>
+//             `;
+//         }).join('');
+//     }
+
+//     // Crucial: Fire the function execution!
+//     initDynamicStore();
+// });
+
+// TOP SELLING PRODUCTS
+
 document.addEventListener("DOMContentLoaded", function () {
     // 1. Geographic pricing matrix matching your product order
     const globalPricingGrid = {
@@ -394,7 +532,7 @@ document.addEventListener("DOMContentLoaded", function () {
          
         ],
         KE: [
-              { current: "KSh 800", old: "KSh 1,500" },
+            { current: "KSh 800", old: "KSh 1,500" },
             { current: "KSh 1,100", old: "KSh 2,000" },
             { current: "KSh 900", old: "KSh 1,500" },
             { current: "KSh 1,100", old: "KSh 2,000" }
@@ -407,27 +545,27 @@ document.addEventListener("DOMContentLoaded", function () {
         ]
     };
 
-    // 2. Your structural array
+    // 2. Structural array utilizing slugs for popups
     const topProducts = [
         {
             title: "Beginner to Expert Power BI Course",
             image: "./Bi Image.png",
-            link: "https://selar.com/damsolmanalytics"
+            selarSlug: "damsolmanalytics"
         },
         {
             title: "Intermediate to Expert Power BI Course",
             image: "./Expert image.png",
-            link: "https://selar.com/expertpowerbi"
+            selarSlug: "expertpowerbi"
         },
         {
             title: "VBA Beginner Course",
             image: "./VBA Beginner Img.png",
-            link: "https://selar.com/vbabeginnercourse"
+            selarSlug: "vbabeginnercourse"
         },
         {
             title: "VBA Intermediate to Expert Course",
             image: "./Interm to Expert Img.png",
-            link: "https://selar.com/vbaexpertcourse"
+            selarSlug: "vbaexpertcourse"
         }
     ];
 
@@ -452,7 +590,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } catch (error) {
             console.warn("Primary IP lookup failed or blocked. Trying secure backup...");
             try {
-                // Secondary absolute bulletproof backup (ip2c.org supports free SSL/HTTPS)
+                // Secondary absolute bulletproof backup
                 const backupResponse = await fetch('https://ip2c.org/s');
                 if (backupResponse.ok) {
                     const text = await backupResponse.text();
@@ -471,7 +609,7 @@ document.addEventListener("DOMContentLoaded", function () {
             activePricing = globalPricingGrid[country];
         }
 
-        // 4. Render DOM elements mapping item structural details with geolocated prices
+        // 4. Render DOM elements mapping item structural details with popup anchor tags
         topGridTarget.innerHTML = topProducts.map((product, index) => {
             const priceInfo = activePricing[index] || globalPricingGrid['US'][index];
             
@@ -481,7 +619,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <img src="${product.image}" alt="${product.title}">
                     </div>
                     <div class="specialist__details">
-                         <a href="${product.link}" target="_blank" style="text-decoration: none; color: inherit;">
+                         <a href="javascript:void(0)" onclick="openDirectSelar('${product.selarSlug}')" style="text-decoration: none; color: inherit;">
                             <h5>${product.title}</h5>
                         </a>
                         <small>Price: <span style="font-weight: bold; color: green;">${priceInfo.current}</span> <del style="color: red; text-decoration-color: red; margin-left: 5px;">${priceInfo.old}</del></small>
@@ -490,7 +628,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <a href="https://linkedin.com" target="_blank"><i class='bx bxl-linkedin'></i></a>
                         <a href="https://twitter.com" target="_blank"><i class='bx bxl-twitter'></i></a>
                     </div>
-                    <a href="${product.link}" class="specialist__whatsapp" target="_blank">View</a>
+                    <a href="javascript:void(0)" class="specialist__whatsapp" onclick="openDirectSelar('${product.selarSlug}')">View</a>
                 </article>
             `;
         }).join('');
@@ -499,6 +637,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Crucial: Fire the function execution!
     initDynamicStore();
 });
+
 
 // TESTIMONIALS SECTION (swiper js)
 const progressContent = document.querySelector(".autoplay-progress span");
