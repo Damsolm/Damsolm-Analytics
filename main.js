@@ -227,7 +227,6 @@ window.addEventListener('scroll', () => {
 //     initAllProductsStore();
 // });
 
-
 document.addEventListener("DOMContentLoaded", function () {
     const globalPricingGrid = {
         NG: [
@@ -338,9 +337,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         <h5>${prod.title}</h5>
                         <small>Price: <span style="font-weight:bold; color:green;">${price.current}</span> <del style="color:red; margin-left:5px;">${price.old}</del></small>
                     </div>
-                  <button type="button" class="btn btn-primary" onclick="openDirectSelar('${product.selarSlug}')">
-                 View
-                  </button>
+                    <button type="button" class="btn btn-primary" onclick="openDirectSelar('${prod.selarSlug}')">
+                        View
+                    </button>
                 </article>
             `;
         }).join("");
@@ -349,7 +348,9 @@ document.addEventListener("DOMContentLoaded", function () {
     function setupFilters() {
         document.querySelectorAll(".filter-btn").forEach(btn => {
             btn.addEventListener("click", function () {
-                document.querySelector(".filter-btn.active").classList.remove("active");
+                const activeBtn = document.querySelector(".filter-btn.active");
+                if (activeBtn) activeBtn.classList.remove("active");
+                
                 this.classList.add("active");
                 currentFilter = this.getAttribute("data-filter");
                 renderDisplay();
