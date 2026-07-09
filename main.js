@@ -261,28 +261,28 @@ document.addEventListener("DOMContentLoaded", function () {
     const allCatalogProducts = [
         {
             title: "Beginner to Expert Power BI Course",
-            image: "./assets/Bi Image.png",
+            image: "./Bi Image.png",
             tag: "POWER BI",
             desc: "Master asset mapping and data shaping pipelines from absolute scratch. Includes fully managed custom dashboards and workflow metrics.",
             selarSlug: "damsolmanalytics" 
         },
         {
             title: "Intermediate to Expert Power BI Course",
-            image: "./assets/Expert image.png",
+            image: "./Expert image.png",
             tag: "POWER BI",
             desc: "Advanced relational data modeling blueprints, enterprise DAX optimizations, and robust production matrix tracking paradigms.",
             selarSlug: "expertpowerbi"
         },
         {
             title: "VBA Beginner Course",
-            image: "./assets/VBA Beginner Img.png",
+            image: "./VBA Beginner Img.png",
             tag: "VBA",
             desc: "Eliminate repetitive tasks. Learn custom syntax configurations, execution statement loops, and deep environment macro recording controls.",
             selarSlug: "vbabeginnercourse"
         },
         {
             title: "VBA Intermediate to Expert Course",
-            image: "./assets/Interm to Expert Img.png",
+            image: "./Interm to Expert Img.png",
             tag: "VBA",
             desc: "Object-oriented scripting schemas, multi-app database link controls, and advanced automated application design models.",
             selarSlug: "vbaexpertcourse"
