@@ -356,23 +356,44 @@
 <!-- Global Pop-up Checkout Handler -->
 <script>
     function openDirectSelar(slug) {
+        if (!slug) return;
+        
         const checkoutUrl = `https://selar.co/${slug}?buy=true`;
-        const isMobile = window.matchMedia("(max-width: 768px)").matches || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+        // Modern, lightweight check for mobile screen sizes or touch capabilities
+        const isMobile = window.matchMedia("(max-width: 768px)").matches || 
+                         ('ontouchstart' in window) || 
+                         (navigator.maxTouchPoints > 0);
 
         if (isMobile) {
+            // Direct standard tab open for mobile browsers
             window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
             return;
         }
 
-        const width = Math.floor(window.screen.availWidth * 0.70);
-        const height = Math.floor(window.screen.availHeight * 0.85);
-        const left = Math.floor((window.screen.availWidth / 2) - (width / 2));
-        const top = Math.floor((window.screen.availHeight / 2) - (height / 2));
+        // Calculate responsive window sizes for desktop screens
+        const screenW = window.screen.availWidth;
+        const screenH = window.screen.availHeight;
         
-        const windowFeatures = `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,resizable=yes,status=no,location=no,toolbar=no,menubar=no`;
-        window.open(checkoutUrl, "SelarSecureCheckout", windowFeatures);
+        const width = Math.floor(screenW * 0.70);
+        const height = Math.floor(screenH * 0.85);
+        const left = Math.floor((screenW / 2) - (width / 2));
+        const top = Math.floor((screenH / 2) - (height / 2));
+        
+        // Removed deprecated flags like status, location, toolbar, menubar for clean code
+        const windowFeatures = `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,resizable=yes`;
+        
+        // Open centered popup
+        const checkoutWindow = window.open(checkoutUrl, "SelarSecureCheckout", windowFeatures);
+        
+        // Fallback: If a desktop popup blocker stops it, gracefully fall back to opening a normal tab
+        if (!checkoutWindow || checkoutWindow.closed || typeof checkoutWindow.closed === 'undefined') {
+            window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
+        }
     }
 </script>
+
+    
 
 </body>
 </html>
