@@ -628,7 +628,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         <a href="https://linkedin.com" target="_blank"><i class='bx bxl-linkedin'></i></a>
                         <a href="https://twitter.com" target="_blank"><i class='bx bxl-twitter'></i></a>
                     </div>
-                    <a href="javascript:void(0)" class="specialist__whatsapp" onclick="openDirectSelar('${product.selarSlug}')">View</a>
+                               <a href="javascript:void(0)" class="specialist__whatsapp" onclick="openDirectSelar('${prod.selarSlug}')">
+    View
+</a>
                 </article>
             `;
         }).join('');
