@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="style.css">
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 
-    <style>
-        /* Slider CSS rules */
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
+          <style>
+        /* Paste all your slider CSS rules here */
         .header__image {
             top: 2rem;
             position: relative;
@@ -49,7 +50,7 @@
         <a href="index.html" class="nav__logo"><h3>Damsolm Hub</h3></a>
 
         <ul id="nav__items">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="#">Home</a></li>
             <li><a href="index.html#services">Services</a></li>
             <li><a href="#Products">Products</a></li>
             <li><a href="#testimonials">Testimonials</a></li>
@@ -60,23 +61,23 @@
         <button id="close__nav-btn"><i class='bx bx-x'></i></button>
     </div>
 </nav>
-
-<header>
+   <header>
     <div class="container">
-        <div class="header__content">
-            <h2>Premium Data Vault & Automation Toolkits</h2>
-            <p>Unlock our complete premium library of advanced tracking frameworks, pre-built functional sheets, and structured masterclasses built for real-world operations.</p>
-            <a href="#Products" class="btn">Browse Catalog</a>
-        </div>
+       <div class="header__content">
+                <h2>Premium Data Vault & Automation Toolkits</h2>
+                <p>Unlock our complete premium library of advanced tracking frameworks, pre-built functional sheets, and structured masterclasses built for real-world operations.</p>
+                <a href="#Products" class="btn">Browse Catalog</a>
+            </div>
         <div class="header__image">
             <div class="image-slider">
+                <!-- Keep your initial image active, and stack the others underneath -->
                 <img src="./3d-cartoon-lumberjack-character (1)-Photoroom.png" alt="Header Image 1" class="slide active">
                 <img src="./7973863-Photoroom.png" alt="Header Image 2" class="slide">
                 <img src="./21399-Photoroom.png" alt="Header Image 4" class="slide">
-            </div>
         </div>
     </div>
 </header>
+
 
 <section id="Products">
     <h2>Our Complete Digital Catalog</h2>
@@ -86,13 +87,14 @@
         <button class="filter-btn active" data-filter="ALL">All</button>
         <button class="filter-btn" data-filter="POWER BI">Power BI</button>
         <button class="filter-btn" data-filter="VBA">VBA</button>
+        <!-- <button class="filter-btn" data-filter="PDF GUIDE">PDF Guide</button> -->
     </div>
 
-    <!-- Targeted catalog grid wrapper layout -->
-    <div class="container product__container" id="product-grid-target"></div>
+    <!-- This matches your target destination where main.js renders the cards -->
+    <div class="container" id="product-grid-target"></div>
 </section>
 
-<section id="testimonials" class="swiper mySwiper">
+               <section id="testimonials" class="swiper mySwiper">
     <h2>What Our Customers Say</h2>
     <p>Verified stories from professionals and businesses operating with zero manual data errors.</p>
     
@@ -102,6 +104,8 @@
     <div class="autoplay-progress"></div>
     <span></span>
 </section>
+<!-- END OF TESTIMONIALS -->
+
 
 <footer>
     <div class="container">
@@ -135,6 +139,7 @@
             <a href="index.html#appointment" class="btn-primary"> Custom Asset Request</a>
         </article>
        
+       
         <article>
             <h3>Contact Us</h3>
             <p>FAQs</p>
@@ -152,152 +157,49 @@
     </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-<script src="main.js"></script>
+
+ <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 
 <script>
-// 1. Direct-to-Checkout UI Control Engine
-function openDirectSelar(slug) {
-    const checkoutUrl = `https://selar.co/${slug}?buy=true`;
-    const isMobile = window.matchMedia("(max-width: 768px)").matches || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        document.addEventListener("DOMContentLoaded", function () {
+            const slides = document.querySelectorAll(".image-slider .slide");
+            let currentSlideIndex = 0;
+            const slideIntervalTime = 5000; 
 
-    if (isMobile) {
-        window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
-        return;
-    }
-
-    const width = Math.floor(window.screen.availWidth * 0.70);
-    const height = Math.floor(window.screen.availHeight * 0.85);
-    const left = Math.floor((window.screen.availWidth / 2) - (width / 2));
-    const top = Math.floor((window.screen.availHeight / 2) - (height / 2));
-    
-    const windowFeatures = `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,resizable=yes,status=no,location=no,toolbar=no,menubar=no`;
-    window.open(checkoutUrl, "SelarSecureCheckout", windowFeatures);
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-    // 2. Banner Auto-Slider Core System
-    const slides = document.querySelectorAll(".image-slider .slide");
-    let currentSlideIndex = 0;
-    const slideIntervalTime = 5000; 
-
-    function nextSlide() {
-        if(slides.length <= 1) return;
-        slides[currentSlideIndex].classList.remove("active");
-        currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-        slides[currentSlideIndex].classList.add("active");
-    }
-
-    if (slides.length > 1) {
-        setInterval(nextSlide, slideIntervalTime);
-    }
-
-    // 3. Dynamic Store Matrix Configurations
-    const globalPricingGrid = {
-        NG: [{ current: "₦5,000", old: "₦12,500" }, { current: "₦7,000", old: "₦18,000" }, { current: "₦4,000", old: "₦9,000" }, { current: "₦7,000", old: "₦18,000" }],
-        US: [{ current: "$9.99", old: "$24.99" }, { current: "$19.99", old: "$39.99" }, { current: "$7.99", old: "$19.99" }, { current: "$19.99", old: "$39.99" }],
-        GB: [{ current: "£7.99", old: "£19.99" }, { current: "£14.99", old: "£34.99" }, { current: "£5.99", old: "£14.99" }, { current: "£14.99", old: "£34.99" }],
-        GH: [{ current: "GH₵120", old: "GH₵250" }, { current: "GH₵220", old: "GH₵450" }, { current: "GH₵100", old: "GH₵200" }, { current: "GH₵220", old: "GH₵450" }],
-        KE: [{ current: "KSh 1,100", old: "KSh 2,500" }, { current: "KSh 2,200", old: "KSh 4,500" }, { current: "KSh 900", old: "KSh 2,000" }, { current: "KSh 2,200", old: "KSh 4,500" }],
-        ZA: [{ current: "R 140", old: "R 300" }, { current: "R 280", old: "R 550" }, { current: "R 110", old: "R 220" }, { current: "R 280", old: "R 550" }]
-    };
-
-    const allCatalogProducts = [
-        { title: "Beginner to Expert Power BI Course", image: "./assets/Bi Image.png", desc: "Master asset mapping and data shaping pipelines from absolute scratch.", category: "POWER BI", selarSlug: "damsolmanalytics" },
-        { title: "Intermediate to Expert Power BI Course", image: "./assets/Expert image.png", desc: "Advanced relational data modeling blueprints, enterprise DAX optimizations.", category: "POWER BI", selarSlug: "expertpowerbi" },
-        { title: "VBA Beginner Course", image: "./assets/VBA Beginner Img.png", desc: "Eliminate repetitive tasks. Learn custom syntax configurations and statement loops.", category: "VBA", selarSlug: "vbabeginnercourse" },
-        { title: "VBA Intermediate to Expert Course", image: "./assets/Interm to Expert Img.png", desc: "Object-oriented scripting schemas and multi-app database link controls.", category: "VBA", selarSlug: "vbaexpertcourse" }
-    ];
-
-    const gridContainer = document.getElementById("product-grid-target");
-    const filterButtons = document.querySelectorAll(".filter-btn");
-    let currentPricing = globalPricingGrid["US"];
-
-    // 4. Geolocation Architecture Implementation
-    async function determineGeoPricing() {
-        try {
-            const res = await fetch("https://ipapi.co/json/");
-            if (res.ok) {
-                const data = await res.json();
-                if (globalPricingGrid[data.country_code]) {
-                    currentPricing = globalPricingGrid[data.country_code];
-                    return;
-                }
+            function nextSlide() {
+                slides[currentSlideIndex].classList.remove("active");
+                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                slides[currentSlideIndex].classList.add("active");
             }
-            throw new Error("API Limit");
-        } catch (err) {
-            try {
-                const bkRes = await fetch("https://ip2c.org/s");
-                const text = await bkRes.text();
-                const parts = text.split(";");
-                if (parts[0] === "1" && globalPricingGrid[parts[1]]) {
-                    currentPricing = globalPricingGrid[parts[1]];
-                }
-            } catch (fallbackErr) {
-                console.warn("Using default base USD currency configuration matrices.");
-            }
-        }
-    }
 
-    // 5. Dynamic Grid Render Core with Category Filtering
-    function renderStorefrontGrid(filterValue = "ALL") {
-        if (!gridContainer) return;
-        
-        const safeFilter = filterValue.toUpperCase();
-        
-        const filteredData = allCatalogProducts.filter(item => {
-            return safeFilter === "ALL" || item.category === safeFilter;
+            if (slides.length > 1) {
+                setInterval(nextSlide, slideIntervalTime);
+            }
         });
+    </script>
 
-        if (filteredData.length === 0) {
-            gridContainer.innerHTML = `<p style="grid-column: 1/-1; text-align: center; padding: 2rem;">No matching assets found in this pipeline segment.</p>`;
-            return;
-        }
+    <!-- Global Pop-up Checkout Handler -->
+    <script>
+        function openDirectSelar(slug) {
+            const checkoutUrl = `https://selar.co/${slug}?buy=true`;
+            const isMobile = window.matchMedia("(max-width: 768px)").matches || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-        gridContainer.innerHTML = filteredData.map(product => {
-            const indexInMasterList = allCatalogProducts.findIndex(p => p.title === product.title);
-            const price = currentPricing[indexInMasterList] || globalPricingGrid["US"][indexInMasterList];
+            if (isMobile) {
+                window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
+                return;
+            }
 
-            return `
-                <article class="product">
-                    <div class="product__image">
-                        <img src="${product.image}" alt="${product.title}">
-                    </div>
-                    <div class="product__info">
-                        <h4>${product.title}</h4>
-                        <p>${product.desc}</p>
-                        <div class="product__price" style="margin-bottom: 1rem; display: flex; gap: 0.5rem; align-items: center;">
-                            <span class="current" style="font-weight: bold; color: var(--color-primary, #6c63ff); font-size: 1.2rem;">${price.current}</span>
-                            <del class="old" style="color: var(--color-light, #a0a0a0); font-size: 0.9rem;">${price.old}</del>
-                        </div>
-                        <button type="button" class="btn btn-primary" onclick="openDirectSelar('${product.selarSlug}')" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
-                            <i class='bx bx-credit-card'></i> Access Course
-                        </button>
-                    </div>
-                </article>
-            `;
-        }).join('');
-    }
-
-    // 6. Hook Filter Actions to Controls
-    filterButtons.forEach(button => {
-        button.addEventListener("click", function() {
-            filterButtons.forEach(btn => btn.classList.remove("active"));
-            this.classList.add("active");
+            const width = Math.floor(window.screen.availWidth * 0.70);
+            const height = Math.floor(window.screen.availHeight * 0.85);
+            const left = Math.floor((window.screen.availWidth / 2) - (width / 2));
+            const top = Math.floor((window.screen.availHeight / 2) - (height / 2));
             
-            const selectedFilter = this.getAttribute("data-filter");
-            renderStorefrontGrid(selectedFilter);
-        });
-    });
+            const windowFeatures = `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,resizable=yes,status=no,location=no,toolbar=no,menubar=no`;
+            window.open(checkoutUrl, "SelarSecureCheckout", windowFeatures);
+        }
+    </script>
 
-    // 7. Initialization Run Orchestration
-    async function initCatalogPipeline() {
-        await determineGeoPricing();
-        renderStorefrontGrid("ALL");
-    }
+    <script src="main.js"></script>
 
-    initCatalogPipeline();
-});
-</script>
 </body>
 </html>
