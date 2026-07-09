@@ -17,11 +17,18 @@
         .price-panel del { font-size: 1.2rem; color: #ef4444; margin-left: 10px; }
         .prod-description { color: #64748b; line-height: 1.7; font-size: 1rem; margin-bottom: 2rem; }
         
-        /* MATCHES YOUR BRAND DESIGN */
         .checkout-anchor-btn { background: #7b1fa2; color: #fff; border: none; padding: 16px 32px; font-size: 1.1rem; font-weight: 600; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 12px; transition: 0.3s ease; text-decoration: none; width: fit-content; }
         .checkout-anchor-btn:hover { background: #4a148c; transform: translateY(-2px); }
 
-        @media (max-width: 768px) { .details-wrapper { grid-template-columns: 1fr; gap: 2rem; padding: 1.5rem; } .product-view-layout { padding: 4rem 0 2rem; } .checkout-anchor-btn { width: 100%; } }
+        /* NATIVE SECURE CHECKOUT WINDOW STYLES */
+        .brand-checkout-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 99999; }
+        .checkout-modal-container { position: relative; width: 92%; max-width: 480px; height: 85%; margin: 4% auto; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); animation: frameSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .close-checkout-frame { position: absolute; top: 12px; right: 16px; border: none; background: #f1f5f9; color: #334155; font-size: 24px; font-weight: bold; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; transition: 0.2s; }
+        .close-checkout-frame:hover { background: #e2e8f0; color: #0f172a; }
+        .secure-checkout-frame { width: 100%; height: 100%; border: none; }
+
+        @keyframes frameSlideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @media (max-width: 768px) { .details-wrapper { grid-template-columns: 1fr; gap: 2rem; padding: 1.5rem; } .product-view-layout { padding: 4rem 0 2rem; } .checkout-anchor-btn { width: 100%; } .checkout-modal-container { width: 100%; height: 100%; margin: 0; border-radius: 0; } }
     </style>
 </head>
 <body>
@@ -46,6 +53,14 @@
     </div>
 </main>
 
+<!-- THE SECURE INLINE CHECKOUT SYSTEM BARRIER -->
+<div id="customCheckoutOverlay" class="brand-checkout-overlay">
+    <div class="checkout-modal-container">
+        <button class="close-checkout-frame" onclick="closeSecureCheckout()">&times;</button>
+        <iframe id="secureCheckoutFrame" src="" class="secure-checkout-frame"></iframe>
+    </div>
+</div>
+
 <footer>
     <div class="container">
         <article>
@@ -59,6 +74,25 @@
 </footer>
 
 <script>
+// Expose modal triggers to the global browser scope cleanly
+function launchSecureCheckout(targetCheckoutUrl) {
+    const frameElement = document.getElementById("secureCheckoutFrame");
+    const overlayElement = document.getElementById("customCheckoutOverlay");
+    
+    frameElement.src = targetCheckoutUrl;
+    overlayElement.style.display = "block";
+    document.body.style.overflow = "hidden"; // Stops parent page scrolling during checkout
+}
+
+function closeSecureCheckout() {
+    const frameElement = document.getElementById("secureCheckoutFrame");
+    const overlayElement = document.getElementById("customCheckoutOverlay");
+    
+    overlayElement.style.display = "none";
+    frameElement.src = ""; // Completely breaks active layout instances to preserve system memory
+    document.body.style.overflow = "auto";
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     const globalPricingGrid = {
         NG: [{ current: "₦5,000", old: "₦12,500" }, { current: "₦7,000", old: "₦18,000" }, { current: "₦4,000", old: "₦9,000" }, { current: "₦7,000", old: "₦18,000" }],
@@ -111,8 +145,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         const price = activePricing[productId] || globalPricingGrid["US"][productId];
+        
+        // Dynamically pass the secure checkout path directly into our localized interaction engine
+        const absoluteCheckoutUrl = `https://selar.co/${selectedProduct.selarSlug}?buy=true`;
 
-        // 1. Render the HTML dynamically
         container.innerHTML = `
             <div class="details-left">
                 <img src="${selectedProduct.image}" alt="${selectedProduct.title}">
@@ -124,24 +160,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     <del>${price.old}</del>
                 </div>
                 <p class="prod-description">${selectedProduct.desc}</p>
-                <a href="https://selar.co/${selectedProduct.selarSlug}?buy=true" 
-                   class="checkout-anchor-btn selar-pbb" 
-                   data-selar-product-slug="${selectedProduct.selarSlug}" 
-                   data-open-in-iframe="true">
+                <button type="button" class="checkout-anchor-btn" onclick="launchSecureCheckout('${absoluteCheckoutUrl}')">
                     <i class='bx bx-credit-card'></i> Proceed to Pay
-                </a>
+                </button>
             </div>
         `;
-
-        // 2. Clear out any previous instances of the script to prevent duplicates
-        const existingScript = document.querySelector('script[src*="selar.co/js/embed.js"]');
-        if (existingScript) existingScript.remove();
-
-        // 3. Inject the script ONLY AFTER the HTML button is fully drawn in the DOM
-        const selarScript = document.createElement("script");
-        selarScript.src = "https://sdk.selar.co/js/embed.js";
-        selarScript.async = true;
-        document.body.appendChild(selarScript);
     }
 
     setupSingleView();
