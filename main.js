@@ -334,8 +334,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         <img src="${prod.image}" alt="${prod.title}">
                     </div>
                     <div class="specialist__details">
-                        <a href="javascript:void(0)" onclick="openDirectSelar('${product.selarSlug}')" style="text-decoration: none; color: inherit;">
-                            <h5>${product.title}</h5>
+                        <a href="javascript:void(0)" onclick="openDirectSelar('${prod.selarSlug}')" style="text-decoration: none; color: inherit;">
+                            <h5>${prod.title}</h5>
                         </a>
                         <small>Price: <span style="font-weight:bold; color:green;">${price.current}</span> <del style="color:red; margin-left:5px;">${price.old}</del></small>
                     </div>
