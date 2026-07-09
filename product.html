@@ -76,14 +76,35 @@
 <script>
 // Global function to launch Selar in a clean, isolated modal window
 function openSelarPopup(url) {
-    const width = 460;
-    const height = 700;
+    // Detect mobile or small tablet devices
+    const isMobile = window.matchMedia("(max-width: 768px)").matches || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    if (isMobile) {
+        // Mobile optimization: Open cleanly in a standard tab layout
+        window.open(url, '_blank', 'noopener,noreferrer');
+        return;
+    }
+
+    // Desktop optimization: True modal proportions (70% width, 85% height)
+    const width = Math.floor(window.screen.availWidth * 0.70);
+    const height = Math.floor(window.screen.availHeight * 0.85);
     
-    // Position the window exactly in the center of the user's monitor screen
-    const left = (screen.width / 2) - (width / 2);
-    const top = (screen.height / 2) - (height / 2);
+    // Exact structural centering calculation
+    const left = Math.floor((window.screen.availWidth / 2) - (width / 2));
+    const top = Math.floor((window.screen.availHeight / 2) - (height / 2));
     
-    const windowFeatures = `scrollbars=yes,resizable=yes,status=no,location=no,toolbar=no,menubar=no,width=${width},height=${height},top=${top},left=${left}`;
+    const windowFeatures = `
+        width=${width},
+        height=${height},
+        top=${top},
+        left=${left},
+        scrollbars=yes,
+        resizable=yes,
+        status=no,
+        location=no,
+        toolbar=no,
+        menubar=no
+    `.replace(/\s+/g, ''); // Removes spaces for strict browser engine compatibility
     
     window.open(url, "SelarSecureCheckout", windowFeatures);
 }
@@ -99,10 +120,10 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     const allCatalogProducts = [
-        { title: "Beginner to Expert Power BI Course", image: "./assets/Bi Image.png", desc: "Master asset mapping and data shaping pipelines from absolute scratch. Includes fully managed custom dashboards and workflow metrics.", selarSlug: "damsolmanalytics" },
-        { title: "Intermediate to Expert Power BI Course", image: "./assets/Expert image.png", desc: "Advanced relational data modeling blueprints, enterprise DAX optimizations, and robust production matrix tracking paradigms.", selarSlug: "expertpowerbi" },
-        { title: "VBA Beginner Course", image: "./assets/VBA Beginner Img.png", desc: "Eliminate repetitive tasks. Learn custom syntax configurations, execution statement loops, and deep environment macro recording controls.", selarSlug: "vbabeginnercourse" },
-        { title: "VBA Intermediate to Expert Course", image: "./assets/Interm to Expert Img.png", desc: "Object-oriented scripting schemas, multi-app database link controls, and advanced automated application design models.", selarSlug: "vbaexpertcourse" }
+        { title: "Beginner to Expert Power BI Course", image: "./Bi Image.png", desc: "Master asset mapping and data shaping pipelines from absolute scratch. Includes fully managed custom dashboards and workflow metrics.", selarSlug: "damsolmanalytics" },
+        { title: "Intermediate to Expert Power BI Course", image: "./Expert image.png", desc: "Advanced relational data modeling blueprints, enterprise DAX optimizations, and robust production matrix tracking paradigms.", selarSlug: "expertpowerbi" },
+        { title: "VBA Beginner Course", image: "./VBA Beginner Img.png", desc: "Eliminate repetitive tasks. Learn custom syntax configurations, execution statement loops, and deep environment macro recording controls.", selarSlug: "vbabeginnercourse" },
+        { title: "VBA Intermediate to Expert Course", image: "./Interm to Expert Img.png", desc: "Object-oriented scripting schemas, multi-app database link controls, and advanced automated application design models.", selarSlug: "vbaexpertcourse" }
     ];
 
     const container = document.getElementById("target-product-container");
