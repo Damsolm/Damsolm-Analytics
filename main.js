@@ -43,188 +43,319 @@ window.addEventListener('scroll', () => {
 
 
 // ALL PRODUCTS CATALOG WITH FILTER ENGINE
-document.addEventListener("DOMContentLoaded", function () {
+// document.addEventListener("DOMContentLoaded", function () {
     
-    // 1. Relational pricing matrix keyed by unique product ID strings
-    const globalPricingGrid = {
-        NG: {
-            pbi_beg: { current: "₦5,000", old: "₦12,500" },
-            pbi_exp: { current: "₦7,000", old: "₦18,000" },
-            vba_beg: { current: "₦4,000", old: "₦9,000" },
-            vba_exp: { current: "₦7,000", old: "₦18,000" },
-            // pdf_guide1: { current: "₦2,500", old: "₦5,000" } // Example PDF Guide
-        },
-        US: {
-            pbi_beg: { current: "$9.99", old: "$24.99" },
-            pbi_exp: { current: "$19.99", old: "$39.99" },
-            vba_beg: { current: "$7.99", old: "$19.99" },
-            vba_exp: { current: "$19.99", old: "$39.99" },
-            // pdf_guide1: { current: "$4.99", old: "$9.99" }
-        },
-        GB: {
-            pbi_beg: { current: "£7.99", old: "£19.99" },
-            pbi_exp: { current: "£14.99", old: "£34.99" },
-            vba_beg: { current: "£5.99", old: "£14.99" },
-            vba_exp: { current: "£14.99", old: "£34.99" },
-            // pdf_guide1: { current: "£3.99", old: "£7.99" }
+//     // 1. Relational pricing matrix keyed by unique product ID strings
+//     const globalPricingGrid = {
+//         NG: {
+//             pbi_beg: { current: "₦5,000", old: "₦12,500" },
+//             pbi_exp: { current: "₦7,000", old: "₦18,000" },
+//             vba_beg: { current: "₦4,000", old: "₦9,000" },
+//             vba_exp: { current: "₦7,000", old: "₦18,000" },
+//             // pdf_guide1: { current: "₦2,500", old: "₦5,000" } // Example PDF Guide
+//         },
+//         US: {
+//             pbi_beg: { current: "$9.99", old: "$24.99" },
+//             pbi_exp: { current: "$19.99", old: "$39.99" },
+//             vba_beg: { current: "$7.99", old: "$19.99" },
+//             vba_exp: { current: "$19.99", old: "$39.99" },
+//             // pdf_guide1: { current: "$4.99", old: "$9.99" }
+//         },
+//         GB: {
+//             pbi_beg: { current: "£7.99", old: "£19.99" },
+//             pbi_exp: { current: "£14.99", old: "£34.99" },
+//             vba_beg: { current: "£5.99", old: "£14.99" },
+//             vba_exp: { current: "£14.99", old: "£34.99" },
+//             // pdf_guide1: { current: "£3.99", old: "£7.99" }
          
-        },
-        GH: {
-            pbi_beg: { current: "GH₵120", old: "GH₵250" },
-            pbi_exp: { current: "GH₵220", old: "GH₵450" },
-            vba_beg: { current: "GH₵100", old: "GH₵200" },
-            vba_exp: { current: "GH₵220", old: "GH₵450" },
-            // pdf_guide1: { current: "GH₵60", old: "GH₵120" }
-        },
-        KE: {
-            pbi_beg: { current: "KSh 800", old: "KSh 1,500" },
-            pbi_exp: { current: "KSh 1,100", old: "KSh 2000" },
-            vba_beg: { current: "KSh 900", old: "KSh 1500" },
-            vba_exp: { current: "KSh 1,100", old: "KSh 2,000" },
-            // pdf_guide1: { current: "KSh 600", old: "KSh 1,200" }
-        },
-        ZA: {
-            pbi_beg: { current: "R 140", old: "R 300" },
-            pbi_exp: { current: "R 280", old: "R 550" },
-            vba_beg: { current: "R 110", old: "R 220" },
-            vba_exp: { current: "R 280", old: "R 550" },
-            // pdf_guide1: { current: "R 75", old: "R 150" }
-        },
+//         },
+//         GH: {
+//             pbi_beg: { current: "GH₵120", old: "GH₵250" },
+//             pbi_exp: { current: "GH₵220", old: "GH₵450" },
+//             vba_beg: { current: "GH₵100", old: "GH₵200" },
+//             vba_exp: { current: "GH₵220", old: "GH₵450" },
+//             // pdf_guide1: { current: "GH₵60", old: "GH₵120" }
+//         },
+//         KE: {
+//             pbi_beg: { current: "KSh 800", old: "KSh 1,500" },
+//             pbi_exp: { current: "KSh 1,100", old: "KSh 2000" },
+//             vba_beg: { current: "KSh 900", old: "KSh 1500" },
+//             vba_exp: { current: "KSh 1,100", old: "KSh 2,000" },
+//             // pdf_guide1: { current: "KSh 600", old: "KSh 1,200" }
+//         },
+//         ZA: {
+//             pbi_beg: { current: "R 140", old: "R 300" },
+//             pbi_exp: { current: "R 280", old: "R 550" },
+//             vba_beg: { current: "R 110", old: "R 220" },
+//             vba_exp: { current: "R 280", old: "R 550" },
+//             // pdf_guide1: { current: "R 75", old: "R 150" }
+//         },
+//     };
+
+//     // 2. Structured digital catalog carrying explicit category definitions
+//     const digitalProducts = [
+//         {
+//             id: "pbi_beg",
+//             category: "POWER BI",
+//             title: "Beginner to Expert Power BI Course",
+//             image: "./Bi Image.png",
+//             link: "https://selar.com/damsolmanalytics"
+//         },
+//         {
+//             id: "pbi_exp",
+//             category: "POWER BI",
+//             title: "Intermediate to Expert Power BI Course",
+//             image: "./Expert image.png",
+//             link: "https://selar.com/expertpowerbi"
+//         },
+//         {
+//             id: "vba_beg",
+//             category: "VBA",
+//             title: "VBA Beginner Course",
+//             image: "./VBA Beginner Img.png",
+//             link: "https://selar.com/vbabeginnercourse"
+//         },
+//         {
+//             id: "vba_exp",
+//             category: "VBA",
+//             title: "VBA Intermediate to Expert Course",
+//             image: "./Interm to Expert Img.png",
+//             link: "https://selar.com/vbaexpertcourse"
+//         },
+//         // {
+//         //     id: "pdf_guide1",
+//         //     category: "PDF GUIDE",
+//         //     title: "Data Clean & Transformation Playbook",
+//         //     image: "./VBA Beginner Img.png", // Replace with your true PDF thumbnail asset path
+//         //     link: "https://selar.com/"
+//         // }
+//     ];
+
+//     const gridTarget = document.getElementById("product-grid-target");
+//     const filterButtons = document.querySelectorAll(".filter-btn");
+    
+//     let activePricing = globalPricingGrid['US']; // Global default fallback initialization
+
+//     // 3. Central Router Core to pinpoint visitor location safely
+//     async function initAllProductsStore() {
+//         if (!gridTarget) return;
+
+//         let country = null;
+//         try {
+//             const response = await fetch('https://ipapi.co/json/');
+//             if (response.ok) {
+//                 const geoData = await response.json();
+//                 country = geoData.country_code;
+//             } else {
+//                 throw new Error("ipapi.co failed");
+//             }
+//         } catch (error) {
+//             console.warn("Primary IP routing channel blocked. Connecting secure backup fallback...");
+//             try {
+//                 const backupResponse = await fetch('https://ip2c.org/s');
+//                 if (backupResponse.ok) {
+//                     const text = await backupResponse.text();
+//                     const parts = text.split(';');
+//                     if (parts[0] === '1') country = parts[1];
+//                 }
+//             } catch (backupError) {
+//                 console.error("All geo IP APIs timed out. Defaulting catalog interface currency to USD.", backupError);
+//             }
+//         }
+
+//         if (country && globalPricingGrid[country]) {
+//             activePricing = globalPricingGrid[country];
+//         }
+
+//         // Run default view display on initial layout generation
+//         renderCatalog("ALL");
+//         setupFilterListeners();
+//     }
+
+//     // 4. Isolation Render Engine to build cards selectively
+//     function renderCatalog(selectedCategory) {
+//         // Filter catalog objects cleanly without mutation errors
+//         const filteredProducts = digitalProducts.filter(product => {
+//             return selectedCategory === "ALL" || product.category === selectedCategory;
+//         });
+
+//         if (filteredProducts.length === 0) {
+//             gridTarget.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #A0A5C0; padding: 2rem;">No items currently available in this category.</p>`;
+//             return;
+//         }
+
+//         gridTarget.innerHTML = filteredProducts.map(product => {
+//             // Locate price metrics explicitly matching by structural item ID string
+//             const priceInfo = activePricing[product.id] || globalPricingGrid['US'][product.id];
+
+//             return `
+//                 <article>
+//                     <div class="specialist__image">
+//                         <img src="${product.image}" alt="${product.title}">
+//                     </div>
+//                     <div class="specialist__details">
+//                         <a href="${product.link}" target="_blank" style="text-decoration: none; color: inherit;">
+//                             <h5>${product.title}</h5>
+//                         </a>
+//                         <small>Price: <span style="font-weight: bold; color: green;">${priceInfo.current}</span> <del style="color: red; text-decoration-color: red; margin-left: 5px;">${priceInfo.old}</del></small>
+//                     </div> 
+//                     <div class="specialist__socials">
+//                         <a href="https://linkedin.com" target="_blank"><i class='bx bxl-linkedin'></i></a>
+//                         <a href="https://twitter.com" target="_blank"><i class='bx bxl-twitter'></i></a>
+//                     </div>
+//                     <a href="${product.link}" class="specialist__whatsapp" target="_blank">View</a>
+//                 </article>
+//             `;
+//         }).join('');
+//     }
+
+//     // 5. Click listener bindings for filter dashboard buttons
+//     function setupFilterListeners() {
+//         filterButtons.forEach(button => {
+//             button.addEventListener("click", function () {
+//                 // Instantly swap styling focus
+//                 filterButtons.forEach(btn => btn.classList.remove("active"));
+//                 this.classList.add("active");
+
+//                 // Grab requested criteria and call render mapping pipeline
+//                 const categorySelection = this.getAttribute("data-filter");
+//                 renderCatalog(categorySelection);
+//             });
+//         });
+//     }
+
+//     initAllProductsStore();
+// });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const globalPricingGrid = {
+        NG: [
+            { current: "₦5,000", old: "₦12,500" },  
+            { current: "₦7,000", old: "₦18,000" },  
+            { current: "₦4,000", old: "₦9,000" },   
+            { current: "₦7,000", old: "₦18,000" }   
+        ],
+        US: [
+            { current: "$9.99", old: "$24.99" }, { current: "$19.99", old: "$39.99" },
+            { current: "$7.99", old: "$19.99" }, { current: "$19.99", old: "$39.99" }
+        ],
+        GB: [
+            { current: "£7.99", old: "£19.99" }, { current: "£14.99", old: "£34.99" },
+            { current: "£5.99", old: "£14.99" }, { current: "£14.99", old: "£34.99" }
+        ],
+        GH: [
+            { current: "GH₵120", old: "GH₵250" }, { current: "GH₵220", old: "GH₵450" },
+            { current: "GH₵100", old: "GH₵200" }, { current: "GH₵220", old: "GH₵450" }
+        ],
+        KE: [
+            { current: "KSh 1,100", old: "KSh 2,500" }, { current: "KSh 2,200", old: "KSh 4,500" },
+            { current: "KSh 900", old: "KSh 2,000" }, { current: "KSh 2,200", old: "KSh 4,500" }
+        ],
+        ZA: [
+            { current: "R 140", old: "R 300" }, { current: "R 280", old: "R 550" },
+            { current: "R 110", old: "R 220" }, { current: "R 280", old: "R 550" }
+        ]
     };
 
-    // 2. Structured digital catalog carrying explicit category definitions
-    const digitalProducts = [
+    const allCatalogProducts = [
         {
-            id: "pbi_beg",
-            category: "POWER BI",
             title: "Beginner to Expert Power BI Course",
-            image: "./Bi Image.png",
-            link: "https://selar.com/damsolmanalytics"
+            image: "./assets/Bi Image.png",
+            tag: "POWER BI",
+            desc: "Master asset mapping and data shaping pipelines from absolute scratch. Includes fully managed custom dashboards and workflow metrics.",
+            selarSlug: "damsolmanalytics" 
         },
         {
-            id: "pbi_exp",
-            category: "POWER BI",
             title: "Intermediate to Expert Power BI Course",
-            image: "./Expert image.png",
-            link: "https://selar.com/expertpowerbi"
+            image: "./assets/Expert image.png",
+            tag: "POWER BI",
+            desc: "Advanced relational data modeling blueprints, enterprise DAX optimizations, and robust production matrix tracking paradigms.",
+            selarSlug: "expertpowerbi"
         },
         {
-            id: "vba_beg",
-            category: "VBA",
             title: "VBA Beginner Course",
-            image: "./VBA Beginner Img.png",
-            link: "https://selar.com/vbabeginnercourse"
+            image: "./assets/VBA Beginner Img.png",
+            tag: "VBA",
+            desc: "Eliminate repetitive tasks. Learn custom syntax configurations, execution statement loops, and deep environment macro recording controls.",
+            selarSlug: "vbabeginnercourse"
         },
         {
-            id: "vba_exp",
-            category: "VBA",
             title: "VBA Intermediate to Expert Course",
-            image: "./Interm to Expert Img.png",
-            link: "https://selar.com/vbaexpertcourse"
-        },
-        // {
-        //     id: "pdf_guide1",
-        //     category: "PDF GUIDE",
-        //     title: "Data Clean & Transformation Playbook",
-        //     image: "./VBA Beginner Img.png", // Replace with your true PDF thumbnail asset path
-        //     link: "https://selar.com/"
-        // }
+            image: "./assets/Interm to Expert Img.png",
+            tag: "VBA",
+            desc: "Object-oriented scripting schemas, multi-app database link controls, and advanced automated application design models.",
+            selarSlug: "vbaexpertcourse"
+        }
     ];
 
     const gridTarget = document.getElementById("product-grid-target");
-    const filterButtons = document.querySelectorAll(".filter-btn");
-    
-    let activePricing = globalPricingGrid['US']; // Global default fallback initialization
+    let currentFilter = "ALL";
+    let activePricing = globalPricingGrid["US"];
 
-    // 3. Central Router Core to pinpoint visitor location safely
-    async function initAllProductsStore() {
+    async function initCatalogGrid() {
         if (!gridTarget) return;
 
-        let country = null;
         try {
-            const response = await fetch('https://ipapi.co/json/');
-            if (response.ok) {
-                const geoData = await response.json();
-                country = geoData.country_code;
-            } else {
-                throw new Error("ipapi.co failed");
-            }
-        } catch (error) {
-            console.warn("Primary IP routing channel blocked. Connecting secure backup fallback...");
-            try {
-                const backupResponse = await fetch('https://ip2c.org/s');
-                if (backupResponse.ok) {
-                    const text = await backupResponse.text();
-                    const parts = text.split(';');
-                    if (parts[0] === '1') country = parts[1];
+            const res = await fetch("https://ipapi.co/json/");
+            if (res.ok) {
+                const data = await res.json();
+                if (globalPricingGrid[data.country_code]) {
+                    activePricing = globalPricingGrid[data.country_code];
                 }
-            } catch (backupError) {
-                console.error("All geo IP APIs timed out. Defaulting catalog interface currency to USD.", backupError);
+            } else {
+                throw new Error("429 Rate Limit hit");
+            }
+        } catch (e) {
+            console.warn("ipapi rate limited or blocked, running ip2c resolution...");
+            try {
+                const bkRes = await fetch("https://ip2c.org/s");
+                const text = await bkRes.text();
+                const parts = text.split(";");
+                if (parts[0] === "1" && globalPricingGrid[parts[1]]) {
+                    activePricing = globalPricingGrid[parts[1]];
+                }
+            } catch (err) {
+                console.error("Using default USD pricing.");
             }
         }
 
-        if (country && globalPricingGrid[country]) {
-            activePricing = globalPricingGrid[country];
-        }
-
-        // Run default view display on initial layout generation
-        renderCatalog("ALL");
-        setupFilterListeners();
+        renderDisplay();
+        setupFilters();
     }
 
-    // 4. Isolation Render Engine to build cards selectively
-    function renderCatalog(selectedCategory) {
-        // Filter catalog objects cleanly without mutation errors
-        const filteredProducts = digitalProducts.filter(product => {
-            return selectedCategory === "ALL" || product.category === selectedCategory;
-        });
-
-        if (filteredProducts.length === 0) {
-            gridTarget.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #A0A5C0; padding: 2rem;">No items currently available in this category.</p>`;
-            return;
-        }
-
-        gridTarget.innerHTML = filteredProducts.map(product => {
-            // Locate price metrics explicitly matching by structural item ID string
-            const priceInfo = activePricing[product.id] || globalPricingGrid['US'][product.id];
+    function renderDisplay() {
+        gridTarget.innerHTML = allCatalogProducts.map((prod, idx) => {
+            if (currentFilter !== "ALL" && prod.tag !== currentFilter) return "";
+            const price = activePricing[idx] || globalPricingGrid["US"][idx];
 
             return `
-                <article>
+                <article class="product-card">
                     <div class="specialist__image">
-                        <img src="${product.image}" alt="${product.title}">
+                        <img src="${prod.image}" alt="${prod.title}">
                     </div>
                     <div class="specialist__details">
-                        <a href="${product.link}" target="_blank" style="text-decoration: none; color: inherit;">
-                            <h5>${product.title}</h5>
-                        </a>
-                        <small>Price: <span style="font-weight: bold; color: green;">${priceInfo.current}</span> <del style="color: red; text-decoration-color: red; margin-left: 5px;">${priceInfo.old}</del></small>
-                    </div> 
-                    <div class="specialist__socials">
-                        <a href="https://linkedin.com" target="_blank"><i class='bx bxl-linkedin'></i></a>
-                        <a href="https://twitter.com" target="_blank"><i class='bx bxl-twitter'></i></a>
+                        <h5>${prod.title}</h5>
+                        <small>Price: <span style="font-weight:bold; color:green;">${price.current}</span> <del style="color:red; margin-left:5px;">${price.old}</del></small>
                     </div>
-                    <a href="${product.link}" class="specialist__whatsapp" target="_blank">View</a>
+                    <a href="product.html?id=${idx}" class="specialist__whatsapp" style="text-align:center; display:block; text-decoration:none;">View</a>
                 </article>
             `;
-        }).join('');
+        }).join("");
     }
 
-    // 5. Click listener bindings for filter dashboard buttons
-    function setupFilterListeners() {
-        filterButtons.forEach(button => {
-            button.addEventListener("click", function () {
-                // Instantly swap styling focus
-                filterButtons.forEach(btn => btn.classList.remove("active"));
+    function setupFilters() {
+        document.querySelectorAll(".filter-btn").forEach(btn => {
+            btn.addEventListener("click", function () {
+                document.querySelector(".filter-btn.active").classList.remove("active");
                 this.classList.add("active");
-
-                // Grab requested criteria and call render mapping pipeline
-                const categorySelection = this.getAttribute("data-filter");
-                renderCatalog(categorySelection);
+                currentFilter = this.getAttribute("data-filter");
+                renderDisplay();
             });
         });
     }
 
-    initAllProductsStore();
+    initCatalogGrid();
 });
 
 
