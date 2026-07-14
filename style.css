@@ -914,7 +914,7 @@ footer .copyright {
     background-color: #d97706;
 }
 
-/* --- Container-Bound Mobile & Tablet Breakpoints --- */
+/* --- Container-Bound Tablet Breakpoint --- */
 @media screen and (max-width: 1024px) {
     .container {
         position: relative;
@@ -939,16 +939,31 @@ footer .copyright {
     }
 }
 
+/* --- Fixed Floating Bottom Sheet for Mobile --- */
 @media screen and (max-width: 600px) {
     .section {
         width: 90%;
     }
 
     .promo-modal {
-        top: 12px;
-        width: 100%;
-        height: fit-content;
+        /* Fix the scroll bug: pull it out of container bounds and stick it to the screen */
+        position: fixed; 
+        top: auto; /* Clear the top property */
+        bottom: -200px; /* Hidden state starts off the bottom edge of the screen */
+        left: 12px;
+        right: 12px;
+        width: calc(100% - 24px); /* Equal padding on both sides */
         max-width: 100%;
+        height: fit-content;
+        z-index: 9999; /* Ensure it floats above all other elements */
+        border-radius: 12px;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15); /* Soft upward shadow */
+        transition: bottom 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* Polished slide up */
+    }
+
+    /* Slides up into view when active class is added */
+    .promo-modal.active {
+        bottom: 12px; 
     }
 
     .promo-modal-content {
@@ -992,6 +1007,5 @@ footer .copyright {
         font-size: 11px;
     }
 }
-
 
 /*# sourceMappingURL=style.css.map */
