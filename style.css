@@ -793,7 +793,7 @@ footer .copyright {
     overflow: hidden;
 }
 
-.promo-modal.active .container{
+.promo-modal.active {
     right: 24px;
 }
 
