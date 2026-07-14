@@ -776,4 +776,222 @@ footer .copyright {
 }
 
 
+/* --- Base Desktop Styles (Bottom Right Fixed) --- */
+.promo-modal .container{
+    position: fixed;
+    bottom: 24px;
+    right: -460px; /* Hidden offscreen by default */
+    width: 420px;
+    max-width: calc(100vw - 32px);
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    transition: right 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.promo-modal.active .container{
+    right: 24px;
+}
+
+.promo-modal-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    gap: 16px;
+}
+
+.promo-image-container {
+    flex: 0 0 100px;
+    width: 100px;
+    height: 130px;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    background: #f3f4f6;
+}
+
+.promo-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.promo-details-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.promo-close-btn {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: #9ca3af;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px;
+    z-index: 10;
+    transition: color 0.2s ease;
+}
+
+.promo-close-btn:hover {
+    color: #111827;
+}
+
+.promo-badge {
+    align-self: flex-start;
+    background-color: #ef4444;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.promo-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #111827;
+    line-height: 1.2;
+}
+
+.promo-description {
+    margin: 0;
+    font-size: 12px;
+    color: #4b5563;
+    line-height: 1.4;
+}
+
+/* E-commerce Price Display Styling */
+.promo-price-display {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2px;
+}
+
+.promo-price-current {
+    font-weight: bold;
+    color: #10b981; /* Green */
+    font-size: 16px;
+}
+
+.promo-price-old {
+    color: #ef4444; /* Red strikethrough */
+    text-decoration: line-through;
+    font-size: 13px;
+}
+
+.promo-cta-btn {
+    background-color: #f59e0b;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-top: 4px;
+    width: 100%;
+}
+
+.promo-cta-btn:hover {
+    background-color: #d97706;
+}
+
+/* --- Container-Bound Mobile & Tablet Breakpoints --- */
+@media screen and (max-width: 1024px) {
+    .container {
+        position: relative;
+        width: 82%;
+    }
+
+    section > p {
+        width: 55%;
+    }
+
+    .promo-modal {
+        position: absolute;
+        bottom: auto;
+        top: 16px;
+        right: -400px;
+        width: 360px;
+        transition: right 0.4s ease;
+    }
+
+    .promo-modal.active {
+        right: 0px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .section {
+        width: 90%;
+    }
+
+    .promo-modal {
+        top: 12px;
+        width: 100%;
+        height: fit-content;
+        max-width: 100%;
+    }
+
+    .promo-modal-content {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .promo-image-container {
+        flex: 0 0 65px;
+        width: 65px;
+        height: 90px;
+    }
+
+    .promo-title {
+        font-size: 13px;
+    }
+
+    .promo-description {
+        font-size: 11px;
+    }
+
+    .promo-badge {
+        font-size: 9px;
+        padding: 2px 6px;
+    }
+
+    .promo-price-display {
+        font-size: 12px;
+    }
+
+    .promo-price-current {
+        font-size: 14px;
+    }
+
+    .promo-price-old {
+        font-size: 11px;
+    }
+
+    .promo-cta-btn {
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+}
+
+
 /*# sourceMappingURL=style.css.map */
