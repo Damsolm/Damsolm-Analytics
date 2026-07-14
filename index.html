@@ -429,7 +429,7 @@ function openDirectSelar(slug) {
 </script> -->
 
     <!-- Global Pop-up Checkout Handler -->
-<script>
+<!-- <script>
 function openDirectSelar(slug) {
     // Force direct buy parameter for a faster checkout flow
     const checkoutUrl = `https://selar.co/${slug}?buy=true`;
@@ -456,6 +456,39 @@ function openDirectSelar(slug) {
             popup.focus();
         } else {
             // Fallback: If desktop browser blocks the popup window, redirect in current tab
+            window.location.assign(checkoutUrl);
+        }
+    }
+}
+</script> -->
+
+    <!-- Global Pop-up Checkout Handler -->
+<script>
+function openDirectSelar(slug) {
+    // Force direct buy parameter for a faster checkout flow
+    const checkoutUrl = `https://selar.co/${slug}?buy=true`;
+    
+    // 1. Strict, broad check: screen width, touch interface, or mobile signature
+    const isMobileSize = window.innerWidth <= 768; 
+    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobileSize || isTouchDevice || isMobileUA) {
+        // MOBILE / TABLET: Instant, direct tab shift (0% block rate)
+        window.location.assign(checkoutUrl);
+    } else {
+        // DESKTOP: Try to open a clean target tab
+        try {
+            // Using '_blank' with 'noopener,noreferrer' prevents security leaks and 
+            // is highly optimized for modern browser pop-up permissions
+            const checkoutWindow = window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
+            
+            // If the browser blocked it, fallback immediately to direct redirect so the user isn't stuck
+            if (!checkoutWindow || checkoutWindow.closed || typeof checkoutWindow.closed === 'undefined') {
+                window.location.assign(checkoutUrl);
+            }
+        } catch (e) {
+            // Safe fallback if window.open fails entirely
             window.location.assign(checkoutUrl);
         }
     }
