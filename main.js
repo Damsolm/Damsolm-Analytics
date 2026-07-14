@@ -227,140 +227,447 @@ window.addEventListener('scroll', () => {
 //     initAllProductsStore();
 // });
 
+// document.addEventListener("DOMContentLoaded", function () {
+//     const globalPricingGrid = {
+//         NG: [
+//             { current: "₦5,000", old: "₦12,500" },  
+//             { current: "₦7,000", old: "₦18,000" },  
+//             { current: "₦4,000", old: "₦9,000" },   
+//             { current: "₦7,000", old: "₦18,000" }   
+//         ],
+//         US: [
+//             { current: "$9.99", old: "$24.99" }, { current: "$19.99", old: "$39.99" },
+//             { current: "$7.99", old: "$19.99" }, { current: "$19.99", old: "$39.99" }
+//         ],
+//         GB: [
+//             { current: "£7.99", old: "£19.99" }, { current: "£14.99", old: "£34.99" },
+//             { current: "£5.99", old: "£14.99" }, { current: "£14.99", old: "£34.99" }
+//         ],
+//         GH: [
+//             { current: "GH₵120", old: "GH₵250" }, { current: "GH₵220", old: "GH₵450" },
+//             { current: "GH₵100", old: "GH₵200" }, { current: "GH₵220", old: "GH₵450" }
+//         ],
+//         KE: [
+//             { current: "KSh 1,100", old: "KSh 2,500" }, { current: "KSh 2,200", old: "KSh 4,500" },
+//             { current: "KSh 900", old: "KSh 2,000" }, { current: "KSh 2,200", old: "KSh 4,500" }
+//         ],
+//         ZA: [
+//             { current: "R 140", old: "R 300" }, { current: "R 280", old: "R 550" },
+//             { current: "R 110", old: "R 220" }, { current: "R 280", old: "R 550" }
+//         ]
+//     };
+
+//     const allCatalogProducts = [
+//         {
+//             title: "Beginner to Expert Power BI Course",
+//             image: "./Bi Image.png",
+//             tag: "POWER BI",
+//             desc: "Master asset mapping and data shaping pipelines from absolute scratch. Includes fully managed custom dashboards and workflow metrics.",
+//             selarSlug: "damsolmanalytics" 
+//         },
+//         {
+//             title: "Intermediate to Expert Power BI Course",
+//             image: "./Expert image.png",
+//             tag: "POWER BI",
+//             desc: "Advanced relational data modeling blueprints, enterprise DAX optimizations, and robust production matrix tracking paradigms.",
+//             selarSlug: "expertpowerbi"
+//         },
+//         {
+//             title: "VBA Beginner Course",
+//             image: "./VBA Beginner Img.png",
+//             tag: "VBA",
+//             desc: "Eliminate repetitive tasks. Learn custom syntax configurations, execution statement loops, and deep environment macro recording controls.",
+//             selarSlug: "vbabeginnercourse"
+//         },
+//         {
+//             title: "VBA Intermediate to Expert Course",
+//             image: "./Interm to Expert Img.png",
+//             tag: "VBA",
+//             desc: "Object-oriented scripting schemas, multi-app database link controls, and advanced automated application design models.",
+//             selarSlug: "vbaexpertcourse"
+//         }
+//     ];
+
+//     const gridTarget = document.getElementById("product-grid-target");
+//     let currentFilter = "ALL";
+//     let activePricing = globalPricingGrid["US"];
+
+//     async function initCatalogGrid() {
+//         if (!gridTarget) return;
+
+//         try {
+//             const res = await fetch("https://ipapi.co/json/");
+//             if (res.ok) {
+//                 const data = await res.json();
+//                 if (globalPricingGrid[data.country_code]) {
+//                     activePricing = globalPricingGrid[data.country_code];
+//                 }
+//             } else {
+//                 throw new Error("429 Rate Limit hit");
+//             }
+//         } catch (e) {
+//             console.warn("ipapi rate limited or blocked, running ip2c resolution...");
+//             try {
+//                 const bkRes = await fetch("https://ip2c.org/s");
+//                 const text = await bkRes.text();
+//                 const parts = text.split(";");
+//                 if (parts[0] === "1" && globalPricingGrid[parts[1]]) {
+//                     activePricing = globalPricingGrid[parts[1]];
+//                 }
+//             } catch (err) {
+//                 console.error("Using default USD pricing.");
+//             }
+//         }
+
+//         renderDisplay();
+//         setupFilters();
+//     }
+
+//     function renderDisplay() {
+//         gridTarget.innerHTML = allCatalogProducts.map((prod, idx) => {
+//             if (currentFilter !== "ALL" && prod.tag !== currentFilter) return "";
+//             const price = activePricing[idx] || globalPricingGrid["US"][idx];
+
+//             return `
+//                 <article class="product-card">
+//                     <div class="specialist__image">
+//                         <img src="${prod.image}" alt="${prod.title}">
+//                     </div>
+//                     <div class="specialist__details">
+//                         <a href="javascript:void(0)" onclick="openDirectSelar('${prod.selarSlug}')" style="text-decoration: none; color: inherit;">
+//                             <h5>${prod.title}</h5>
+//                         </a>
+//                         <small>Price: <span style="font-weight:bold; color:green;">${price.current}</span> <span style="color:red; text-decoration:line-through; margin-left:5px;">${price.old}</span></small>
+//                     </div>
+//                     <a href="javascript:void(0)" class="specialist__whatsapp" onclick="openDirectSelar('${prod.selarSlug}')"> View </a>
+//                 </article>
+//             `;
+//         }).join("");
+//     }
+
+//     function setupFilters() {
+//         document.querySelectorAll(".filter-btn").forEach(btn => {
+//             btn.addEventListener("click", function () {
+//                 const activeBtn = document.querySelector(".filter-btn.active");
+//                 if (activeBtn) activeBtn.classList.remove("active");
+                
+//                 this.classList.add("active");
+//                 currentFilter = this.getAttribute("data-filter");
+//                 renderDisplay();
+//             });
+//         });
+//     }
+
+//     initCatalogGrid();
+// });
+
+
 document.addEventListener("DOMContentLoaded", function () {
+    // 1. Geographic pricing matrix
     const globalPricingGrid = {
         NG: [
-            { current: "₦5,000", old: "₦12,500" },  
-            { current: "₦7,000", old: "₦18,000" },  
-            { current: "₦4,000", old: "₦9,000" },   
-            { current: "₦7,000", old: "₦18,000" }   
+            { current: "₦5,000", old: "₦12,500" },  // Power BI Beginner
+            { current: "₦7,000", old: "₦18,000" },  // Power BI Expert
+            { current: "₦4,000", old: "₦9,000" },   // VBA Beginner
+            { current: "₦7,000", old: "₦18,000" }   // VBA Expert
         ],
         US: [
-            { current: "$9.99", old: "$24.99" }, { current: "$19.99", old: "$39.99" },
-            { current: "$7.99", old: "$19.99" }, { current: "$19.99", old: "$39.99" }
+            { current: "$9.99", old: "$24.99" },
+            { current: "$19.99", old: "$39.99" },
+            { current: "$7.99", old: "$19.99" },
+            { current: "$19.99", old: "$39.99" }
         ],
         GB: [
-            { current: "£7.99", old: "£19.99" }, { current: "£14.99", old: "£34.99" },
-            { current: "£5.99", old: "£14.99" }, { current: "£14.99", old: "£34.99" }
+            { current: "£7.99", old: "£19.99" },
+            { current: "£14.99", old: "£34.99" },
+            { current: "£5.99", old: "£14.99" },
+            { current: "£14.99", old: "£34.99" }
         ],
         GH: [
-            { current: "GH₵120", old: "GH₵250" }, { current: "GH₵220", old: "GH₵450" },
-            { current: "GH₵100", old: "GH₵200" }, { current: "GH₵220", old: "GH₵450" }
+            { current: "GH₵120", old: "GH₵250" },
+            { current: "GH₵220", old: "GH₵450" },
+            { current: "GH₵100", old: "GH₵200" },
+            { current: "GH₵220", old: "GH₵450" }
         ],
         KE: [
-            { current: "KSh 1,100", old: "KSh 2,500" }, { current: "KSh 2,200", old: "KSh 4,500" },
-            { current: "KSh 900", old: "KSh 2,000" }, { current: "KSh 2,200", old: "KSh 4,500" }
+            { current: "KSh 800", old: "KSh 1,500" },
+            { current: "KSh 1,100", old: "KSh 2,000" },
+            { current: "KSh 900", old: "KSh 1,500" },
+            { current: "KSh 1,100", old: "KSh 2,000" }
         ],
         ZA: [
-            { current: "R 140", old: "R 300" }, { current: "R 280", old: "R 550" },
-            { current: "R 110", old: "R 220" }, { current: "R 280", old: "R 550" }
+            { current: "R 140", old: "R 300" },
+            { current: "R 280", old: "R 550" },
+            { current: "R 110", old: "R 220" },
+            { current: "R 280", old: "R 550" }
         ]
     };
 
-    const allCatalogProducts = [
+    // 2. Structural array for grid items
+    const topProducts = [
         {
             title: "Beginner to Expert Power BI Course",
             image: "./Bi Image.png",
-            tag: "POWER BI",
-            desc: "Master asset mapping and data shaping pipelines from absolute scratch. Includes fully managed custom dashboards and workflow metrics.",
-            selarSlug: "damsolmanalytics" 
+            selarSlug: "damsolmanalytics"
         },
         {
             title: "Intermediate to Expert Power BI Course",
             image: "./Expert image.png",
-            tag: "POWER BI",
-            desc: "Advanced relational data modeling blueprints, enterprise DAX optimizations, and robust production matrix tracking paradigms.",
             selarSlug: "expertpowerbi"
         },
         {
             title: "VBA Beginner Course",
             image: "./VBA Beginner Img.png",
-            tag: "VBA",
-            desc: "Eliminate repetitive tasks. Learn custom syntax configurations, execution statement loops, and deep environment macro recording controls.",
             selarSlug: "vbabeginnercourse"
         },
         {
             title: "VBA Intermediate to Expert Course",
             image: "./Interm to Expert Img.png",
-            tag: "VBA",
-            desc: "Object-oriented scripting schemas, multi-app database link controls, and advanced automated application design models.",
             selarSlug: "vbaexpertcourse"
         }
     ];
 
-    const gridTarget = document.getElementById("product-grid-target");
-    let currentFilter = "ALL";
-    let activePricing = globalPricingGrid["US"];
+    const topGridTarget = document.getElementById("top-products-grid");
 
-    async function initCatalogGrid() {
-        if (!gridTarget) return;
+    // Modal Document DOM references
+    const promoModal = document.getElementById("promo-slide-modal");
+    const closeBtn = document.getElementById("close-promo-btn");
+    const bookImg = document.getElementById("promo-book-img");
+    const promoBadge = document.getElementById("promo-badge");
+    const promoTitle = document.getElementById("promo-title");
+    const promoDesc = document.getElementById("promo-description");
+    const promoPriceContainer = document.getElementById("promo-price-container");
+    const promoCta = document.getElementById("promo-cta-btn");
+
+    let activePricing = globalPricingGrid['US']; // Global fallback
+    let currentBundleIndex = 0;
+    let hasReachedThreshold = false;
+    let autoRotateInterval = null;
+    let reappearTimeout = null;
+    let isNaira = false;
+
+    // Helper: Extracts clean numeric values
+    function parseNumber(priceStr) {
+        return parseFloat(priceStr.replace(/[^0-9.]/g, ''));
+    }
+
+    // Helper: Extracts localized currency prefix
+    function getCurrencySymbol(priceStr) {
+        return priceStr.replace(/[0-9.,\s]/g, '');
+    }
+
+    // Helper: Implements requested dynamic rounding rules
+    function formatCurrency(symbol, amount) {
+        if (isNaira) {
+            return `${symbol}${Math.floor(amount).toLocaleString()}`;
+        } else {
+            const wholeUnit = Math.floor(amount);
+            return `${symbol}${wholeUnit}.99`;
+        }
+    }
+
+    // 3. Geographic IP Initialization
+    async function initDynamicStore() {
+        let country = null;
 
         try {
-            const res = await fetch("https://ipapi.co/json/");
-            if (res.ok) {
-                const data = await res.json();
-                if (globalPricingGrid[data.country_code]) {
-                    activePricing = globalPricingGrid[data.country_code];
-                }
+            const response = await fetch('https://ipapi.co/json/');
+            if (response.ok) {
+                const geoData = await response.json();
+                country = geoData.country_code;
             } else {
-                throw new Error("429 Rate Limit hit");
+                throw new Error("ipapi.co failed");
             }
-        } catch (e) {
-            console.warn("ipapi rate limited or blocked, running ip2c resolution...");
+        } catch (error) {
+            console.warn("Primary IP lookup failed. Trying backup...");
             try {
-                const bkRes = await fetch("https://ip2c.org/s");
-                const text = await bkRes.text();
-                const parts = text.split(";");
-                if (parts[0] === "1" && globalPricingGrid[parts[1]]) {
-                    activePricing = globalPricingGrid[parts[1]];
+                const backupResponse = await fetch('https://ip2c.org/s');
+                if (backupResponse.ok) {
+                    const text = await backupResponse.text();
+                    const parts = text.split(';');
+                    if (parts[0] === '1') {
+                        country = parts[1];
+                    }
                 }
-            } catch (err) {
-                console.error("Using default USD pricing.");
+            } catch (backupError) {
+                console.error("Geo fallback system error:", backupError);
             }
         }
 
-        renderDisplay();
-        setupFilters();
-    }
+        if (country && globalPricingGrid[country]) {
+            activePricing = globalPricingGrid[country];
+            isNaira = (country === 'NG');
+        } else {
+            isNaira = false;
+        }
 
-    function renderDisplay() {
-        gridTarget.innerHTML = allCatalogProducts.map((prod, idx) => {
-            if (currentFilter !== "ALL" && prod.tag !== currentFilter) return "";
-            const price = activePricing[idx] || globalPricingGrid["US"][idx];
-
-            return `
-                <article class="product-card">
-                    <div class="specialist__image">
-                        <img src="${prod.image}" alt="${prod.title}">
-                    </div>
-                    <div class="specialist__details">
-                        <a href="javascript:void(0)" onclick="openDirectSelar('${prod.selarSlug}')" style="text-decoration: none; color: inherit;">
-                            <h5>${prod.title}</h5>
-                        </a>
-                        <small>Price: <span style="font-weight:bold; color:green;">${price.current}</span> <span style="color:red; text-decoration:line-through; margin-left:5px;">${price.old}</span></small>
-                    </div>
-                    <a href="javascript:void(0)" class="specialist__whatsapp" onclick="openDirectSelar('${prod.selarSlug}')"> View </a>
-                </article>
-            `;
-        }).join("");
-    }
-
-    function setupFilters() {
-        document.querySelectorAll(".filter-btn").forEach(btn => {
-            btn.addEventListener("click", function () {
-                const activeBtn = document.querySelector(".filter-btn.active");
-                if (activeBtn) activeBtn.classList.remove("active");
+        // Render dynamic grid products
+        if (topGridTarget) {
+            topGridTarget.innerHTML = topProducts.map((product, index) => {
+                const priceInfo = activePricing[index] || globalPricingGrid['US'][index];
                 
-                this.classList.add("active");
-                currentFilter = this.getAttribute("data-filter");
-                renderDisplay();
-            });
-        });
+                return `
+                    <article>
+                        <div class="specialist__image">
+                            <img src="${product.image}" alt="${product.title}">
+                        </div>
+                        <div class="specialist__details">
+                             <a href="javascript:void(0)" onclick="openDirectSelar('${product.selarSlug}')" style="text-decoration: none; color: inherit;">
+                                <h5>${product.title}</h5>
+                             </a>
+                            <small>Price: <span style="font-weight:bold; color:green;">${priceInfo.current}</span> <span style="color:red; text-decoration:line-through; margin-left:5px;">${priceInfo.old}</span></small>
+                        </div> 
+                        <div class="specialist__socials">
+                            <a href="https://linkedin.com" target="_blank"><i class='bx bxl-linkedin'></i></a>
+                            <a href="https://twitter.com" target="_blank"><i class='bx bxl-twitter'></i></a>
+                        </div>
+                        <a href="javascript:void(0)" class="specialist__whatsapp" onclick="openDirectSelar('${product.selarSlug}')">
+                            View
+                        </a>
+                    </article>
+                `;
+            }).join('');
+        }
     }
 
-    initCatalogGrid();
-});
+    // Update Content with local currencies
+    function updatePromoModal() {
+        const biBegVal = parseNumber(activePricing[0].current);
+        const biExpVal = parseNumber(activePricing[1].current);
+        const vbaBegVal = parseNumber(activePricing[2].current);
+        const vbaExpVal = parseNumber(activePricing[3].current);
 
+        const currencySymbol = getCurrencySymbol(activePricing[0].current);
+
+        // Power BI: Apply 16.66% off sum of Beginner + Expert
+        const biSum = biBegVal + biExpVal;
+        const biDiscounted = biSum * (1 - 0.1666);
+
+        // VBA: Apply 9.09% off sum of Beginner + Expert
+        const vbaSum = vbaBegVal + vbaExpVal;
+        const vbaDiscounted = vbaSum * (1 - 0.0909);
+
+        const promoBundles = [
+            {
+                title: "Power BI Complete Bundle",
+                badge: "16.66% OFF BUNDLE",
+                image: "./Expert image.png",
+                slug: "masterypowerbi",
+                description: "Master Power BI from data extraction to enterprise dashboards. Get the complete bundle pack today!",
+                oldPriceFormatted: formatCurrency(currencySymbol, biSum),
+                currentPriceFormatted: formatCurrency(currencySymbol, biDiscounted)
+            },
+            {
+                title: "VBA Automation Expert Bundle",
+                badge: "9.09% OFF BUNDLE",
+                image: "./Interm to Expert Img.png",
+                slug: "masteryvba",
+                description: "Automate dry Excel workflows and write clean macros. Save instantly with the combined bundle pack!",
+                oldPriceFormatted: formatCurrency(currencySymbol, vbaSum),
+                currentPriceFormatted: formatCurrency(currencySymbol, vbaDiscounted)
+            }
+        ];
+
+        const activePromo = promoBundles[currentBundleIndex];
+
+        // Apply properties dynamically to the UI
+        bookImg.src = activePromo.image;
+        bookImg.alt = activePromo.title;
+        promoBadge.textContent = activePromo.badge;
+        promoTitle.textContent = activePromo.title;
+        promoDesc.textContent = activePromo.description;
+        
+        promoPriceContainer.innerHTML = `
+            <span>Price: </span>
+            <span class="promo-price-current">${activePromo.currentPriceFormatted}</span>
+            <span class="promo-price-old">${activePromo.oldPriceFormatted}</span>
+        `;
+        
+        promoCta.onclick = function() {
+            openDirectSelar(activePromo.slug);
+        };
+
+        // Ready the next index
+        currentBundleIndex = (currentBundleIndex + 1) % promoBundles.length;
+    }
+
+    // Handles the smooth slide-out -> change -> slide-in sequence
+    function transitionPromoContent() {
+        // 1. Slide the modal off-screen
+        promoModal.classList.remove("active");
+
+        // 2. Wait 500ms (matching the CSS transition time) to update content while invisible
+        setTimeout(function() {
+            updatePromoModal();
+
+            // 3. Slide the modal back in with its fresh package details
+            setTimeout(function() {
+                promoModal.classList.add("active");
+            }, 100); // 100ms processing delay ensures browser registers the transition break
+        }, 500);
+    }
+
+    // Dynamic Sliding & Interval Loops
+    function startAutoRotation() {
+        if (autoRotateInterval) clearInterval(autoRotateInterval);
+        
+        // Auto-scroll modal details every 20 seconds of inactivity using the smooth slide transition
+        autoRotateInterval = setInterval(function() {
+            if (promoModal.classList.contains("active")) {
+                transitionPromoContent();
+            }
+        }, 20000);
+    }
+
+    function stopAutoRotation() {
+        if (autoRotateInterval) {
+            clearInterval(autoRotateInterval);
+            autoRotateInterval = null;
+        }
+    }
+
+    function showPromoModal() {
+        if (reappearTimeout) clearTimeout(reappearTimeout);
+        promoModal.classList.add("active");
+        startAutoRotation();
+    }
+
+    function hidePromoModal() {
+        promoModal.classList.remove("active");
+        stopAutoRotation();
+
+        // If closed/cancelled by user, wait 10 seconds, then show the next card
+        reappearTimeout = setTimeout(function() {
+            const currentScroll = window.scrollY || window.pageYOffset;
+            const triggerHeight = window.innerHeight;
+
+            if (currentScroll > triggerHeight) {
+                updatePromoModal();
+                showPromoModal();
+            } else {
+                hasReachedThreshold = false;
+                window.addEventListener("scroll", handleScroll);
+            }
+        }, 10000);
+    }
+
+    function handleScroll() {
+        const triggerHeight = window.innerHeight;
+        const currentScroll = window.scrollY || window.pageYOffset;
+
+        if (!hasReachedThreshold && currentScroll > triggerHeight) {
+            hasReachedThreshold = true;
+            updatePromoModal();
+            showPromoModal();
+            window.removeEventListener("scroll", handleScroll);
+        }
+    }
+
+    closeBtn.addEventListener("click", hidePromoModal);
+    window.addEventListener("scroll", handleScroll);
+
+    initDynamicStore();
+});
 
 // TOP SELLING PRODUCTS
 
