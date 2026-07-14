@@ -227,139 +227,139 @@ window.addEventListener('scroll', () => {
 //     initAllProductsStore();
 // });
 
-// document.addEventListener("DOMContentLoaded", function () {
-//     const globalPricingGrid = {
-//         NG: [
-//             { current: "₦5,000", old: "₦12,500" },  
-//             { current: "₦7,000", old: "₦18,000" },  
-//             { current: "₦4,000", old: "₦9,000" },   
-//             { current: "₦7,000", old: "₦18,000" }   
-//         ],
-//         US: [
-//             { current: "$9.99", old: "$24.99" }, { current: "$19.99", old: "$39.99" },
-//             { current: "$7.99", old: "$19.99" }, { current: "$19.99", old: "$39.99" }
-//         ],
-//         GB: [
-//             { current: "£7.99", old: "£19.99" }, { current: "£14.99", old: "£34.99" },
-//             { current: "£5.99", old: "£14.99" }, { current: "£14.99", old: "£34.99" }
-//         ],
-//         GH: [
-//             { current: "GH₵120", old: "GH₵250" }, { current: "GH₵220", old: "GH₵450" },
-//             { current: "GH₵100", old: "GH₵200" }, { current: "GH₵220", old: "GH₵450" }
-//         ],
-//         KE: [
-//             { current: "KSh 1,100", old: "KSh 2,500" }, { current: "KSh 2,200", old: "KSh 4,500" },
-//             { current: "KSh 900", old: "KSh 2,000" }, { current: "KSh 2,200", old: "KSh 4,500" }
-//         ],
-//         ZA: [
-//             { current: "R 140", old: "R 300" }, { current: "R 280", old: "R 550" },
-//             { current: "R 110", old: "R 220" }, { current: "R 280", old: "R 550" }
-//         ]
-//     };
+document.addEventListener("DOMContentLoaded", function () {
+    const globalPricingGrid = {
+        NG: [
+            { current: "₦5,000", old: "₦12,500" },  
+            { current: "₦7,000", old: "₦18,000" },  
+            { current: "₦4,000", old: "₦9,000" },   
+            { current: "₦7,000", old: "₦18,000" }   
+        ],
+        US: [
+            { current: "$9.99", old: "$24.99" }, { current: "$19.99", old: "$39.99" },
+            { current: "$7.99", old: "$19.99" }, { current: "$19.99", old: "$39.99" }
+        ],
+        GB: [
+            { current: "£7.99", old: "£19.99" }, { current: "£14.99", old: "£34.99" },
+            { current: "£5.99", old: "£14.99" }, { current: "£14.99", old: "£34.99" }
+        ],
+        GH: [
+            { current: "GH₵120", old: "GH₵250" }, { current: "GH₵220", old: "GH₵450" },
+            { current: "GH₵100", old: "GH₵200" }, { current: "GH₵220", old: "GH₵450" }
+        ],
+        KE: [
+            { current: "KSh 1,100", old: "KSh 2,500" }, { current: "KSh 2,200", old: "KSh 4,500" },
+            { current: "KSh 900", old: "KSh 2,000" }, { current: "KSh 2,200", old: "KSh 4,500" }
+        ],
+        ZA: [
+            { current: "R 140", old: "R 300" }, { current: "R 280", old: "R 550" },
+            { current: "R 110", old: "R 220" }, { current: "R 280", old: "R 550" }
+        ]
+    };
 
-//     const allCatalogProducts = [
-//         {
-//             title: "Beginner to Expert Power BI Course",
-//             image: "./Bi Image.png",
-//             tag: "POWER BI",
-//             desc: "Master asset mapping and data shaping pipelines from absolute scratch. Includes fully managed custom dashboards and workflow metrics.",
-//             selarSlug: "damsolmanalytics" 
-//         },
-//         {
-//             title: "Intermediate to Expert Power BI Course",
-//             image: "./Expert image.png",
-//             tag: "POWER BI",
-//             desc: "Advanced relational data modeling blueprints, enterprise DAX optimizations, and robust production matrix tracking paradigms.",
-//             selarSlug: "expertpowerbi"
-//         },
-//         {
-//             title: "VBA Beginner Course",
-//             image: "./VBA Beginner Img.png",
-//             tag: "VBA",
-//             desc: "Eliminate repetitive tasks. Learn custom syntax configurations, execution statement loops, and deep environment macro recording controls.",
-//             selarSlug: "vbabeginnercourse"
-//         },
-//         {
-//             title: "VBA Intermediate to Expert Course",
-//             image: "./Interm to Expert Img.png",
-//             tag: "VBA",
-//             desc: "Object-oriented scripting schemas, multi-app database link controls, and advanced automated application design models.",
-//             selarSlug: "vbaexpertcourse"
-//         }
-//     ];
+    const allCatalogProducts = [
+        {
+            title: "Beginner to Expert Power BI Course",
+            image: "./Bi Image.png",
+            tag: "POWER BI",
+            desc: "Master asset mapping and data shaping pipelines from absolute scratch. Includes fully managed custom dashboards and workflow metrics.",
+            selarSlug: "damsolmanalytics" 
+        },
+        {
+            title: "Intermediate to Expert Power BI Course",
+            image: "./Expert image.png",
+            tag: "POWER BI",
+            desc: "Advanced relational data modeling blueprints, enterprise DAX optimizations, and robust production matrix tracking paradigms.",
+            selarSlug: "expertpowerbi"
+        },
+        {
+            title: "VBA Beginner Course",
+            image: "./VBA Beginner Img.png",
+            tag: "VBA",
+            desc: "Eliminate repetitive tasks. Learn custom syntax configurations, execution statement loops, and deep environment macro recording controls.",
+            selarSlug: "vbabeginnercourse"
+        },
+        {
+            title: "VBA Intermediate to Expert Course",
+            image: "./Interm to Expert Img.png",
+            tag: "VBA",
+            desc: "Object-oriented scripting schemas, multi-app database link controls, and advanced automated application design models.",
+            selarSlug: "vbaexpertcourse"
+        }
+    ];
 
-//     const gridTarget = document.getElementById("product-grid-target");
-//     let currentFilter = "ALL";
-//     let activePricing = globalPricingGrid["US"];
+    const gridTarget = document.getElementById("product-grid-target");
+    let currentFilter = "ALL";
+    let activePricing = globalPricingGrid["US"];
 
-//     async function initCatalogGrid() {
-//         if (!gridTarget) return;
+    async function initCatalogGrid() {
+        if (!gridTarget) return;
 
-//         try {
-//             const res = await fetch("https://ipapi.co/json/");
-//             if (res.ok) {
-//                 const data = await res.json();
-//                 if (globalPricingGrid[data.country_code]) {
-//                     activePricing = globalPricingGrid[data.country_code];
-//                 }
-//             } else {
-//                 throw new Error("429 Rate Limit hit");
-//             }
-//         } catch (e) {
-//             console.warn("ipapi rate limited or blocked, running ip2c resolution...");
-//             try {
-//                 const bkRes = await fetch("https://ip2c.org/s");
-//                 const text = await bkRes.text();
-//                 const parts = text.split(";");
-//                 if (parts[0] === "1" && globalPricingGrid[parts[1]]) {
-//                     activePricing = globalPricingGrid[parts[1]];
-//                 }
-//             } catch (err) {
-//                 console.error("Using default USD pricing.");
-//             }
-//         }
+        try {
+            const res = await fetch("https://ipapi.co/json/");
+            if (res.ok) {
+                const data = await res.json();
+                if (globalPricingGrid[data.country_code]) {
+                    activePricing = globalPricingGrid[data.country_code];
+                }
+            } else {
+                throw new Error("429 Rate Limit hit");
+            }
+        } catch (e) {
+            console.warn("ipapi rate limited or blocked, running ip2c resolution...");
+            try {
+                const bkRes = await fetch("https://ip2c.org/s");
+                const text = await bkRes.text();
+                const parts = text.split(";");
+                if (parts[0] === "1" && globalPricingGrid[parts[1]]) {
+                    activePricing = globalPricingGrid[parts[1]];
+                }
+            } catch (err) {
+                console.error("Using default USD pricing.");
+            }
+        }
 
-//         renderDisplay();
-//         setupFilters();
-//     }
+        renderDisplay();
+        setupFilters();
+    }
 
-//     function renderDisplay() {
-//         gridTarget.innerHTML = allCatalogProducts.map((prod, idx) => {
-//             if (currentFilter !== "ALL" && prod.tag !== currentFilter) return "";
-//             const price = activePricing[idx] || globalPricingGrid["US"][idx];
+    function renderDisplay() {
+        gridTarget.innerHTML = allCatalogProducts.map((prod, idx) => {
+            if (currentFilter !== "ALL" && prod.tag !== currentFilter) return "";
+            const price = activePricing[idx] || globalPricingGrid["US"][idx];
 
-//             return `
-//                 <article class="product-card">
-//                     <div class="specialist__image">
-//                         <img src="${prod.image}" alt="${prod.title}">
-//                     </div>
-//                     <div class="specialist__details">
-//                         <a href="javascript:void(0)" onclick="openDirectSelar('${prod.selarSlug}')" style="text-decoration: none; color: inherit;">
-//                             <h5>${prod.title}</h5>
-//                         </a>
-//                         <small>Price: <span style="font-weight:bold; color:green;">${price.current}</span> <span style="color:red; text-decoration:line-through; margin-left:5px;">${price.old}</span></small>
-//                     </div>
-//                     <a href="javascript:void(0)" class="specialist__whatsapp" onclick="openDirectSelar('${prod.selarSlug}')"> View </a>
-//                 </article>
-//             `;
-//         }).join("");
-//     }
+            return `
+                <article class="product-card">
+                    <div class="specialist__image">
+                        <img src="${prod.image}" alt="${prod.title}">
+                    </div>
+                    <div class="specialist__details">
+                        <a href="javascript:void(0)" onclick="openDirectSelar('${prod.selarSlug}')" style="text-decoration: none; color: inherit;">
+                            <h5>${prod.title}</h5>
+                        </a>
+                        <small>Price: <span style="font-weight:bold; color:green;">${price.current}</span> <span style="color:red; text-decoration:line-through; margin-left:5px;">${price.old}</span></small>
+                    </div>
+                    <a href="javascript:void(0)" class="specialist__whatsapp" onclick="openDirectSelar('${prod.selarSlug}')"> View </a>
+                </article>
+            `;
+        }).join("");
+    }
 
-//     function setupFilters() {
-//         document.querySelectorAll(".filter-btn").forEach(btn => {
-//             btn.addEventListener("click", function () {
-//                 const activeBtn = document.querySelector(".filter-btn.active");
-//                 if (activeBtn) activeBtn.classList.remove("active");
+    function setupFilters() {
+        document.querySelectorAll(".filter-btn").forEach(btn => {
+            btn.addEventListener("click", function () {
+                const activeBtn = document.querySelector(".filter-btn.active");
+                if (activeBtn) activeBtn.classList.remove("active");
                 
-//                 this.classList.add("active");
-//                 currentFilter = this.getAttribute("data-filter");
-//                 renderDisplay();
-//             });
-//         });
-//     }
+                this.classList.add("active");
+                currentFilter = this.getAttribute("data-filter");
+                renderDisplay();
+            });
+        });
+    }
 
-//     initCatalogGrid();
-// });
+    initCatalogGrid();
+});
 
 
 document.addEventListener("DOMContentLoaded", function () {
