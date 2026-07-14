@@ -777,7 +777,7 @@ footer .copyright {
 
 
 /* --- Base Desktop Styles (Bottom Right Fixed) --- */
-.promo-modal .container{
+.promo-modal {
     position: fixed;
     bottom: 24px;
     right: -460px; /* Hidden offscreen by default */
