@@ -98,35 +98,35 @@ window.addEventListener('scroll', () => {
 //             id: "pbi_beg",
 //             category: "POWER BI",
 //             title: "Beginner to Expert Power BI Course",
-//             image: "./Bi Image.png",
+//             image: "./Bi Image.webp",
 //             link: "https://selar.com/damsolmanalytics"
 //         },
 //         {
 //             id: "pbi_exp",
 //             category: "POWER BI",
 //             title: "Intermediate to Expert Power BI Course",
-//             image: "./Expert image.png",
+//             image: "./Expert image.webp",
 //             link: "https://selar.com/expertpowerbi"
 //         },
 //         {
 //             id: "vba_beg",
 //             category: "VBA",
 //             title: "VBA Beginner Course",
-//             image: "./VBA Beginner Img.png",
+//             image: "./VBA Beginner Img.webp",
 //             link: "https://selar.com/vbabeginnercourse"
 //         },
 //         {
 //             id: "vba_exp",
 //             category: "VBA",
 //             title: "VBA Intermediate to Expert Course",
-//             image: "./Interm to Expert Img.png",
+//             image: "./Interm to Expert Img.webp",
 //             link: "https://selar.com/vbaexpertcourse"
 //         },
 //         // {
 //         //     id: "pdf_guide1",
 //         //     category: "PDF GUIDE",
 //         //     title: "Data Clean & Transformation Playbook",
-//         //     image: "./VBA Beginner Img.png", // Replace with your true PDF thumbnail asset path
+//         //     image: "./VBA Beginner Img.webp", // Replace with your true PDF thumbnail asset path
 //         //     link: "https://selar.com/"
 //         // }
 //     ];
@@ -260,28 +260,28 @@ window.addEventListener('scroll', () => {
 //     const allCatalogProducts = [
 //         {
 //             title: "Beginner to Expert Power BI Course",
-//             image: "./Bi Image.png",
+//             image: "./Bi Image.webp",
 //             tag: "POWER BI",
 //             desc: "Master asset mapping and data shaping pipelines from absolute scratch. Includes fully managed custom dashboards and workflow metrics.",
 //             selarSlug: "damsolmanalytics" 
 //         },
 //         {
 //             title: "Intermediate to Expert Power BI Course",
-//             image: "./Expert image.png",
+//             image: "./Expert image.webp",
 //             tag: "POWER BI",
 //             desc: "Advanced relational data modeling blueprints, enterprise DAX optimizations, and robust production matrix tracking paradigms.",
 //             selarSlug: "expertpowerbi"
 //         },
 //         {
 //             title: "VBA Beginner Course",
-//             image: "./VBA Beginner Img.png",
+//             image: "./VBA Beginner Img.webp",
 //             tag: "VBA",
 //             desc: "Eliminate repetitive tasks. Learn custom syntax configurations, execution statement loops, and deep environment macro recording controls.",
 //             selarSlug: "vbabeginnercourse"
 //         },
 //         {
 //             title: "VBA Intermediate to Expert Course",
-//             image: "./Interm to Expert Img.png",
+//             image: "./Interm to Expert Img.webp",
 //             tag: "VBA",
 //             desc: "Object-oriented scripting schemas, multi-app database link controls, and advanced automated application design models.",
 //             selarSlug: "vbaexpertcourse"
@@ -406,28 +406,28 @@ document.addEventListener("DOMContentLoaded", function () {
     const allCatalogProducts = [
         {
             title: "Beginner to Expert Power BI Course",
-            image: "./Bi Image.png",
+            image: "./Bi Image.webp",
             tag: "POWER BI",
             desc: "Master asset mapping and data shaping pipelines from absolute scratch. Includes fully managed custom dashboards and workflow metrics.",
             selarSlug: "damsolmanalytics" 
         },
         {
             title: "Intermediate to Expert Power BI Course",
-            image: "./Expert image.png",
+            image: "./Expert image.webp",
             tag: "POWER BI",
             desc: "Advanced relational data modeling blueprints, enterprise DAX optimizations, and robust production matrix tracking paradigms.",
             selarSlug: "expertpowerbi"
         },
         {
             title: "VBA Beginner Course",
-            image: "./VBA Beginner Img.png",
+            image: "./VBA Beginner Img.webp",
             tag: "VBA",
             desc: "Eliminate repetitive tasks. Learn custom syntax configurations, execution statement loops, and deep environment macro recording controls.",
             selarSlug: "vbabeginnercourse"
         },
         {
             title: "VBA Intermediate to Expert Course",
-            image: "./Interm to Expert Img.png",
+            image: "./Interm to Expert Img.webp",
             tag: "VBA",
             desc: "Object-oriented scripting schemas, multi-app database link controls, and advanced automated application design models.",
             selarSlug: "vbaexpertcourse"
@@ -577,7 +577,7 @@ document.addEventListener("DOMContentLoaded", function () {
             {
                 title: "Power BI Complete Bundle",
                 badge: "16.66% OFF BUNDLE",
-                image: "./Expert image.png",
+                image: "./Expert image.webp",
                 slug: "masterypowerbi",
                 description: "Master Power BI from data extraction to enterprise dashboards. Get the complete bundle pack today!",
                 oldPriceFormatted: formatCurrency(currencySymbol, biSum),
@@ -586,7 +586,7 @@ document.addEventListener("DOMContentLoaded", function () {
             {
                 title: "VBA Automation Expert Bundle",
                 badge: "9.09% OFF BUNDLE",
-                image: "./Interm to Expert Img.png",
+                image: "./Interm to Expert Img.webp",
                 slug: "masteryvba",
                 description: "Automate dry Excel workflows and write clean macros. Save instantly with the combined bundle pack!",
                 oldPriceFormatted: formatCurrency(currencySymbol, vbaSum),
@@ -741,22 +741,22 @@ document.addEventListener("DOMContentLoaded", function () {
 //     const topProducts = [
 //         {
 //             title: "Beginner to Expert Power BI Course",
-//             image: "./Bi Image.png",
+//             image: "./Bi Image.webp",
 //             link: "https://selar.com/damsolmanalytics"
 //         },
 //         {
 //             title: "Intermediate to Expert Power BI Course",
-//             image: "./Expert image.png",
+//             image: "./Expert image.webp",
 //             link: "https://selar.com/expertpowerbi"
 //         },
 //         {
 //             title: "VBA Beginner Course",
-//             image: "./VBA Beginner Img.png",
+//             image: "./VBA Beginner Img.webp",
 //             link: "https://selar.com/vbabeginnercourse"
 //         },
 //         {
 //             title: "VBA Intermediate to Expert Course",
-//             image: "./Interm to Expert Img.png",
+//             image: "./Interm to Expert Img.webp",
 //             link: "https://selar.com/vbaexpertcourse"
 //         }
 //     ];
@@ -877,22 +877,22 @@ document.addEventListener("DOMContentLoaded", function () {
     const topProducts = [
         {
             title: "Beginner to Expert Power BI Course",
-            image: "./Bi Image.png",
+            image: "./Bi Image.webp",
             selarSlug: "damsolmanalytics"
         },
         {
             title: "Intermediate to Expert Power BI Course",
-            image: "./Expert image.png",
+            image: "./Expert image.webp",
             selarSlug: "expertpowerbi"
         },
         {
             title: "VBA Beginner Course",
-            image: "./VBA Beginner Img.png",
+            image: "./VBA Beginner Img.webp",
             selarSlug: "vbabeginnercourse"
         },
         {
             title: "VBA Intermediate to Expert Course",
-            image: "./Interm to Expert Img.png",
+            image: "./Interm to Expert Img.webp",
             selarSlug: "vbaexpertcourse"
         }
     ];
