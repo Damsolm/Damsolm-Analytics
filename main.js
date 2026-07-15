@@ -577,7 +577,7 @@ document.addEventListener("DOMContentLoaded", function () {
             {
                 title: "Power BI Complete Bundle",
                 badge: "16.66% OFF BUNDLE",
-                image: "./Expert image.webp",
+                image: "./Mastery Power BI.webp",
                 slug: "masterypowerbi",
                 description: "Master Power BI from data extraction to enterprise dashboards. Get the complete bundle pack today!",
                 oldPriceFormatted: formatCurrency(currencySymbol, biSum),
@@ -586,7 +586,7 @@ document.addEventListener("DOMContentLoaded", function () {
             {
                 title: "VBA Automation Expert Bundle",
                 badge: "9.09% OFF BUNDLE",
-                image: "./Interm to Expert Img.webp",
+                image: "./Mastery VBA.webp",
                 slug: "masteryvba",
                 description: "Automate dry Excel workflows and write clean macros. Save instantly with the combined bundle pack!",
                 oldPriceFormatted: formatCurrency(currencySymbol, vbaSum),
