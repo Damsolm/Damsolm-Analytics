@@ -887,7 +887,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         {
             title: "VBA Beginner Course",
-            image: "./VBA Beginner Img.webp",
+            image: "./Mastery VBA.webp",
             selarSlug: "vbabeginnercourse"
         },
         {
