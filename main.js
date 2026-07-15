@@ -420,7 +420,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         {
             title: "VBA Beginner Course",
-            image: "./VBA Beginner Img.webp",
+            image: "./Mastery VBA.webp",
             tag: "VBA",
             desc: "Eliminate repetitive tasks. Learn custom syntax configurations, execution statement loops, and deep environment macro recording controls.",
             selarSlug: "vbabeginnercourse"
@@ -586,7 +586,7 @@ document.addEventListener("DOMContentLoaded", function () {
             {
                 title: "VBA Automation Expert Bundle",
                 badge: "9.09% OFF BUNDLE",
-                image: "./Mastery VBA.webp",
+                image: "./VBA Beginner Img.webp",
                 slug: "masteryvba",
                 description: "Automate dry Excel workflows and write clean macros. Save instantly with the combined bundle pack!",
                 oldPriceFormatted: formatCurrency(currencySymbol, vbaSum),
