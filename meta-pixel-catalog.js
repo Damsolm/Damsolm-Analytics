@@ -24,35 +24,34 @@
   function getDynamicProductDetails() {
     const currentUrl = window.location.href;
     
-    // 1. DYNAMICALLY SCRAPE THE IMAGE URL FROM THE PAGE
-    // First, check if the page already has a standard SEO image tag (very common)
+    // 1. DYNAMICALLY SCRAPE THE IMAGE URL
     let dynamicImage = "";
-    const metaOgImage = document.querySelector('meta[property="og:image"]') || 
-                        document.querySelector('meta[name="twitter:image"]');
-    
-    if (metaOgImage && metaOgImage.content) {
-      dynamicImage = metaOgImage.content;
+    // Target the image inside the "specialist__image" div
+    const primaryImg = document.querySelector('.product-card .specialist__image img');
+    if (primaryImg) {
+      dynamicImage = primaryImg.src;
     } else {
-      // Fallback: Grab the primary product image from your page layout
-      // Adjust these selectors to match the CSS class of your product image
-      const primaryImg = document.querySelector('#Products .container article .specialist__image');
-      dynamicImage = primaryImg ? primaryImg.src : "https://www.damsolmhub.com/default-preview.jpg"; 
+      dynamicImage = "https://www.damsolmhub.com/default-preview.jpg"; // Your fallback
     }
 
     // 2. DYNAMICALLY SCRAPE THE PRODUCT TITLE
     let dynamicTitle = document.title;
-    const titleEl = document.querySelector('h1.product-title, h1');
+    // Target the h5 inside the "specialist__details" link
+    const titleEl = document.querySelector('.product-card .specialist__details a h5');
     if (titleEl) {
       dynamicTitle = titleEl.innerText.trim();
     }
 
-    // 3. DYNAMICALLY SCRAPE THE PRICE
+    // 3. DYNAMICALLY SCRAPE THE CURRENT PRICE (excluding the slashed old price)
     let dynamicPrice = "0.00";
-    // Grabs elements commonly containing prices
-    const priceEl = document.querySelector('.product-price, .price, [data-product-price]');
+    // Target the first span inside the <small> element which holds the active current price
+    const priceEl = document.querySelector('.product-card .specialist__details small span');
     if (priceEl) {
+      // Strip out currency symbols, commas, and spaces (e.g. "₦5,000" or "$49.99" -> "5000" or "49.99")
       const rawPrice = priceEl.innerText.replace(/[^0-9.]/g, '');
-      if (rawPrice) dynamicPrice = parseFloat(rawPrice).toFixed(2);
+      if (rawPrice) {
+        dynamicPrice = parseFloat(rawPrice).toFixed(2);
+      }
     }
 
     // 4. GENERATE A UNIQUE ID
@@ -65,12 +64,12 @@
       title: dynamicTitle,
       description: "Digital resource from DamsolmHub.",
       url: currentUrl,
-      image: dynamicImage, // <-- Automatically detected image URL
+      image: dynamicImage,
       price: dynamicPrice,
-      currency: "NGN" // Change as needed
+      currency: "NGN" // Change this to match your target default currency code (e.g. "USD")
     };
   }
-
+  
   function injectMicrodata(prod) {
     const head = document.head;
     function setMetaTag(property, content) {
