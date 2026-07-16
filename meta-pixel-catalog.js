@@ -35,7 +35,7 @@
     } else {
       // Fallback: Grab the primary product image from your page layout
       // Adjust these selectors to match the CSS class of your product image
-      const primaryImg = document.querySelector('.product-featured-image, .product-image img, #main-product-img');
+      const primaryImg = document.querySelector('#Products .container article .specialist__image');
       dynamicImage = primaryImg ? primaryImg.src : "https://www.damsolmhub.com/default-preview.jpg"; 
     }
 
