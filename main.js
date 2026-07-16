@@ -952,10 +952,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         </a>
                      <small>Price: <span style="font-weight:bold; color:green;">${priceInfo.current}</span> <span style="color:red; text-decoration:line-through; margin-left:5px;">${priceInfo.old}</span></small>
                     </div> 
-                    <div class="specialist__socials">
-                        <a href="https://linkedin.com" target="_blank"><i class='bx bxl-linkedin'></i></a>
-                        <a href="https://twitter.com" target="_blank"><i class='bx bxl-twitter'></i></a>
-                    </div>
                     <a href="javascript:void(0)" class="specialist__whatsapp" onclick="openDirectSelar('${product.selarSlug}')">
                         View
                     </a>
