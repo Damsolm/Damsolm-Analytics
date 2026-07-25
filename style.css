@@ -252,11 +252,12 @@ header .container .header__content p {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem 1.5rem;
+  gap: 0.4rem 0.8rem; /* Tighter spacing between items */
   list-style: none;
   padding: 0;
-  margin: 0 0 2rem 0;
+  margin: 0 0 1.5rem 0; /* Slightly reduced bottom margin */
   font-weight: 600;
+  font-size: 0.95rem; /* Slightly tighter text size for better inline fit */
   color: #1f2937;
 }
 header .container .header__image {
