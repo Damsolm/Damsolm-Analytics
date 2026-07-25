@@ -260,10 +260,25 @@ header .container .header__content p {
   color: #1f2937;
 }
 
+
 /* Optional styling to make the separator subtly lower contrast */
 .hero-benefits span {
   color: #9ca3af;
   font-weight: 400;
+}
+
+.white-tick {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1rem;
+  height: 1.1rem;
+  background-color: #1f2937; /* Dark background */
+  color: #ffffff; /* White checkmark */
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 900;
+  margin-right: 0.25rem;
 }
 header .container .header__image {
   width: 40rem;
