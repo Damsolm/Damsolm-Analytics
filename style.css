@@ -273,7 +273,7 @@ header .container .header__content p {
   justify-content: center;
   width: 1.1rem;
   height: 1.1rem;
-  background-color: #1f2937; /* Dark background */
+  background-color:  #f72585; 
   color: #ffffff; /* White checkmark */
   border-radius: 50%;
   font-size: 0.75rem;
