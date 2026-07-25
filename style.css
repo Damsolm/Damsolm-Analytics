@@ -247,6 +247,18 @@ header .container .header__content p {
   color: rgba(255, 255, 255, 0.7);
   font-size: 1.1rem;
 }
+
+.hero-benefits {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+  font-weight: 600;
+  color: #1f2937;
+}
 header .container .header__image {
   width: 40rem;
   height: 30rem;
