@@ -293,11 +293,11 @@ header .container .header__image img {
 
 
 /* Container alignment */
-.container {
+/* .container {
   max-width: 82%;
   margin: 0 auto;
   padding: 0 1.5rem;
-}
+} */
 
 /* Common Section Styling */
 .section-tag {
