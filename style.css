@@ -1209,7 +1209,7 @@ footer .copyright {
 }
 
 .btn-cta:hover {
-  background-color: #1d4ed8;
+  background-color: #f95ba3;
   transform: translateY(-2px);
   box-shadow: 0 12px 30px rgba(37, 99, 235, 0.5);
 }
