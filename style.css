@@ -252,13 +252,18 @@ header .container .header__content p {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.4rem 0.8rem; /* Tighter spacing between items */
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1.5rem 0; /* Slightly reduced bottom margin */
+  align-items: center;
+  gap: 0.5rem; /* Tight spacing around separators */
+  margin: 0 0 1.5rem 0;
   font-weight: 600;
-  font-size: 0.95rem; /* Slightly tighter text size for better inline fit */
+  font-size: 0.95rem;
   color: #1f2937;
+}
+
+/* Optional styling to make the separator subtly lower contrast */
+.hero-benefits span {
+  color: #9ca3af;
+  font-weight: 400;
 }
 header .container .header__image {
   width: 40rem;
