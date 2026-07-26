@@ -538,11 +538,16 @@ header .container .header__image img {
   font-weight: 500;
 }
 
-/* Cards Grid */
 .outcomes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: 1fr; /* 1 column on mobile */
   gap: 18px;
+}
+
+@media (min-width: 768px) {
+  .outcomes-grid {
+    grid-template-columns: repeat(4, 1fr); /* 4 columns on desktop */
+  }
 }
 
 /* Individual Card */
