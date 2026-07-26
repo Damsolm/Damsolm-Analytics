@@ -964,33 +964,7 @@ document.addEventListener("DOMContentLoaded", function () {
     initDynamicStore();
 });
 
-// USERS BENEFIT 
-document.addEventListener("DOMContentLoaded", () => {
-  const cards = document.querySelectorAll(".outcome-card");
 
-  // Intersection Observer for scroll reveal effect
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: "0px 0px -50px 0px"
-  };
-
-  const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry, index) => {
-      if (entry.isIntersecting) {
-        // Staggered delay animation
-        setTimeout(() => {
-          entry.target.classList.add("show");
-        }, index * 150); // 150ms delay between cards
-
-        observer.unobserve(entry.target);
-      }
-    });
-  }, observerOptions);
-
-  cards.forEach((card) => {
-    observer.observe(card);
-  });
-});
 
 
 
@@ -1177,4 +1151,33 @@ document.addEventListener("DOMContentLoaded", function () {
     sections.forEach(section => {
         sectionObserver.observe(section);
     });
+});
+
+
+// USERS BENEFIT 
+document.addEventListener("DOMContentLoaded", () => {
+  const cards = document.querySelectorAll(".outcome-card");
+
+  // Intersection Observer for scroll reveal effect
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px"
+  };
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        // Staggered delay animation
+        setTimeout(() => {
+          entry.target.classList.add("show");
+        }, index * 150); // 150ms delay between cards
+
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  cards.forEach((card) => {
+    observer.observe(card);
+  });
 });
