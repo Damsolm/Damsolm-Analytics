@@ -489,7 +489,7 @@ header .container .header__image img {
 /* Section Wrapper */
 .outcomes-section {
   padding: 80px 20px;
-  background:#fff;
+  background:#ffffff;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -510,7 +510,7 @@ header .container .header__image img {
 .badge {
   display: inline-block;
   padding: 6px 16px;
-  background: rgba(79, 70, 229, 0.2);
+  background:  linear-gradient(135deg, #480ca8, #4cc9f0);
   border: 1px solid #4F46E5;
   color: #38BDF8;
   font-size: 0.85rem;
@@ -547,7 +547,7 @@ header .container .header__image img {
 
 /* Individual Card */
 .outcome-card {
-  background: rgba(30, 41, 59, 0.7);
+  background:  linear-gradient(135deg, #480ca8, #4cc9f0);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 32px 24px;
