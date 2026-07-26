@@ -483,39 +483,13 @@ header .container .header__image img {
     background: #0081BD;    /* Darkens smoothly on hover states */
 }
 
-/* CSS Variables for design system */
-:root {
-  --primary: #4F46E5;
-  --primary-hover: #4338CA;
-  --bg-gradient: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
-  --card-bg: rgba(30, 41, 59, 0.7);
-  --card-border: rgba(255, 255, 255, 0.1);
-  --card-hover-border: rgba(99, 102, 241, 0.5);
-  --text-main: #F8FAFC;
-  --text-muted: #94A3B8;
-  --accent: #38BDF8;
-  --badge-bg: rgba(79, 70, 229, 0.2);
-  --radius: 16px;
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background-color: #0F172A;
-  color: var(--text-main);
-  line-height: 1.6;
-}
 
 /* Section Wrapper */
 .outcomes-section {
   padding: 80px 20px;
-  background: var(--bg-gradient);
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -536,9 +510,9 @@ body {
 .badge {
   display: inline-block;
   padding: 6px 16px;
-  background: var(--badge-bg);
-  border: 1px solid var(--primary);
-  color: var(--accent);
+  background: rgba(79, 70, 229, 0.2);
+  border: 1px solid #4F46E5;
+  color: #38BDF8;
   font-size: 0.85rem;
   font-weight: 600;
   border-radius: 20px;
@@ -555,12 +529,12 @@ body {
 }
 
 .title .highlight {
-  color: var(--accent);
+  color: #38BDF8;
 }
 
 .subtitle {
   font-size: 1.2rem;
-  color: var(--text-muted);
+  color: #94A3B8;
   font-weight: 500;
 }
 
@@ -573,15 +547,15 @@ body {
 
 /* Individual Card */
 .outcome-card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius);
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
   padding: 32px 24px;
   backdrop-filter: blur(12px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: var(--transition);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
   opacity: 0;
@@ -595,14 +569,14 @@ body {
   left: 0;
   width: 100%;
   height: 4px;
-  background: linear-gradient(90deg, var(--primary), var(--accent));
+  background: linear-gradient(90deg, #4F46E5, #38BDF8);
   opacity: 0;
-  transition: var(--transition);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .outcome-card:hover {
   transform: translateY(-8px);
-  border-color: var(--card-hover-border);
+  border-color: rgba(99, 102, 241, 0.5);
   box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.5);
 }
 
@@ -626,12 +600,12 @@ body {
   font-size: 1.25rem;
   font-weight: 700;
   margin-bottom: 10px;
-  color: var(--text-main);
+  color: #F8FAFC;
 }
 
 .card-content p {
   font-size: 0.95rem;
-  color: var(--text-muted);
+  color: #94A3B8;
   line-height: 1.5;
 }
 
@@ -644,7 +618,7 @@ body {
 .step-tag {
   font-size: 0.75rem;
   font-weight: 700;
-  color: var(--accent);
+  color: #38BDF8;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -672,7 +646,6 @@ body {
 
 
 
-
 /* ==============================MEDIA QUERIES (MEDIUM SCREEN)==========================*/
 @media screen and (max-width: 1024px) {
   header {
@@ -693,6 +666,9 @@ body {
     height: 30rem;
   }
 }
+
+
+
 /* ==============================MEDIA QUERIES (MEDIUM SCREEN)==========================*/
 @media screen and (max-width: 600px) {
   header {
