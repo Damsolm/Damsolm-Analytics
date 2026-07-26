@@ -510,9 +510,9 @@ header .container .header__image img {
 .badge {
   display: inline-block;
   padding: 6px 16px;
-  background:  linear-gradient(135deg, #480ca8, #4cc9f0);
+  background:  #ffffff;
   border: 1px solid #4F46E5;
-  color: #38BDF8;
+  color: #000;
   font-size: 0.85rem;
   font-weight: 600;
   border-radius: 20px;
@@ -534,7 +534,7 @@ header .container .header__image img {
 
 .subtitle {
   font-size: 1.2rem;
-  color: #94A3B8;
+  color: #ffffff;
   font-weight: 500;
 }
 
@@ -544,7 +544,7 @@ header .container .header__image img {
   gap: 18px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 600px) {
   .outcomes-grid {
     grid-template-columns: repeat(4, 1fr); /* 4 columns on desktop */
   }
@@ -574,7 +574,7 @@ header .container .header__image img {
   left: 0;
   width: 100%;
   height: 4px;
-  background: #ffffff;
+  background: #f72585;
   opacity: 0;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -610,7 +610,7 @@ header .container .header__image img {
 
 .card-content p {
   font-size: 0.95rem;
-  color: #94A3B8;
+  color: #F8FAFC;
   line-height: 1.5;
 }
 
