@@ -489,7 +489,7 @@ header .container .header__image img {
 /* Section Wrapper */
 .outcomes-section {
   padding: 80px 20px;
-  background:linear-gradient(135deg, #480ca8, #4cc9f0);
+  background:#fff;
   min-height: 100vh;
   display: flex;
   align-items: center;
