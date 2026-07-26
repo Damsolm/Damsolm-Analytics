@@ -489,7 +489,7 @@ header .container .header__image img {
 /* Section Wrapper */
 .outcomes-section {
   padding: 80px 20px;
-  background:#ffffff;
+  /* background:#ffffff; */
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -569,7 +569,7 @@ header .container .header__image img {
   left: 0;
   width: 100%;
   height: 4px;
-  background: linear-gradient(90deg, #4F46E5, #38BDF8);
+  background: #f72585;
   opacity: 0;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
