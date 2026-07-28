@@ -106,7 +106,7 @@ section > p {
     width: 90%;
   }
 }
-nav {
+/* nav {
   width: 100vw;
   height: 5rem;
   position: fixed;
@@ -214,7 +214,167 @@ nav .container .nav__logo h3 {
   nav .container ul a.btn {
     background: #f72585;
   }
+} */
+
+nav {
+  width: 100vw;
+  height: 5rem;
+  position: fixed;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #480ca8, #4cc9f0);
+  color: #ffffff;
+  box-shadow: 0 1rem 1rem rgba(12, 3, 27, 0.1);
 }
+nav h1, nav h2, nav h3, nav h4, nav h5 {
+  color: #ffffff;
+}
+nav.window-scroll {
+  background: #ffffff;
+}
+nav.window-scroll .container button {
+  color: #0c031b;
+}
+nav.window-scroll .container a {
+  color: #0c031b;
+}
+nav.window-scroll .container a > h3 {
+  color: #0c031b;
+}
+
+/* Scroll adaptation for currency selector */
+nav.window-scroll .currency-dropdown {
+  border-color: #0c031b;
+  color: #ffffff;
+  background: #480ca8; /* Solid contrast when header turns white */
+}
+
+nav .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+nav .container ul {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+}
+nav .container button {
+  display: none;
+}
+nav .container a {
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+nav .container .nav__logo h3 {
+  color: #ffffff;
+}
+
+/* ================= NAV CONTROLS & CURRENCY SELECTOR ================= */
+.nav__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Matches link styling & mobile dropdown gradient */
+.currency-dropdown {
+  background: linear-gradient(135deg, #480ca8, #4cc9f0);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: all 300ms ease;
+}
+
+.currency-dropdown option {
+  background: #480ca8;
+  color: #ffffff;
+}
+
+/* ================= MEDIA QUERIES (MEDIUM SCREEN) ================= */
+@media screen and (max-width: 1024px) {
+  nav .container button {
+    display: inline-block;
+    background: transparent;
+    color: #ffffff;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+  nav .container button#close__nav-btn {
+    display: none;
+  }
+
+  /* Adopt exact gradient from #nav__items li a on mobile */
+  .currency-dropdown {
+    background: linear-gradient(#4cc9f0, #14b8eb);
+    border: none;
+    padding: 0.5rem 0.75rem;
+    font-weight: 700;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  nav .container ul {
+    position: fixed;
+    right: 5%;
+    top: 5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    display: none;
+    perspective: 350px;
+  }
+  nav .container ul li {
+    width: 100%;
+    opacity: 0;
+    animation: flipNavItem 400ms ease forwards;
+    transform-origin: top;
+  }
+  nav .container ul li:nth-child(2) {
+    animation-delay: 200ms;
+  }
+  nav .container ul li:nth-child(3) {
+    animation-delay: 300ms;
+  }
+  nav .container ul li:nth-child(4) {
+    animation-delay: 400ms;
+  }
+  nav .container ul li:nth-child(5) {
+    animation-delay: 500ms;
+  }
+  @keyframes flipNavItem {
+    from {
+      transform: rotateX(90deg);
+    }
+    to {
+      transform: rotateX(0deg);
+      opacity: 1;
+    }
+  }
+  nav .container ul a {
+    color: #ffffff;
+    height: 100%;
+    display: block;
+    padding: 1.5rem 2rem;
+    border-radius: 0;
+    background: linear-gradient(#4cc9f0, #14b8eb);
+  }
+  nav .container ul a.btn {
+    background: #f72585;
+  }
+}
+
+
+
+
+
+
 header {
   background: linear-gradient(135deg, #480ca8, #4cc9f0);
   color: #ffffff;
