@@ -67,7 +67,7 @@ src="https://www.facebook.com/tr?id=1075617971701430&ev=PageView&noscript=1"
 </head>
 <body>
     
-<nav>
+<!-- <nav>
     <div class="container">
         <a href="/" class="nav__logo"><h3>Damsolm Hub</h3></a>
 
@@ -77,6 +77,35 @@ src="https://www.facebook.com/tr?id=1075617971701430&ev=PageView&noscript=1"
             <li><a href="#Products">Products</a></li>
             <li><a href="#testimonials">Testimonials</a></li>
             <li><a href="AllProduct.html" class="btn">All Products</a></li>
+        </ul>
+
+        <button id="open__nav-btn"><i class='bx bx-menu'></i></button>
+        <button id="close__nav-btn"><i class='bx bx-x'></i></button>
+    </div>
+</nav> -->
+
+    <nav>
+    <div class="container">
+        <a href="/" class="nav__logo"><h3>Damsolm Hub</h3></a>
+
+        <ul id="nav__items">
+            <li><a href="#">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#Products">Products</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="/AllProduct.html" class="btn">All Products</a></li>
+            
+            <!-- Currency Selector Element -->
+            <li class="currency-selector-wrapper">
+                <select id="currency-selector" class="currency-dropdown">
+                    <option value="NG" selected>🇳🇬 NGN (₦)</option>
+                    <option value="US">🇺🇸 USD ($)</option>
+                    <option value="GB">🇬🇧 GBP (£)</option>
+                    <option value="GH">🇬🇭 GHS (GH₵)</option>
+                    <option value="KE">🇰🇪 KES (KSh)</option>
+                    <option value="ZA">🇿🇦 ZAR (R)</option>
+                </select>
+            </li>
         </ul>
 
         <button id="open__nav-btn"><i class='bx bx-menu'></i></button>
