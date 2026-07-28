@@ -155,7 +155,7 @@ nav .container .nav__logo h3 {
 }
 
 /* ==============================MEDIA QUERIES (MEDIUM SCREEN)==========================*/
-@media screen and (max-width: 1024px) {
+/* @media screen and (max-width: 1024px) {
   nav .container button {
     display: inline-block;
     background: transparent;
@@ -214,7 +214,7 @@ nav .container .nav__logo h3 {
   nav .container ul a.btn {
     background: #f72585;
   }
-} */
+}  */
 
 nav {
   width: 100vw;
