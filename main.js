@@ -746,6 +746,330 @@ if (currencySelector) {
 
 // CURRENT
 
+// document.addEventListener("DOMContentLoaded", function () {
+//     // 1. Geographic pricing matrix
+//     const globalPricingGrid = {
+//         NG: [
+//             { current: "₦5,000", old: "₦12,500" },  // Power BI Beginner
+//             { current: "₦7,000", old: "₦18,000" },  // Power BI Expert
+//             { current: "₦4,000", old: "₦9,000" },   // VBA Beginner
+//             { current: "₦7,000", old: "₦18,000" }   // VBA Expert
+//         ],
+//         US: [
+//             { current: "$9.99", old: "$24.99" },
+//             { current: "$19.99", old: "$39.99" },
+//             { current: "$7.99", old: "$19.99" },
+//             { current: "$19.99", old: "$39.99" }
+//         ],
+//         GB: [
+//             { current: "£7.99", old: "£19.99" },
+//             { current: "£14.99", old: "£34.99" },
+//             { current: "£5.99", old: "£14.99" },
+//             { current: "£14.99", old: "£34.99" }
+//         ],
+//         GH: [
+//             { current: "GH₵120", old: "GH₵250" },
+//             { current: "GH₵220", old: "GH₵450" },
+//             { current: "GH₵100", old: "GH₵200" },
+//             { current: "GH₵220", old: "GH₵450" }
+//         ],
+//         KE: [
+//             { current: "KSh 1,100", old: "KSh 2,500" },
+//             { current: "KSh 2,200", old: "KSh 4,500" },
+//             { current: "KSh 900", old: "KSh 2,000" },
+//             { current: "KSh 2,200", old: "KSh 4,500" }
+//         ],
+//         ZA: [
+//             { current: "R 140", old: "R 300" },
+//             { current: "R 280", old: "R 550" },
+//             { current: "R 110", old: "R 220" },
+//             { current: "R 280", old: "R 550" }
+//         ]
+//     };
+
+//     // 2. Structural catalog array
+//     const allCatalogProducts = [
+//         {
+//             title: "Beginner to Expert Power BI Course",
+//             image: "./Bi Image.webp",
+//             tag: "POWER BI",
+//             desc: "Master asset mapping and data shaping pipelines from absolute scratch. Includes fully managed custom dashboards and workflow metrics.",
+//             selarSlug: "damsolmanalytics" 
+//         },
+//         {
+//             title: "Intermediate to Expert Power BI Course",
+//             image: "./Expert image.webp",
+//             tag: "POWER BI",
+//             desc: "Advanced relational data modeling blueprints, enterprise DAX optimizations, and robust production matrix tracking paradigms.",
+//             selarSlug: "expertpowerbi"
+//         },
+//         {
+//             title: "VBA Beginner Course",
+//             image: "./Mastery VBA.webp",
+//             tag: "VBA",
+//             desc: "Eliminate repetitive tasks. Learn custom syntax configurations, execution statement loops, and deep environment macro recording controls.",
+//             selarSlug: "vbabeginnercourse"
+//         },
+//         {
+//             title: "VBA Intermediate to Expert Course",
+//             image: "./Interm to Expert Img.webp",
+//             tag: "VBA",
+//             desc: "Object-oriented scripting schemas, multi-app database link controls, and advanced automated application design models.",
+//             selarSlug: "vbaexpertcourse"
+//         }
+//     ];
+
+//     // DOM References
+//     const gridTarget = document.getElementById("product-grid-target");
+//     const promoModal = document.getElementById("promo-slide-modal");
+//     const closeBtn = document.getElementById("close-promo-btn");
+//     const bookImg = document.getElementById("promo-book-img");
+//     const promoBadge = document.getElementById("promo-badge");
+//     const promoTitle = document.getElementById("promo-title");
+//     const promoDesc = document.getElementById("promo-description");
+//     const promoPriceContainer = document.getElementById("promo-price-container");
+//     const promoCta = document.getElementById("promo-cta-btn");
+//     const currencySelector = document.getElementById("currency-selector");
+
+//     // Dynamic State Trackers (Default set to NG)
+//     let currentFilter = "ALL";
+//     let activePricing = globalPricingGrid["NG"]; 
+//     let currentBundleIndex = 0;
+//     let hasReachedThreshold = false;
+//     let autoRotateInterval = null;
+//     let reappearTimeout = null;
+//     let isNaira = true;
+
+//     // Helper: Extracts clean numeric values
+//     function parseNumber(priceStr) {
+//         return parseFloat(priceStr.replace(/[^0-9.]/g, ''));
+//     }
+
+//     // Helper: Extracts localized currency prefix
+//     function getCurrencySymbol(priceStr) {
+//         return priceStr.replace(/[0-9.,\s]/g, '');
+//     }
+
+//     // Helper: Rounding engine
+//     function formatCurrency(symbol, amount) {
+//         if (isNaira) {
+//             return `${symbol}${Math.floor(amount).toLocaleString()}`;
+//         } else {
+//             const wholeUnit = Math.floor(amount);
+//             return `${symbol}${wholeUnit}.99`;
+//         }
+//     }
+
+//     // Switch currency manually based on key
+//     function changeCurrency(countryCode) {
+//         if (!globalPricingGrid[countryCode]) countryCode = "NG";
+        
+//         activePricing = globalPricingGrid[countryCode];
+//         isNaira = (countryCode === 'NG');
+
+//         // Persist choice
+//         localStorage.setItem("selectedCurrency", countryCode);
+
+//         // Update active UI display
+//         renderDisplay();
+        
+//         // Re-calculate modal prices if open or preparing to open
+//         updatePromoModal();
+//     }
+
+//     // 3. Initialize dynamic storefront (Default NGN)
+//     function initCatalogGrid() {
+//         // Retrieve saved choice or default to NG
+//         const savedCurrency = localStorage.getItem("selectedCurrency") || "NG";
+        
+//         if (currencySelector) {
+//             currencySelector.value = savedCurrency;
+//             currencySelector.addEventListener("change", function () {
+//                 changeCurrency(this.value);
+//             });
+//         }
+
+//         changeCurrency(savedCurrency);
+//         setupFilters();
+//     }
+
+//     // Render Grid with active prices
+//     function renderDisplay() {
+//         if (!gridTarget) return;
+
+//         gridTarget.innerHTML = allCatalogProducts.map((prod, idx) => {
+//             if (currentFilter !== "ALL" && prod.tag !== currentFilter) return "";
+//             const price = activePricing[idx] || globalPricingGrid["NG"][idx];
+
+//             return `
+//                 <article class="product-card">
+//                     <div class="specialist__image">
+//                         <img src="${prod.image}" alt="${prod.title}">
+//                     </div>
+//                     <div class="specialist__details">
+//                         <a href="javascript:void(0)" onclick="openDirectSelar('${prod.selarSlug}')" style="text-decoration: none; color: inherit;">
+//                             <h5>${prod.title}</h5>
+//                         </a>
+//                         <small>Price: <span style="font-weight:bold; color:green;">${price.current}</span> <span style="color:red; text-decoration:line-through; margin-left:5px;">${price.old}</span></small>
+//                     </div>
+//                     <a href="javascript:void(0)" class="specialist__whatsapp" onclick="openDirectSelar('${prod.selarSlug}')"> View </a>
+//                 </article>
+//             `;
+//         }).join("");
+//     }
+
+//     // Set up filter buttons
+//     function setupFilters() {
+//         document.querySelectorAll(".filter-btn").forEach(btn => {
+//             btn.addEventListener("click", function () {
+//                 const activeBtn = document.querySelector(".filter-btn.active");
+//                 if (activeBtn) activeBtn.classList.remove("active");
+                
+//                 this.classList.add("active");
+//                 currentFilter = this.getAttribute("data-filter");
+//                 renderDisplay();
+//             });
+//         });
+//     }
+
+//     // Update Modal Details dynamically with chosen currency values
+//     function updatePromoModal() {
+//         if (!promoModal) return;
+
+//         const biBegVal = parseNumber(activePricing[0].current);
+//         const biExpVal = parseNumber(activePricing[1].current);
+//         const vbaBegVal = parseNumber(activePricing[2].current);
+//         const vbaExpVal = parseNumber(activePricing[3].current);
+
+//         const currencySymbol = getCurrencySymbol(activePricing[0].current);
+
+//         const biSum = biBegVal + biExpVal;
+//         const biDiscounted = biSum * (1 - 0.1666);
+
+//         const vbaSum = vbaBegVal + vbaExpVal;
+//         const vbaDiscounted = vbaSum * (1 - 0.0909);
+
+//         const promoBundles = [
+//             {
+//                 title: "Power BI Complete Bundle",
+//                 badge: "16.66% OFF BUNDLE",
+//                 image: "./Mastery Power BI.webp",
+//                 slug: "masterypowerbi",
+//                 description: "Master Power BI from data extraction to enterprise dashboards. Get the complete bundle pack today!",
+//                 oldPriceFormatted: formatCurrency(currencySymbol, biSum),
+//                 currentPriceFormatted: formatCurrency(currencySymbol, biDiscounted)
+//             },
+//             {
+//                 title: "VBA Automation Expert Bundle",
+//                 badge: "9.09% OFF BUNDLE",
+//                 image: "./VBA Beginner Img.webp",
+//                 slug: "masteryvba",
+//                 description: "Automate dry Excel workflows and write clean macros. Save instantly with the combined bundle pack!",
+//                 oldPriceFormatted: formatCurrency(currencySymbol, vbaSum),
+//                 currentPriceFormatted: formatCurrency(currencySymbol, vbaDiscounted)
+//             }
+//         ];
+
+//         const activePromo = promoBundles[currentBundleIndex];
+
+//         if (bookImg) {
+//             bookImg.src = activePromo.image;
+//             bookImg.alt = activePromo.title;
+//         }
+//         if (promoBadge) promoBadge.textContent = activePromo.badge;
+//         if (promoTitle) promoTitle.textContent = activePromo.title;
+//         if (promoDesc) promoDesc.textContent = activePromo.description;
+        
+//         if (promoPriceContainer) {
+//             promoPriceContainer.innerHTML = `
+//                 <span>Price: </span>
+//                 <span class="promo-price-current">${activePromo.currentPriceFormatted}</span>
+//                 <span class="promo-price-old">${activePromo.oldPriceFormatted}</span>
+//             `;
+//         }
+        
+//         if (promoCta) {
+//             promoCta.onclick = function() {
+//                 openDirectSelar(activePromo.slug);
+//             };
+//         }
+//     }
+
+//     function transitionPromoContent() {
+//         if (!promoModal) return;
+        
+//         promoModal.classList.remove("active");
+
+//         setTimeout(function() {
+//             updatePromoModal();
+//             setTimeout(function() {
+//                 promoModal.classList.add("active");
+//             }, 100);
+//         }, 500);
+//     }
+
+//     function startAutoRotation() {
+//         if (autoRotateInterval) clearInterval(autoRotateInterval);
+        
+//         autoRotateInterval = setInterval(function() {
+//             if (promoModal && promoModal.classList.contains("active")) {
+//                 transitionPromoContent();
+//             }
+//         }, 20000);
+//     }
+
+//     function stopAutoRotation() {
+//         if (autoRotateInterval) {
+//             clearInterval(autoRotateInterval);
+//             autoRotateInterval = null;
+//         }
+//     }
+
+//     function showPromoModal() {
+//         if (!promoModal) return;
+//         promoModal.classList.add("active");
+//         startAutoRotation();
+//     }
+
+//     function hidePromoModal() {
+//         if (!promoModal) return;
+//         promoModal.classList.remove("active");
+//         stopAutoRotation();
+
+//         reappearTimeout = setTimeout(function() {
+//             const currentScroll = window.scrollY || window.pageYOffset;
+//             const triggerHeight = window.innerHeight;
+
+//             if (currentScroll > triggerHeight) {
+//                 updatePromoModal();
+//                 showPromoModal();
+//             } else {
+//                 hasReachedThreshold = false;
+//                 window.addEventListener("scroll", handleScroll);
+//             }
+//         }, 10000);
+//     }
+
+//     function handleScroll() {
+//         const triggerHeight = window.innerHeight;
+//         const currentScroll = window.scrollY || window.pageYOffset;
+
+//         if (!hasReachedThreshold && currentScroll > triggerHeight) {
+//             hasReachedThreshold = true;
+//             updatePromoModal();
+//             showPromoModal();
+//             window.removeEventListener("scroll", handleScroll);
+//         }
+//     }
+
+//     if (closeBtn) closeBtn.addEventListener("click", hidePromoModal);
+//     window.addEventListener("scroll", handleScroll);
+
+//     // Trigger store launch
+//     initCatalogGrid();
+// });
+
+
 document.addEventListener("DOMContentLoaded", function () {
     // 1. Geographic pricing matrix
     const globalPricingGrid = {
@@ -840,13 +1164,17 @@ document.addEventListener("DOMContentLoaded", function () {
     let reappearTimeout = null;
     let isNaira = true;
 
-    // Helper: Extracts clean numeric values
+    // FIX #1: Clean price parser handling commas and non-numeric characters safely
     function parseNumber(priceStr) {
-        return parseFloat(priceStr.replace(/[^0-9.]/g, ''));
+        if (!priceStr) return 0;
+        // Removes commas first, then strips everything except numbers and decimals
+        const cleanStr = priceStr.replace(/,/g, '').replace(/[^0-9.]/g, '');
+        return parseFloat(cleanStr) || 0;
     }
 
     // Helper: Extracts localized currency prefix
     function getCurrencySymbol(priceStr) {
+        if (!priceStr) return "₦";
         return priceStr.replace(/[0-9.,\s]/g, '');
     }
 
@@ -879,7 +1207,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 3. Initialize dynamic storefront (Default NGN)
     function initCatalogGrid() {
-        // Retrieve saved choice or default to NG
         const savedCurrency = localStorage.getItem("selectedCurrency") || "NG";
         
         if (currencySelector) {
@@ -970,7 +1297,8 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         ];
 
-        const activePromo = promoBundles[currentBundleIndex];
+        // Ensure currentBundleIndex stays within range
+        const activePromo = promoBundles[currentBundleIndex % promoBundles.length];
 
         if (bookImg) {
             bookImg.src = activePromo.image;
@@ -990,9 +1318,16 @@ document.addEventListener("DOMContentLoaded", function () {
         
         if (promoCta) {
             promoCta.onclick = function() {
-                openDirectSelar(activePromo.slug);
+                if (typeof openDirectSelar === 'function') {
+                    openDirectSelar(activePromo.slug);
+                } else {
+                    window.location.href = `https://selar.co/m/DamsolmHub/${activePromo.slug}`;
+                }
             };
         }
+
+        // FIX #2: Increment bundle index for the NEXT rotation cycle
+        currentBundleIndex = (currentBundleIndex + 1) % promoBundles.length;
     }
 
     function transitionPromoContent() {
@@ -1036,6 +1371,8 @@ document.addEventListener("DOMContentLoaded", function () {
         promoModal.classList.remove("active");
         stopAutoRotation();
 
+        if (reappearTimeout) clearTimeout(reappearTimeout);
+
         reappearTimeout = setTimeout(function() {
             const currentScroll = window.scrollY || window.pageYOffset;
             const triggerHeight = window.innerHeight;
@@ -1068,9 +1405,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Trigger store launch
     initCatalogGrid();
 });
-
-
-
 
 
 
