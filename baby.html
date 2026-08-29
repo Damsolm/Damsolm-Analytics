@@ -35,7 +35,15 @@
     <div class="container header-container">
       <img src="./babylogo.jpg" alt="Baby Sleep Club Logo" class="logo">
       <!-- TODO: replace href="#pricing" with your Selar checkout link once the guide is finished -->
-      <a href="#pricing" class="btn btn-primary btn-sm header-cta">Get Early Access</a>
+      <button class="btn btn-primary" onclick="openSelarModal()">Buy Now</button>
+
+<script src="https://selar.co/embed.js"></script>
+<script>
+  function openSelarModal() {
+    SelarPay("https://selar.com/damsolmanalytics");
+  }
+</script>
+      <!-- <a href="#pricing" class="btn btn-primary btn-sm header-cta">Get Early Access</a> -->
     </div>
   </header>
 
