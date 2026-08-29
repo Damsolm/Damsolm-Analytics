@@ -111,6 +111,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // --- 4. WAKE-WINDOW CALCULATOR LOGIC ---
+  // NOTE: Tip text intentionally avoids referencing specific page/chapter numbers
+  // (e.g. "Page 14", "Chapter 4") since the final guide isn't paginated yet.
+  // Once the PDF is finished and its layout is locked, feel free to add real
+  // page references back in — they're a nice trust/specificity signal once accurate.
   const ageSelect = document.getElementById('baby-age-select');
   const resWakeWindow = document.getElementById('res-wake-window');
   const resNapCount = document.getElementById('res-nap-count');
@@ -145,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { time: '7:15 PM', event: 'Bedtime Routine' },
         { time: '7:30 PM', event: 'Lights Out / Night Sleep' }
       ],
-      tip: '💡 <strong>Regression Alert:</strong> At 4 months, sleep architecture permanently shifts. If your baby wakes every 2 hours, they lack self-settling cues. Page 22 breaks down the smooth transition fix.'
+      tip: '💡 <strong>Regression Alert:</strong> At 4 months, sleep architecture permanently shifts. If your baby wakes every 2 hours, they likely lack self-settling cues — the full guide breaks down a step-by-step transition to help with this.'
     },
     '5-6': {
       wakeWindow: '2 – 2.5 Hours',
@@ -158,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { time: '4:30 PM', event: 'Nap 3 (Quick 30 min bridge nap)' },
         { time: '7:30 PM', event: 'Bedtime' }
       ],
-      tip: '💡 <strong>3-to-2 Nap Shift:</strong> If the 3rd nap is taking 45 minutes of fighting to happen, your baby is ready to drop it. See Chapter 5 for transition rules.'
+      tip: '💡 <strong>3-to-2 Nap Shift:</strong> If the 3rd nap is taking 45 minutes of fighting to happen, your baby may be ready to drop it. The guide covers the transition rules in detail.'
     },
     '7-8': {
       wakeWindow: '2.5 – 3 Hours',
@@ -170,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { time: '2:00 PM', event: 'Nap 2 (~1.5 hours)' },
         { time: '7:00 PM', event: 'Bedtime Routine & Sleep' }
       ],
-      tip: '💡 <strong>Troubleshooting Short Naps:</strong> 30-minute nap caps mean under-tiredness at bedtime or over-tiredness at wake windows. Use the 15-minute diagnostic tweak in Chapter 4.'
+      tip: '💡 <strong>Troubleshooting Short Naps:</strong> 30-minute nap caps usually mean under-tiredness at bedtime or over-tiredness at wake windows. The guide includes a step-by-step diagnostic to help you tell which.'
     },
     '9-11': {
       wakeWindow: '3 – 3.75 Hours',
@@ -182,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { time: '2:30 PM', event: 'Nap 2 (1 hour)' },
         { time: '7:30 PM', event: 'Bedtime' }
       ],
-      tip: '💡 <strong>Separation Anxiety Peak:</strong> Night wakings at this age are usually driven by milestones (crawling/standing). Avoid creating new dependencies.'
+      tip: '💡 <strong>Separation Anxiety Peak:</strong> Night wakings at this age are usually driven by milestones (crawling/standing). Avoid creating new sleep dependencies while it passes.'
     },
     '12-14': {
       wakeWindow: '3.5 – 4 Hours',
@@ -194,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { time: '3:00 PM', event: 'Nap 2 (1 hour)' },
         { time: '8:00 PM', event: 'Bedtime' }
       ],
-      tip: '💡 <strong>12-Month Trap:</strong> Many parents mistake the 12-month nap strike for readiness for 1 nap. It is almost always a temporary regression—keep 2 naps!'
+      tip: '💡 <strong>12-Month Trap:</strong> Many parents mistake the 12-month nap strike for readiness for 1 nap. It is almost always a temporary regression — keep 2 naps!'
     },
     '15-18': {
       wakeWindow: '4.5 – 5.5 Hours',
