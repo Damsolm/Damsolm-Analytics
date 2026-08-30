@@ -789,12 +789,6 @@ img {
   margin-bottom: 20px;
 }
 
-  @media screen and (max-width: 992px) {
-  /* Hides only the first <img> inside .section-side-image */
-  .section-side-image img:first-child {
-    display: none;
-  }
-}
 
 
   .final-cta .btn {
