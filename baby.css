@@ -793,7 +793,10 @@ img {
   .final-cta .btn {
       width: auto;
   }
-
+@media (max-width: 600px) {
+    .md {
+      display: none;
+    }
   .sticky-bar {
     display: none; /* Hide sticky bar on desktop view */
   }
