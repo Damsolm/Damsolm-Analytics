@@ -784,7 +784,7 @@ img {
   gap: 20px;
 }
 @media screen and (max-width: 600px) {
-  .first-pricing-img {
+ .section-side-image .first-pricing-img {
     display: none;
   }
 }
