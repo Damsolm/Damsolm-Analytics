@@ -316,7 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
     `,
     privacy: `
       <h3>Privacy Policy</h3>
-      <p>At <strong>The Baby Sleep Club</strong>, your privacy is extremely important to us. We collect minimal personal information (such as your email address and payment details) strictly necessary to process digital product downloads and deliver lifetime update communications.</p>
+      <p>At <strong>The Baby Sleep Detective Club</strong>, your privacy is extremely important to us. We collect minimal personal information (such as your email address and payment details) strictly necessary to process digital product downloads and deliver lifetime update communications.</p>
       <p>We do not sell, rent, or trade your personal data to third parties. All financial processing is conducted via secure, encrypted payment processors.</p>
     `
   };
