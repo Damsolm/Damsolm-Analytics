@@ -794,7 +794,7 @@ img {
       width: auto;
   }
 @media (max-width: 600px) {
-    .md {
+    .smallscreen {
       display: none;
     }
   .sticky-bar {
