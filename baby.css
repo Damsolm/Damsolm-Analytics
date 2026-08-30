@@ -34,7 +34,7 @@ html {
 
 body {
   background-color: var(--bg-white);
-  padding-bottom: 70px; /* offset for sticky mobile bar */
+  /* REMOVE or set to 0: padding-bottom: 70px; */
 }
 
 @media (min-width: 769px) {
@@ -803,7 +803,7 @@ img {
 .main-footer {
   background-color: #1e293b; /* Dark slate tone */
   color: #cbd5e1;
-  padding: 60px 0 40px;
+  padding: 60px 0 110px; /* 60px top, 0 left/right, 40px + 70px = 110px bottom */
   border-top: 1px solid #334155;
   font-size: 0.9rem;
 }
@@ -884,6 +884,12 @@ img {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding-top: 20px;
   width: 100%;
+}
+
+@media (min-width: 769px) {
+  .main-footer {
+    padding-bottom: 40px;
+  }
 }
 
 
