@@ -783,8 +783,7 @@ img {
   flex-direction: column;
   gap: 20px;
 }
-    @media screen and (max-width: 600px) {
-  /* Hides only the first <img> inside .section-side-image */
+@media screen and (max-width: 600px) {
   .section-side-image img:first-child {
     display: none;
   }
