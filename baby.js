@@ -1,14 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- 1. CURRENCY SELECTOR FUNCTIONALITY (With localStorage Persistence) ---
+  // --- 1. CURRENCY SELECTOR FUNCTIONALITY (With Localized PPP Pricing & localStorage) ---
   const currencyData = {
     USD: { rate: 1, symbol: '$', code: 'USD' },
+    NGN: { fixedPrice: 9900, symbol: '₦', code: 'NGN' },
+    ZAR: { fixedPrice: 199, symbol: 'R', code: 'ZAR' },
+    GHS: { fixedPrice: 149, symbol: 'GH₵', code: 'GHS' },
+    KES: { fixedPrice: 1499, symbol: 'KSh ', code: 'KES' },
     GBP: { rate: 0.79, symbol: '£', code: 'GBP' },
     EUR: { rate: 0.92, symbol: '€', code: 'EUR' },
     CAD: { rate: 1.36, symbol: 'C$', code: 'CAD' },
     AUD: { rate: 1.51, symbol: 'A$', code: 'AUD' },
     JPY: { rate: 156.5, symbol: '¥', code: 'JPY' },
-    NGN: { rate: 1480, symbol: '₦', code: 'NGN' },
     INR: { rate: 83.3, symbol: '₹', code: 'INR' },
   };
 
@@ -20,20 +23,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!data) return;
 
     priceDisplays.forEach(display => {
-      const basePrice = parseFloat(display.getAttribute('data-base-price'));
+      // Base price defaults to 11.99 USD if not defined in data-base-price
+      const basePrice = parseFloat(display.getAttribute('data-base-price')) || 11.99;
       if (isNaN(basePrice)) return;
       
-      let convertedPrice = (basePrice * data.rate);
       let formattedPrice;
 
-      if (currencyCode === 'JPY') {
-        // No decimals, format with commas
+      // Handle localized fixed PPP pricing vs standard converted rates
+      if (data.fixedPrice !== undefined) {
+        formattedPrice = data.fixedPrice.toLocaleString('en-US');
+      } else if (currencyCode === 'JPY') {
+        const convertedPrice = basePrice * data.rate;
         formattedPrice = Math.round(convertedPrice).toLocaleString('en-US');
-      } else if (currencyCode === 'NGN' && basePrice > 20) {
-        // Rounded to nearest 100, formatted with commas
-        formattedPrice = (Math.round(convertedPrice / 100) * 100).toLocaleString('en-US');
       } else {
-        // Keep decimals (2 places if floating, none if integer) and format with commas
+        const convertedPrice = basePrice * data.rate;
         const decimals = Number.isInteger(convertedPrice) ? 0 : 2;
         formattedPrice = convertedPrice.toLocaleString('en-US', {
           minimumFractionDigits: decimals,
@@ -41,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
-      display.textContent = `${data.symbol}${formattedPrice} ${data.code}`;
+      display.textContent = `\({data.symbol}\){formattedPrice} ${data.code}`;
     });
   };
 
@@ -68,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize prices on page load using the restored currency preference
   updatePrices(currencySelect ? currencySelect.value : savedCurrency);
-
+  
   // --- 2. INTERSECTION OBSERVER FOR SCROLL REVEAL ---
   const revealItems = document.querySelectorAll('.scroll-reveal');
 
