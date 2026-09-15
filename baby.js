@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // =========================================================
-  // 1. CURRENCY & PRICING
+  // 1. CURRENCY SELECTOR + DYNAMIC PRICING
   // =========================================================
 
   const currencyData = {
@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
       code: 'USD'
     },
 
+    // Localized purchasing-power pricing
     NGN: {
       fixedPrice: 9900,
       symbol: '₦',
@@ -35,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
       code: 'KES'
     },
 
+    // Standard currency conversion rates from USD
     GBP: {
       rate: 0.79,
       symbol: '£',
@@ -73,21 +75,38 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
 
+  // =========================================================
+  // PRICING SETTINGS
+  // =========================================================
+
   const CURRENT_PRICE_USD = 11.99;
 
+  // The percentage shown to customers
   const DISCOUNT_PERCENTAGE = 35;
-
-  const ORIGINAL_PRICE_USD =
-    CURRENT_PRICE_USD /
-    (1 - DISCOUNT_PERCENTAGE / 100);
 
 
   // =========================================================
-  // PRICE FORMATTING
+  // CALCULATE ORIGINAL PRICE AUTOMATICALLY
+  //
+  // If $11.99 represents 65% of the original price:
+  //
+  // Original = 11.99 / 0.65
+  //          = $18.446...
+  //
+  // Displayed as $18.45
+  // =========================================================
+
+  const ORIGINAL_PRICE_USD =
+    CURRENT_PRICE_USD / (1 - DISCOUNT_PERCENTAGE / 100);
+
+
+  // =========================================================
+  // FORMAT PRICE
   // =========================================================
 
   const formatPrice = (amount, currencyCode) => {
 
+    // Japanese Yen normally displays without decimals
     if (currencyCode === 'JPY') {
       return Math.round(amount).toLocaleString('en-US');
     }
@@ -100,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // =========================================================
-  // CALCULATE CURRENT PRICE
+  // GET PRICE FOR SELECTED CURRENCY
   // =========================================================
 
   const calculatePrice = (baseUSDPrice, currencyCode) => {
@@ -111,10 +130,14 @@ document.addEventListener('DOMContentLoaded', () => {
       return baseUSDPrice;
     }
 
+    // Localized fixed prices
     if (data.fixedPrice !== undefined) {
+
+      // For the CURRENT price, use the fixed localized price.
       return data.fixedPrice;
     }
 
+    // Normal USD conversion
     return baseUSDPrice * data.rate;
   };
 
@@ -125,20 +148,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const updatePrices = (currencyCode = 'USD') => {
 
-    const data =
-      currencyData[currencyCode] ||
-      currencyData.USD;
+    const data = currencyData[currencyCode] || currencyData.USD;
 
 
-    const currentPrice =
-      calculatePrice(
-        CURRENT_PRICE_USD,
-        currencyCode
-      );
+    // -------------------------------------------------------
+    // CURRENT PRICE
+    // -------------------------------------------------------
 
+    const currentPrice = calculatePrice(
+      CURRENT_PRICE_USD,
+      currencyCode
+    );
+
+
+    // -------------------------------------------------------
+    // ORIGINAL PRICE
+    //
+    // For localized currencies, calculate the original price
+    // from the LOCALIZED current price.
+    //
+    // Example:
+    // NGN current = ₦9,900
+    //
+    // Original:
+    // ₦9,900 / 0.65 = ₦15,230.77
+    // -------------------------------------------------------
 
     let originalPrice;
-
 
     if (data.fixedPrice !== undefined) {
 
@@ -153,53 +189,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // ---------------------------------------------------------
-    // UPDATE EVERY CURRENT PRICE DISPLAY
-    // ---------------------------------------------------------
+    // -------------------------------------------------------
+    // UPDATE CURRENT PRICE ELEMENTS
+    // -------------------------------------------------------
 
     document
-      .querySelectorAll('.price-display')
+      .querySelectorAll('.current-price')
       .forEach((element) => {
 
-        if (
-          element.classList.contains('original-price')
-        ) {
-          return;
-        }
-
         element.textContent =
-          `${data.symbol}${formatPrice(
-            currentPrice,
-            currencyCode
-          )} ${data.code}`;
+          `${data.symbol}${formatPrice(currentPrice, currencyCode)} ${data.code}`;
       });
 
 
-    // ---------------------------------------------------------
-    // UPDATE ORIGINAL PRICE
-    // ---------------------------------------------------------
+    // -------------------------------------------------------
+    // UPDATE ORIGINAL PRICE ELEMENTS
+    // -------------------------------------------------------
 
     document
       .querySelectorAll('.original-price')
       .forEach((element) => {
 
         element.textContent =
-          `${data.symbol}${formatPrice(
-            originalPrice,
-            currencyCode
-          )} ${data.code}`;
+          `${data.symbol}${formatPrice(originalPrice, currencyCode)} ${data.code}`;
       });
 
 
-    // ---------------------------------------------------------
+    // -------------------------------------------------------
     // UPDATE DISCOUNT PERCENTAGE
-    // ---------------------------------------------------------
+    // -------------------------------------------------------
 
     const discountElement =
-      document.getElementById(
-        'discount-percentage'
-      );
-
+      document.getElementById('discount-percentage');
 
     if (discountElement) {
 
@@ -210,24 +231,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // =========================================================
-  // CURRENCY SELECTOR
+  // CURRENCY DROPDOWN
   // =========================================================
 
   const currencySelect =
-    document.getElementById(
-      'currency-select'
-    );
+    document.getElementById('currency-select');
 
+
+  // ---------------------------------------------------------
+  // RESTORE PREVIOUSLY SELECTED CURRENCY
+  // ---------------------------------------------------------
 
   let savedCurrency = 'USD';
-
 
   try {
 
     savedCurrency =
-      localStorage.getItem(
-        'preferredCurrency'
-      ) || 'USD';
+      localStorage.getItem('preferredCurrency') || 'USD';
 
   } catch (err) {
 
@@ -238,47 +258,61 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
+  // ---------------------------------------------------------
+  // VALIDATE SAVED CURRENCY
+  // ---------------------------------------------------------
+
   if (!currencyData[savedCurrency]) {
+
     savedCurrency = 'USD';
   }
 
 
+  // ---------------------------------------------------------
+  // SET DROPDOWN VALUE
+  // ---------------------------------------------------------
+
   if (currencySelect) {
 
-    currencySelect.value =
-      savedCurrency;
+    currencySelect.value = savedCurrency;
 
 
-    currencySelect.addEventListener(
-      'change',
-      (e) => {
+    // -------------------------------------------------------
+    // LISTEN FOR CURRENCY CHANGES
+    // -------------------------------------------------------
 
-        const selectedCurrency =
-          e.target.value;
+    currencySelect.addEventListener('change', (e) => {
 
-        updatePrices(
+      const selectedCurrency =
+        e.target.value;
+
+
+      // Update all prices
+      updatePrices(selectedCurrency);
+
+
+      // Remember customer's currency
+      try {
+
+        localStorage.setItem(
+          'preferredCurrency',
           selectedCurrency
         );
 
+      } catch (err) {
 
-        try {
-
-          localStorage.setItem(
-            'preferredCurrency',
-            selectedCurrency
-          );
-
-        } catch (err) {
-
-          console.warn(
-            'localStorage is unavailable:',
-            err
-          );
-        }
+        console.warn(
+          'localStorage is unavailable:',
+          err
+        );
       }
-    );
+    });
   }
 
+
+  // ---------------------------------------------------------
+  // INITIALIZE PRICES
+  // ---------------------------------------------------------
 
   updatePrices(
     currencySelect
@@ -288,20 +322,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // =========================================================
-  // 2. SCROLL REVEAL
+  // 2. INTERSECTION OBSERVER FOR SCROLL REVEAL
   // =========================================================
 
-  // IMPORTANT:
-  // Your HTML uses .scroll-reveal, not .reveal.
-
-  const revealElements =
-    document.querySelectorAll(
-      '.scroll-reveal'
-    );
-
+  const revealItems =
+    document.querySelectorAll('.scroll-reveal');
 
   if (
-    revealElements.length &&
+    revealItems.length > 0 &&
     'IntersectionObserver' in window
   ) {
 
@@ -309,12 +337,12 @@ document.addEventListener('DOMContentLoaded', () => {
       new IntersectionObserver(
         (entries, observer) => {
 
-          entries.forEach((entry) => {
+          entries.forEach(entry => {
 
             if (entry.isIntersecting) {
 
               entry.target.classList.add(
-                'visible'
+                'reveal-visible'
               );
 
               observer.unobserve(
@@ -325,90 +353,539 @@ document.addEventListener('DOMContentLoaded', () => {
 
         },
         {
-          threshold: 0.12
+          threshold: 0.15,
+          rootMargin: '0px 0px -50px 0px'
         }
       );
 
 
-    revealElements.forEach(
-      (element) => {
+    revealItems.forEach(item => {
 
-        revealObserver.observe(
-          element
-        );
-      }
-    );
+      revealObserver.observe(item);
 
-  } else {
-
-    revealElements.forEach(
-      (element) => {
-
-        element.classList.add(
-          'visible'
-        );
-      }
-    );
+    });
   }
 
 
   // =========================================================
-  // 3. FAQ ACCORDION
+  // 3. FAQ ACCORDION FUNCTIONALITY
   // =========================================================
 
   const faqItems =
-    document.querySelectorAll(
-      '.faq-item'
-    );
+    document.querySelectorAll('.faq-item');
 
 
-  faqItems.forEach((item) => {
+  faqItems.forEach(item => {
 
     const question =
-      item.querySelector(
-        '.faq-question'
-      );
+      item.querySelector('.faq-question');
 
 
     if (!question) return;
 
 
-    question.addEventListener(
-      'click',
-      () => {
+    question.addEventListener('click', () => {
 
-        const isOpen =
-          item.classList.contains(
-            'active'
-          );
+      const isActive =
+        item.classList.contains('active');
 
 
-        faqItems.forEach(
-          (otherItem) => {
+      faqItems.forEach(otherItem => {
 
-            if (
-              otherItem !== item
-            ) {
+        otherItem.classList.remove('active');
 
-              otherItem.classList.remove(
-                'active'
-              );
-            }
-          }
+      });
+
+
+      if (!isActive) {
+
+        item.classList.add('active');
+
+      }
+    });
+  });
+
+
+  // =========================================================
+  // 4. WAKE-WINDOW CALCULATOR LOGIC
+  // =========================================================
+
+  const ageSelect =
+    document.getElementById('baby-age-select');
+
+  const resWakeWindow =
+    document.getElementById('res-wake-window');
+
+  const resNapCount =
+    document.getElementById('res-nap-count');
+
+  const resDaySleep =
+    document.getElementById('res-day-sleep');
+
+  const resScheduleList =
+    document.getElementById('res-schedule-list');
+
+  const resExpertTip =
+    document.getElementById('res-expert-tip');
+
+
+  const scheduleData = {
+
+    '0-2': {
+      wakeWindow: '45 – 60 Mins',
+      napCount: '4 – 5 Naps',
+      daySleep: '4.5 – 6 Hours',
+
+      schedule: [
+        {
+          time: '7:00 AM',
+          event: 'Wake Up & Feed'
+        },
+        {
+          time: '7:50 AM',
+          event: 'Nap 1 (Offer in dark room)'
+        },
+        {
+          time: '11:00 AM',
+          event: 'Nap 2'
+        },
+        {
+          time: '2:15 PM',
+          event: 'Nap 3'
+        },
+        {
+          time: '5:30 PM',
+          event: 'Catnap 4'
+        },
+        {
+          time: '8:30 PM',
+          event: 'Bedtime Routine & Sleep'
+        }
+      ],
+
+      tip: '💡 <strong>Newborn Tip:</strong> Day/night confusion is common at this stage. Keep daytime naps light and noisy, and night feedings quiet and dark.'
+    },
+
+
+    '3-4': {
+      wakeWindow: '1.5 – 2 Hours',
+      napCount: '3 – 4 Naps',
+      daySleep: '3.5 – 4.5 Hours',
+
+      schedule: [
+        {
+          time: '7:00 AM',
+          event: 'Morning Wake Up'
+        },
+        {
+          time: '8:45 AM',
+          event: 'Nap 1 (~1.5 hours)'
+        },
+        {
+          time: '12:15 PM',
+          event: 'Nap 2 (~1.5 hours)'
+        },
+        {
+          time: '3:45 PM',
+          event: 'Nap 3 (Short 30-45 min catnap)'
+        },
+        {
+          time: '7:15 PM',
+          event: 'Bedtime Routine'
+        },
+        {
+          time: '7:30 PM',
+          event: 'Lights Out / Night Sleep'
+        }
+      ],
+
+      tip: '💡 <strong>Regression Alert:</strong> At 4 months, sleep architecture permanently shifts. If your baby wakes every 2 hours, they may benefit from learning different settling cues. The full guide explains gradual approaches.'
+    },
+
+
+    '5-6': {
+      wakeWindow: '2 – 2.5 Hours',
+      napCount: '3 Naps',
+      daySleep: '3 – 3.5 Hours',
+
+      schedule: [
+        {
+          time: '7:00 AM',
+          event: 'Desired Wake Time'
+        },
+        {
+          time: '9:15 AM',
+          event: 'Nap 1 (approx. 1 hour)'
+        },
+        {
+          time: '12:30 PM',
+          event: 'Nap 2 (approx. 1.5 hours)'
+        },
+        {
+          time: '4:30 PM',
+          event: 'Nap 3 (Quick 30 min bridge nap)'
+        },
+        {
+          time: '7:30 PM',
+          event: 'Bedtime'
+        }
+      ],
+
+      tip: '💡 <strong>3-to-2 Nap Shift:</strong> If the 3rd nap is taking 45 minutes of fighting to happen, your baby may be ready to drop it. The guide covers the transition rules in detail.'
+    },
+
+
+    '7-8': {
+      wakeWindow: '2.5 – 3 Hours',
+      napCount: '2 Naps',
+      daySleep: '2.5 – 3 Hours',
+
+      schedule: [
+        {
+          time: '7:00 AM',
+          event: 'Wake Up'
+        },
+        {
+          time: '9:30 AM',
+          event: 'Nap 1 (~1.5 hours)'
+        },
+        {
+          time: '2:00 PM',
+          event: 'Nap 2 (~1.5 hours)'
+        },
+        {
+          time: '7:00 PM',
+          event: 'Bedtime Routine & Sleep'
+        }
+      ],
+
+      tip: '💡 <strong>Troubleshooting Short Naps:</strong> Short naps can have several causes, including sleep pressure, developmental changes, or discomfort. The guide includes a diagnostic approach to help you identify possible factors.'
+    },
+
+
+    '9-11': {
+      wakeWindow: '3 – 3.75 Hours',
+      napCount: '2 Naps',
+      daySleep: '2 – 2.5 Hours',
+
+      schedule: [
+        {
+          time: '7:00 AM',
+          event: 'Morning Wake Up'
+        },
+        {
+          time: '10:00 AM',
+          event: 'Nap 1 (1 hour)'
+        },
+        {
+          time: '2:30 PM',
+          event: 'Nap 2 (1 hour)'
+        },
+        {
+          time: '7:30 PM',
+          event: 'Bedtime'
+        }
+      ],
+
+      tip: '💡 <strong>Separation Anxiety:</strong> Developmental milestones and separation anxiety can affect sleep at this age. Consistent, reassuring routines may help.'
+    },
+
+
+    '12-14': {
+      wakeWindow: '3.5 – 4 Hours',
+      napCount: '2 Naps (Don\'t drop to 1 yet!)',
+      daySleep: '2 – 2.5 Hours',
+
+      schedule: [
+        {
+          time: '7:00 AM',
+          event: 'Wake Up'
+        },
+        {
+          time: '10:30 AM',
+          event: 'Nap 1 (1 hour)'
+        },
+        {
+          time: '3:00 PM',
+          event: 'Nap 2 (1 hour)'
+        },
+        {
+          time: '8:00 PM',
+          event: 'Bedtime'
+        }
+      ],
+
+      tip: '💡 <strong>12-Month Sleep Changes:</strong> A temporary nap strike does not always mean a child is ready for one nap. Look at the overall pattern before changing the schedule.'
+    },
+
+
+    '15-18': {
+      wakeWindow: '4.5 – 5.5 Hours',
+      napCount: '1 Nap',
+      daySleep: '1.5 – 2.5 Hours',
+
+      schedule: [
+        {
+          time: '7:00 AM',
+          event: 'Wake Up & Breakfast'
+        },
+        {
+          time: '12:00 PM',
+          event: 'Midday Nap (2 hours)'
+        },
+        {
+          time: '2:00 PM',
+          event: 'Nap Ends'
+        },
+        {
+          time: '7:30 PM',
+          event: 'Night Sleep'
+        }
+      ],
+
+      tip: '💡 <strong>One-Nap Transition:</strong> During a transition to one nap, an earlier lunch and flexible rest time may help prevent overtiredness.'
+    },
+
+
+    '19-24': {
+      wakeWindow: '5.5 – 6 Hours',
+      napCount: '1 Nap',
+      daySleep: '1.5 – 2 Hours',
+
+      schedule: [
+        {
+          time: '7:00 AM',
+          event: 'Wake Up'
+        },
+        {
+          time: '12:30 PM',
+          event: 'Afternoon Nap'
+        },
+        {
+          time: '2:30 PM',
+          event: 'Wake Up from Nap'
+        },
+        {
+          time: '8:00 PM',
+          event: 'Bedtime'
+        }
+      ],
+
+      tip: '💡 <strong>Bedtime Battles:</strong> Toddlers may resist bedtime as their independence develops. A predictable routine and consistent boundaries can help.'
+    }
+
+  };
+
+
+  const updateCalculator = (ageKey) => {
+
+    const data =
+      scheduleData[ageKey];
+
+
+    if (!data) return;
+
+
+    if (resWakeWindow) {
+
+      resWakeWindow.textContent =
+        data.wakeWindow;
+    }
+
+
+    if (resNapCount) {
+
+      resNapCount.textContent =
+        data.napCount;
+    }
+
+
+    if (resDaySleep) {
+
+      resDaySleep.textContent =
+        data.daySleep;
+    }
+
+
+    if (resExpertTip) {
+
+      resExpertTip.innerHTML =
+        data.tip;
+    }
+
+
+    if (resScheduleList) {
+
+      resScheduleList.innerHTML =
+        data.schedule
+          .map(item => `
+            <div class="timeline-item">
+              <span class="timeline-time">
+                ${item.time}
+              </span>
+
+              <span class="timeline-event">
+                ${item.event}
+              </span>
+            </div>
+          `)
+          .join('');
+    }
+  };
+
+
+  if (ageSelect) {
+
+    ageSelect.addEventListener(
+      'change',
+      (e) => {
+
+        updateCalculator(
+          e.target.value
+        );
+      }
+    );
+
+
+    updateCalculator(
+      ageSelect.value
+    );
+  }
+
+
+  // =========================================================
+  // 5. STICKY BOTTOM BAR VISIBILITY
+  // =========================================================
+
+  const stickyBar =
+    document.getElementById('stickyBar');
+
+  const pricingSection =
+    document.getElementById('pricing');
+
+
+  if (stickyBar && pricingSection) {
+
+    const handleScroll = () => {
+
+      if (window.innerWidth > 768) {
+
+        stickyBar.classList.remove(
+          'visible'
         );
 
+        return;
+      }
 
-        if (isOpen) {
 
-          item.classList.remove(
-            'active'
-          );
+      const scrollPosition =
+        window.scrollY +
+        window.innerHeight;
 
-        } else {
 
-          item.classList.add(
-            'active'
-          );
+      const pricingSectionTop =
+        pricingSection.offsetTop;
+
+
+      if (
+        window.scrollY > 400 &&
+        scrollPosition <
+          pricingSectionTop + 200
+      ) {
+
+        stickyBar.classList.add(
+          'visible'
+        );
+
+      } else {
+
+        stickyBar.classList.remove(
+          'visible'
+        );
+      }
+    };
+
+
+    window.addEventListener(
+      'scroll',
+      handleScroll
+    );
+
+    window.addEventListener(
+      'resize',
+      handleScroll
+    );
+
+
+    handleScroll();
+  }
+
+
+  // =========================================================
+  // 6. SMOOTH SCROLL HANDLER
+  // =========================================================
+
+  const anchorLinks =
+    document.querySelectorAll(
+      'a[href^="#"]:not(.footer-link-modal)'
+    );
+
+
+  anchorLinks.forEach(anchor => {
+
+    anchor.addEventListener(
+      'click',
+      function (e) {
+
+        const targetId =
+          this.getAttribute('href');
+
+
+        if (
+          !targetId ||
+          targetId === '#'
+        ) {
+          return;
+        }
+
+
+        const targetElement =
+          document.querySelector(targetId);
+
+
+        if (targetElement) {
+
+          e.preventDefault();
+
+
+          const headerEl =
+            document.querySelector(
+              '.main-header'
+            );
+
+
+          const headerOffset =
+            headerEl
+              ? headerEl.offsetHeight
+              : 70;
+
+
+          const elementPosition =
+            targetElement
+              .getBoundingClientRect()
+              .top;
+
+
+          const offsetPosition =
+            elementPosition +
+            window.scrollY -
+            headerOffset;
+
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
         }
       }
     );
@@ -416,551 +893,187 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // =========================================================
-  // 4. WAKE-WINDOW CALCULATOR
+  // 7. LEGAL MODAL HANDLER
   // =========================================================
-
-  const wakeData = {
-
-    '0-2': {
-      wake: '45–60 Mins',
-      naps: '4–5 Naps',
-      daySleep: '4.5–6 Hours',
-
-      schedule: [
-        ['7:00', 'Wake'],
-        ['7:50', 'Nap 1'],
-        ['11:00', 'Nap 2'],
-        ['2:15', 'Nap 3'],
-        ['5:30', 'Catnap 4'],
-        ['8:30', 'Bedtime']
-      ],
-
-      tip:
-        'Newborns often have day/night confusion. Keep daytime bright and active while keeping nighttime feeds calm and dark.'
-    },
-
-
-    '3-4': {
-      wake: '1.5–2 Hours',
-      naps: '3–4 Naps',
-      daySleep: '3.5–4.5 Hours',
-
-      schedule: [
-        ['7:00', 'Wake'],
-        ['8:45', 'Nap 1'],
-        ['12:15', 'Nap 2'],
-        ['3:45', 'Nap 3'],
-        ['7:15', 'Bedtime Routine'],
-        ['7:30', 'Lights Out']
-      ],
-
-      tip:
-        'Around 4 months, sleep patterns mature and many babies experience more frequent waking. Consistency matters more than perfection.'
-    },
-
-
-    '5-6': {
-      wake: '2–2.5 Hours',
-      naps: '3 Naps',
-      daySleep: '3–3.5 Hours',
-
-      schedule: [
-        ['7:00', 'Wake'],
-        ['9:15', 'Nap 1'],
-        ['12:30', 'Nap 2'],
-        ['4:30', 'Bridge Nap'],
-        ['7:30', 'Bedtime']
-      ],
-
-      tip:
-        'Many babies begin shifting from three naps toward two during this stage. Watch your baby rather than forcing the transition too early.'
-    },
-
-
-    '7-8': {
-      wake: '2.5–3 Hours',
-      naps: '2 Naps',
-      daySleep: '2.5–3 Hours',
-
-      schedule: [
-        ['7:00', 'Wake'],
-        ['9:30', 'Nap 1'],
-        ['2:00', 'Nap 2'],
-        ['7:00', 'Bedtime']
-      ],
-
-      tip:
-        'Short naps can happen during developmental changes. Protect the first nap and avoid stretching wake windows too aggressively.'
-    },
-
-
-    '9-11': {
-      wake: '3–3.75 Hours',
-      naps: '2 Naps',
-      daySleep: '2–2.5 Hours',
-
-      schedule: [
-        ['7:00', 'Wake'],
-        ['10:00', 'Nap 1'],
-        ['2:30', 'Nap 2'],
-        ['7:30', 'Bedtime']
-      ],
-
-      tip:
-        'Separation anxiety can temporarily affect naps and nighttime sleep. Extra reassurance does not mean you are creating a bad habit.'
-    },
-
-
-    '12-14': {
-      wake: '3.5–4 Hours',
-      naps: '2 Naps (Don’t drop to 1 yet!)',
-      daySleep: '2–2.5 Hours',
-
-      schedule: [
-        ['7:00', 'Wake'],
-        ['10:30', 'Nap 1'],
-        ['3:00', 'Nap 2'],
-        ['8:00', 'Bedtime']
-      ],
-
-      tip:
-        'Around 12 months, developmental changes can temporarily disrupt sleep. Many babies still benefit from two naps.'
-    },
-
-
-    '15-18': {
-      wake: '4.5–5.5 Hours',
-      naps: '1 Nap',
-      daySleep: '1.5–2.5 Hours',
-
-      schedule: [
-        ['7:00', 'Wake'],
-        ['12:00', 'Midday Nap'],
-        ['2:00', 'Nap Ends'],
-        ['7:30', 'Night Sleep']
-      ],
-
-      tip:
-        'The move to one nap can take time. A gradual transition is often easier than suddenly eliminating the second nap.'
-    },
-
-
-    '19-24': {
-      wake: '5.5–6 Hours',
-      naps: '1 Nap',
-      daySleep: '1.5–2 Hours',
-
-      schedule: [
-        ['7:00', 'Wake'],
-        ['12:30', 'Nap'],
-        ['2:30', 'Wake'],
-        ['8:00', 'Bedtime']
-      ],
-
-      tip:
-        'Bedtime battles may appear as toddlers become more independent. Keep boundaries predictable and the bedtime routine consistent.'
-    }
-
-  };
-
-
-  // IMPORTANT:
-  // Your HTML uses #baby-age-select.
-
-  const ageSelect =
-    document.getElementById(
-      'baby-age-select'
-    );
-
-
-  if (ageSelect) {
-
-    const updateCalculator = () => {
-
-      const selectedAge =
-        ageSelect.value;
-
-
-      const data =
-        wakeData[selectedAge];
-
-
-      if (!data) return;
-
-
-      // Wake window
-      const wakeWindow =
-        document.getElementById(
-          'res-wake-window'
-        );
-
-
-      if (wakeWindow) {
-
-        wakeWindow.textContent =
-          data.wake;
-      }
-
-
-      // Number of naps
-      const napCount =
-        document.getElementById(
-          'res-nap-count'
-        );
-
-
-      if (napCount) {
-
-        napCount.textContent =
-          data.naps;
-      }
-
-
-      // Day sleep
-      const daySleep =
-        document.getElementById(
-          'res-day-sleep'
-        );
-
-
-      if (daySleep) {
-
-        daySleep.textContent =
-          data.daySleep;
-      }
-
-
-      // Schedule
-      const scheduleContainer =
-        document.getElementById(
-          'res-schedule-list'
-        );
-
-
-      if (scheduleContainer) {
-
-        scheduleContainer.innerHTML =
-          '';
-
-
-        data.schedule.forEach(
-          ([time, activity]) => {
-
-            const row =
-              document.createElement(
-                'div'
-              );
-
-
-            row.className =
-              'schedule-row';
-
-
-            row.innerHTML = `
-              <span class="schedule-time">
-                ${time}
-              </span>
-
-              <span class="schedule-activity">
-                ${activity}
-              </span>
-            `;
-
-
-            scheduleContainer.appendChild(
-              row
-            );
-          }
-        );
-      }
-
-
-      // Expert tip
-      const tip =
-        document.getElementById(
-          'res-expert-tip'
-        );
-
-
-      if (tip) {
-
-        tip.innerHTML =
-          `💡 <strong>Troubleshooting Tip:</strong> ${data.tip}`;
-      }
-    };
-
-
-    ageSelect.addEventListener(
-      'change',
-      updateCalculator
-    );
-
-
-    // Populate calculator immediately
-    updateCalculator();
-  }
-
-
-  // =========================================================
-  // 5. STICKY BOTTOM BAR
-  // =========================================================
-
-  // Your HTML uses .sticky-bar.
-
-  const stickyBar =
-    document.querySelector(
-      '.sticky-bar'
-    );
-
-
-  if (stickyBar) {
-
-    const closeButton =
-      stickyBar.querySelector(
-        '.sticky-close'
-      );
-
-
-    if (closeButton) {
-
-      closeButton.addEventListener(
-        'click',
-        () => {
-
-          stickyBar.classList.add(
-            'hidden'
-          );
-        }
-      );
-    }
-  }
-
-
-  // =========================================================
-  // 6. SMOOTH SCROLLING
-  // =========================================================
-
-  document
-    .querySelectorAll(
-      'a[href^="#"]'
-    )
-    .forEach((anchor) => {
-
-      anchor.addEventListener(
-        'click',
-        (event) => {
-
-          const targetId =
-            anchor.getAttribute(
-              'href'
-            );
-
-
-          if (
-            !targetId ||
-            targetId === '#'
-          ) {
-            return;
-          }
-
-
-          const target =
-            document.querySelector(
-              targetId
-            );
-
-
-          if (!target) {
-            return;
-          }
-
-
-          event.preventDefault();
-
-
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      );
-    });
-
-
-  // =========================================================
-  // 7. LEGAL MODAL
-  // =========================================================
-
-  // Your HTML uses #legalModal.
 
   const legalModal =
     document.getElementById(
       'legalModal'
     );
 
+  const legalModalBody =
+    document.getElementById(
+      'legalModalBody'
+    );
 
   const legalOverlay =
     document.getElementById(
       'legalOverlay'
     );
 
-
   const legalClose =
     document.getElementById(
       'legalClose'
     );
 
-
-  const legalModalButtons =
+  const modalTriggers =
     document.querySelectorAll(
-      '[data-modal]'
+      '.footer-link-modal'
     );
 
 
-  if (legalModal) {
+  const legalTexts = {
 
-    const closeLegalModal = () => {
+    terms: `
+      <h3>Terms & Conditions</h3>
 
-      legalModal.classList.remove(
-        'active'
-      );
+      <p>
+        By purchasing and downloading
+        <strong>The Baby Sleep Detective</strong>,
+        you receive a non-exclusive,
+        non-transferable personal license
+        to access the PDF guide for personal
+        use within your household.
+      </p>
 
-      legalModal.setAttribute(
-        'aria-hidden',
-        'true'
-      );
-
-      document.body.classList.remove(
-        'modal-open'
-      );
-    };
-
-
-    const openLegalModal = (type) => {
-
-      const modalBody =
-        document.getElementById(
-          'legalModalBody'
-        );
-
-
-      if (modalBody) {
-
-        if (type === 'terms') {
-
-          modalBody.innerHTML = `
-            <h2>Terms & Conditions</h2>
-
-            <p>
-              The Baby Sleep Detective is provided for informational and
-              educational purposes only.
-            </p>
-
-            <p>
-              By purchasing or using this guide, you agree to use the
-              information responsibly and understand that it does not
-              constitute medical advice.
-            </p>
-
-            <p>
-              Always consult your pediatrician or qualified healthcare
-              provider regarding your baby's individual health and sleep
-              needs.
-            </p>
-          `;
-
-        } else if (type === 'privacy') {
-
-          modalBody.innerHTML = `
-            <h2>Privacy Policy</h2>
-
-            <p>
-              We respect your privacy and only use information provided to
-              us for the purpose of delivering and supporting your purchase.
-            </p>
-
-            <p>
-              We do not sell your personal information to third parties.
-            </p>
-
-            <p>
-              If you contact us for support, your information may be retained
-              only as reasonably necessary to respond to your request.
-            </p>
-          `;
-        }
-      }
+      <p>
+        Re-distribution, resale, or sharing
+        digital copies with unauthorized
+        third parties is prohibited.
+        Due to the instant delivery nature
+        of digital files, refunds are granted
+        in accordance with our 7-Day
+        Money-Back Guarantee upon written
+        request to support.
+      </p>
+    `,
 
 
-      legalModal.classList.add(
-        'active'
-      );
+    privacy: `
+      <h3>Privacy Policy</h3>
+
+      <p>
+        At
+        <strong>The Baby Sleep Detective Club</strong>,
+        your privacy is extremely important
+        to us. We collect minimal personal
+        information, such as your email address
+        and payment details, strictly necessary
+        to process digital product downloads
+        and deliver lifetime update communications.
+      </p>
+
+      <p>
+        We do not sell, rent, or trade your
+        personal data to third parties.
+        All financial processing is conducted
+        via secure, encrypted payment processors.
+      </p>
+    `
+  };
+
+
+  const openModal = (type) => {
+
+    if (
+      legalTexts[type] &&
+      legalModal &&
+      legalModalBody
+    ) {
+
+      legalModalBody.innerHTML =
+        legalTexts[type];
+
+
+      legalModal.classList.add('open');
 
       legalModal.setAttribute(
         'aria-hidden',
         'false'
       );
 
-      document.body.classList.add(
-        'modal-open'
+
+      document.body.style.overflow =
+        'hidden';
+    }
+  };
+
+
+  const closeModal = () => {
+
+    if (legalModal) {
+
+      legalModal.classList.remove(
+        'open'
       );
-    };
 
 
-    legalModalButtons.forEach(
-      (button) => {
+      legalModal.setAttribute(
+        'aria-hidden',
+        'true'
+      );
 
-        button.addEventListener(
-          'click',
-          (event) => {
 
-            event.preventDefault();
+      document.body.style.overflow =
+        '';
+    }
+  };
 
-            const type =
-              button.getAttribute(
-                'data-modal'
-              );
 
-            openLegalModal(type);
-          }
-        );
+  modalTriggers.forEach(trigger => {
+
+    trigger.addEventListener(
+      'click',
+      (e) => {
+
+        e.preventDefault();
+
+
+        const modalType =
+          trigger.getAttribute(
+            'data-modal'
+          );
+
+
+        openModal(modalType);
       }
     );
+  });
 
 
-    if (legalClose) {
+  if (legalClose) {
 
-      legalClose.addEventListener(
-        'click',
-        closeLegalModal
-      );
-    }
-
-
-    if (legalOverlay) {
-
-      legalOverlay.addEventListener(
-        'click',
-        closeLegalModal
-      );
-    }
-
-
-    document.addEventListener(
-      'keydown',
-      (event) => {
-
-        if (
-          event.key === 'Escape' &&
-          legalModal.classList.contains(
-            'active'
-          )
-        ) {
-
-          closeLegalModal();
-        }
-      }
+    legalClose.addEventListener(
+      'click',
+      closeModal
     );
   }
+
+
+  if (legalOverlay) {
+
+    legalOverlay.addEventListener(
+      'click',
+      closeModal
+    );
+  }
+
+
+  document.addEventListener(
+    'keydown',
+    (e) => {
+
+      if (
+        e.key === 'Escape' &&
+        legalModal &&
+        legalModal.classList.contains(
+          'open'
+        )
+      ) {
+
+        closeModal();
+      }
+    }
+  );
 
 });
