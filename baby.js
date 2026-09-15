@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Base price defaults to $19 if data-base-price is not defined
       const basePrice = parseFloat(
         display.getAttribute('data-base-price')
-      ) || 19;
+      ) || 11.99;
 
       if (isNaN(basePrice)) return;
 
