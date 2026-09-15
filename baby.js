@@ -1,325 +1,325 @@
-document.addEventListener('DOMContentLoaded', () => {
-
-  // =========================================================
-  // 1. CURRENCY SELECTOR + DYNAMIC PRICING
-  // =========================================================
-
-  const currencyData = {
-    USD: {
-      rate: 1,
-      symbol: '$',
-      code: 'USD'
-    },
-
-    // Localized purchasing-power pricing
-    NGN: {
-      fixedPrice: 9900,
-      symbol: '₦',
-      code: 'NGN'
-    },
-
-    ZAR: {
-      fixedPrice: 199,
-      symbol: 'R',
-      code: 'ZAR'
-    },
-
-    GHS: {
-      fixedPrice: 149,
-      symbol: 'GH₵',
-      code: 'GHS'
-    },
-
-    KES: {
-      fixedPrice: 1499,
-      symbol: 'KSh ',
-      code: 'KES'
-    },
-
-    // Standard currency conversion rates from USD
-    GBP: {
-      rate: 0.79,
-      symbol: '£',
-      code: 'GBP'
-    },
-
-    EUR: {
-      rate: 0.92,
-      symbol: '€',
-      code: 'EUR'
-    },
-
-    CAD: {
-      rate: 1.36,
-      symbol: 'C$',
-      code: 'CAD'
-    },
-
-    AUD: {
-      rate: 1.51,
-      symbol: 'A$',
-      code: 'AUD'
-    },
-
-    JPY: {
-      rate: 156.5,
-      symbol: '¥',
-      code: 'JPY'
-    },
-
-    INR: {
-      rate: 83.3,
-      symbol: '₹',
-      code: 'INR'
-    }
-  };
-
-
-  // =========================================================
-  // PRICING SETTINGS
-  // =========================================================
-
-  const CURRENT_PRICE_USD = 11.99;
-
-  // The percentage shown to customers
-  const DISCOUNT_PERCENTAGE = 35;
-
-
-  // =========================================================
-  // CALCULATE ORIGINAL PRICE AUTOMATICALLY
-  //
-  // If $11.99 represents 65% of the original price:
-  //
-  // Original = 11.99 / 0.65
-  //          = $18.446...
-  //
-  // Displayed as $18.45
-  // =========================================================
-
-  const ORIGINAL_PRICE_USD =
-    CURRENT_PRICE_USD / (1 - DISCOUNT_PERCENTAGE / 100);
-
-
-  // =========================================================
-  // FORMAT PRICE
-  // =========================================================
-
-  const formatPrice = (amount, currencyCode) => {
-
-    // Japanese Yen normally displays without decimals
-    if (currencyCode === 'JPY') {
-      return Math.round(amount).toLocaleString('en-US');
-    }
-
-    return amount.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    });
-  };
-
-
-  // =========================================================
-  // GET PRICE FOR SELECTED CURRENCY
-  // =========================================================
-
-  const calculatePrice = (baseUSDPrice, currencyCode) => {
-
-    const data = currencyData[currencyCode];
-
-    if (!data) {
-      return baseUSDPrice;
-    }
-
-    // Localized fixed prices
-    if (data.fixedPrice !== undefined) {
-
-      // For the CURRENT price, use the fixed localized price.
-      return data.fixedPrice;
-    }
-
-    // Normal USD conversion
-    return baseUSDPrice * data.rate;
-  };
-
-
-  // =========================================================
-  // UPDATE ALL PRICES
-  // =========================================================
-
-  const updatePrices = (currencyCode = 'USD') => {
-
-    const data = currencyData[currencyCode] || currencyData.USD;
-
-
-    // -------------------------------------------------------
-    // CURRENT PRICE
-    // -------------------------------------------------------
-
-    const currentPrice = calculatePrice(
-      CURRENT_PRICE_USD,
-      currencyCode
-    );
-
-
-    // -------------------------------------------------------
-    // ORIGINAL PRICE
-    //
-    // For localized currencies, calculate the original price
-    // from the LOCALIZED current price.
-    //
-    // Example:
-    // NGN current = ₦9,900
-    //
-    // Original:
-    // ₦9,900 / 0.65 = ₦15,230.77
-    // -------------------------------------------------------
-
-    let originalPrice;
-
-    if (data.fixedPrice !== undefined) {
-
-      originalPrice =
-        data.fixedPrice /
-        (1 - DISCOUNT_PERCENTAGE / 100);
-
-    } else {
-
-      originalPrice =
-        ORIGINAL_PRICE_USD * data.rate;
-    }
-
-
-    // -------------------------------------------------------
-    // UPDATE CURRENT PRICE ELEMENTS
-    // -------------------------------------------------------
-
-    document
-      .querySelectorAll('.current-price')
-      .forEach((element) => {
-
-        element.textContent =
-          `${data.symbol}${formatPrice(currentPrice, currencyCode)} ${data.code}`;
-      });
-
-
-    // -------------------------------------------------------
-    // UPDATE ORIGINAL PRICE ELEMENTS
-    // -------------------------------------------------------
-
-    document
-      .querySelectorAll('.original-price')
-      .forEach((element) => {
-
-        element.textContent =
-          `${data.symbol}${formatPrice(originalPrice, currencyCode)} ${data.code}`;
-      });
-
-
-    // -------------------------------------------------------
-    // UPDATE DISCOUNT PERCENTAGE
-    // -------------------------------------------------------
-
-    const discountElement =
-      document.getElementById('discount-percentage');
-
-    if (discountElement) {
-
-      discountElement.textContent =
-        `${DISCOUNT_PERCENTAGE}%`;
-    }
-  };
-
-
-  // =========================================================
-  // CURRENCY DROPDOWN
-  // =========================================================
-
-  const currencySelect =
-    document.getElementById('currency-select');
-
-
-  // ---------------------------------------------------------
-  // RESTORE PREVIOUSLY SELECTED CURRENCY
-  // ---------------------------------------------------------
-
-  let savedCurrency = 'USD';
-
-  try {
-
-    savedCurrency =
-      localStorage.getItem('preferredCurrency') || 'USD';
-
-  } catch (err) {
-
-    console.warn(
-      'Unable to read saved currency:',
-      err
-    );
+/* =========================================================
+   DYNAMIC PRICING SYSTEM
+   ========================================================= */
+
+// -----------------------------
+// BASE PRICING
+// -----------------------------
+const CURRENT_PRICE_USD = 11.99;
+const DISCOUNT_PERCENTAGE = 35;
+
+// Automatically calculate original price before discount
+// 11.99 / 0.65 = 18.446... → $18.45
+const ORIGINAL_PRICE_USD =
+  CURRENT_PRICE_USD / (1 - DISCOUNT_PERCENTAGE / 100);
+
+
+// -----------------------------
+// CURRENCY DATA
+// -----------------------------
+const currencyData = {
+
+  // Main currency
+  USD: {
+    rate: 1,
+    symbol: '$',
+    code: 'USD'
+  },
+
+  // Fixed local prices
+  NGN: {
+    fixedPrice: 9900,
+    symbol: '₦',
+    code: 'NGN'
+  },
+
+  ZAR: {
+    fixedPrice: 199,
+    symbol: 'R',
+    code: 'ZAR'
+  },
+
+  GHS: {
+    fixedPrice: 149,
+    symbol: 'GH₵',
+    code: 'GHS'
+  },
+
+  KES: {
+    fixedPrice: 1499,
+    symbol: 'KSh ',
+    code: 'KES'
+  },
+
+  // Converted currencies
+  GBP: {
+    rate: 0.79,
+    symbol: '£',
+    code: 'GBP'
+  },
+
+  EUR: {
+    rate: 0.92,
+    symbol: '€',
+    code: 'EUR'
+  },
+
+  CAD: {
+    rate: 1.36,
+    symbol: 'C$',
+    code: 'CAD'
+  },
+
+  AUD: {
+    rate: 1.51,
+    symbol: 'A$',
+    code: 'AUD'
+  },
+
+  JPY: {
+    rate: 156.5,
+    symbol: '¥',
+    code: 'JPY'
+  },
+
+  INR: {
+    rate: 83.3,
+    symbol: '₹',
+    code: 'INR'
+  }
+};
+
+
+// -----------------------------
+// FORMAT PRICE
+// -----------------------------
+const formatPrice = (amount, currencyCode) => {
+
+  // Currencies that should display without decimals
+  const wholeNumberCurrencies = [
+    'JPY',
+    'NGN',
+    'ZAR',
+    'GHS',
+    'KES'
+  ];
+
+  if (wholeNumberCurrencies.includes(currencyCode)) {
+    return Math.round(amount).toLocaleString('en-US');
   }
 
+  // USD, GBP, EUR, CAD, AUD, INR
+  return amount.toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+};
 
-  // ---------------------------------------------------------
-  // VALIDATE SAVED CURRENCY
-  // ---------------------------------------------------------
 
-  if (!currencyData[savedCurrency]) {
+// -----------------------------
+// CALCULATE CURRENT PRICE
+// -----------------------------
+const calculatePrice = (baseUSDPrice, currencyCode) => {
 
-    savedCurrency = 'USD';
+  const data = currencyData[currencyCode];
+
+  // Safety fallback
+  if (!data) {
+    return baseUSDPrice;
   }
 
-
-  // ---------------------------------------------------------
-  // SET DROPDOWN VALUE
-  // ---------------------------------------------------------
-
-  if (currencySelect) {
-
-    currencySelect.value = savedCurrency;
-
-
-    // -------------------------------------------------------
-    // LISTEN FOR CURRENCY CHANGES
-    // -------------------------------------------------------
-
-    currencySelect.addEventListener('change', (e) => {
-
-      const selectedCurrency =
-        e.target.value;
-
-
-      // Update all prices
-      updatePrices(selectedCurrency);
-
-
-      // Remember customer's currency
-      try {
-
-        localStorage.setItem(
-          'preferredCurrency',
-          selectedCurrency
-        );
-
-      } catch (err) {
-
-        console.warn(
-          'localStorage is unavailable:',
-          err
-        );
-      }
-    });
+  // Fixed local price
+  if (data.fixedPrice !== undefined) {
+    return data.fixedPrice;
   }
 
+  // Converted USD price
+  return baseUSDPrice * data.rate;
+};
 
-  // ---------------------------------------------------------
-  // INITIALIZE PRICES
-  // ---------------------------------------------------------
 
-  updatePrices(
-    currencySelect
-      ? currencySelect.value
-      : savedCurrency
+// -----------------------------
+// UPDATE ALL PRICES
+// -----------------------------
+const updatePrices = (currencyCode = 'USD') => {
+
+  const data =
+    currencyData[currencyCode] || currencyData.USD;
+
+
+  // -----------------------------------------
+  // CURRENT PRICE
+  // -----------------------------------------
+  const currentPrice = calculatePrice(
+    CURRENT_PRICE_USD,
+    currencyCode
   );
 
+
+  // -----------------------------------------
+  // ORIGINAL PRICE
+  // -----------------------------------------
+  let originalPrice;
+
+  if (data.fixedPrice !== undefined) {
+
+    /*
+      For fixed local prices:
+
+      NGN:
+      9,900 / 0.65 = 15,230.77
+
+      ZAR:
+      199 / 0.65 = 306.15
+
+      GHS:
+      149 / 0.65 = 229.23
+
+      KES:
+      1,499 / 0.65 = 2,306.15
+    */
+
+    originalPrice =
+      data.fixedPrice /
+      (1 - DISCOUNT_PERCENTAGE / 100);
+
+  } else {
+
+    /*
+      For converted currencies:
+
+      Original USD price = $18.45
+
+      Then convert that using the currency rate.
+    */
+
+    originalPrice =
+      ORIGINAL_PRICE_USD * data.rate;
+  }
+
+
+  // -----------------------------------------
+  // UPDATE ALL CURRENT PRICE DISPLAYS
+  // -----------------------------------------
+  document
+    .querySelectorAll('.price-display')
+    .forEach((element) => {
+
+      /*
+        Skip original/strikethrough prices.
+        They are handled separately below.
+      */
+      if (
+        element.classList.contains('original-price')
+      ) {
+        return;
+      }
+
+
+      element.textContent =
+        `${data.symbol}${formatPrice(
+          currentPrice,
+          currencyCode
+        )} ${data.code}`;
+    });
+
+
+  // -----------------------------------------
+  // UPDATE ORIGINAL / STRIKETHROUGH PRICES
+  // -----------------------------------------
+  document
+    .querySelectorAll('.original-price')
+    .forEach((element) => {
+
+      element.textContent =
+        `${data.symbol}${formatPrice(
+          originalPrice,
+          currencyCode
+        )} ${data.code}`;
+    });
+
+
+  // -----------------------------------------
+  // UPDATE DISCOUNT PERCENTAGE
+  // -----------------------------------------
+  const discountElement =
+    document.getElementById(
+      'discount-percentage'
+    );
+
+  if (discountElement) {
+
+    discountElement.textContent =
+      `${DISCOUNT_PERCENTAGE}%`;
+  }
+};
+
+
+// =========================================================
+// CURRENCY SELECTOR
+// =========================================================
+
+const currencySelect =
+  document.getElementById('currency-select');
+
+
+// -----------------------------
+// UPDATE WHEN USER CHANGES
+// -----------------------------
+if (currencySelect) {
+
+  currencySelect.addEventListener(
+    'change',
+    (event) => {
+
+      const selectedCurrency =
+        event.target.value;
+
+      // Update every price on the page
+      updatePrices(selectedCurrency);
+
+      // Remember user's currency
+      localStorage.setItem(
+        'babySleepCurrency',
+        selectedCurrency
+      );
+    }
+  );
+}
+
+
+// =========================================================
+// LOAD SAVED CURRENCY
+// =========================================================
+
+const savedCurrency =
+  localStorage.getItem(
+    'babySleepCurrency'
+  );
+
+
+// Use saved currency if valid
+if (
+  savedCurrency &&
+  currencyData[savedCurrency]
+) {
+
+  if (currencySelect) {
+    currencySelect.value =
+      savedCurrency;
+  }
+
+  updatePrices(savedCurrency);
+
+} else {
+
+  // Default to USD
+  if (currencySelect) {
+    currencySelect.value = 'USD';
+  }
+
+  updatePrices('USD');
+}
 
   // =========================================================
   // 2. INTERSECTION OBSERVER FOR SCROLL REVEAL
