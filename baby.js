@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
       code: 'USD'
     },
 
-    // Fixed local prices
     NGN: {
       fixedPrice: 9900,
       symbol: '₦',
@@ -36,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
       code: 'KES'
     },
 
-    // Converted currencies
     GBP: {
       rate: 0.79,
       symbol: '£',
@@ -75,16 +73,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
 
-  // Current selling price
   const CURRENT_PRICE_USD = 11.99;
 
-  // Discount percentage
   const DISCOUNT_PERCENTAGE = 35;
 
-
-  // Automatically calculate original price
-  // Example:
-  // $11.99 / 0.65 = $18.45
   const ORIGINAL_PRICE_USD =
     CURRENT_PRICE_USD /
     (1 - DISCOUNT_PERCENTAGE / 100);
@@ -96,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const formatPrice = (amount, currencyCode) => {
 
-    // Japanese Yen normally has no decimal places
     if (currencyCode === 'JPY') {
       return Math.round(amount).toLocaleString('en-US');
     }
@@ -120,12 +111,10 @@ document.addEventListener('DOMContentLoaded', () => {
       return baseUSDPrice;
     }
 
-    // Use fixed local price where specified
     if (data.fixedPrice !== undefined) {
       return data.fixedPrice;
     }
 
-    // Otherwise convert from USD
     return baseUSDPrice * data.rate;
   };
 
@@ -141,7 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
       currencyData.USD;
 
 
-    // Calculate current selling price
     const currentPrice =
       calculatePrice(
         CURRENT_PRICE_USD,
@@ -149,17 +137,10 @@ document.addEventListener('DOMContentLoaded', () => {
       );
 
 
-    // Calculate original price
     let originalPrice;
 
 
     if (data.fixedPrice !== undefined) {
-
-      // For fixed local prices, calculate the original
-      // price backwards so the discount remains exactly 35%.
-      //
-      // Example:
-      // ₦9,900 / 0.65 = ₦15,230.77
 
       originalPrice =
         data.fixedPrice /
@@ -167,28 +148,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     } else {
 
-      // For normal converted currencies
       originalPrice =
         ORIGINAL_PRICE_USD * data.rate;
     }
 
 
-    // =======================================================
-    // IMPORTANT:
+    // ---------------------------------------------------------
     // UPDATE EVERY CURRENT PRICE DISPLAY
-    // =======================================================
+    // ---------------------------------------------------------
 
     document
       .querySelectorAll('.price-display')
       .forEach((element) => {
 
-        // Do NOT overwrite the original/strikethrough price
         if (
           element.classList.contains('original-price')
         ) {
           return;
         }
-
 
         element.textContent =
           `${data.symbol}${formatPrice(
@@ -198,9 +175,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
 
-    // =======================================================
-    // UPDATE ORIGINAL / STRIKETHROUGH PRICE
-    // =======================================================
+    // ---------------------------------------------------------
+    // UPDATE ORIGINAL PRICE
+    // ---------------------------------------------------------
 
     document
       .querySelectorAll('.original-price')
@@ -214,9 +191,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
 
-    // =======================================================
+    // ---------------------------------------------------------
     // UPDATE DISCOUNT PERCENTAGE
-    // =======================================================
+    // ---------------------------------------------------------
 
     const discountElement =
       document.getElementById(
@@ -261,21 +238,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  // Make sure saved currency actually exists
   if (!currencyData[savedCurrency]) {
-
     savedCurrency = 'USD';
   }
 
 
   if (currencySelect) {
 
-    // Set dropdown to saved currency
     currencySelect.value =
       savedCurrency;
 
 
-    // Listen for currency changes
     currencySelect.addEventListener(
       'change',
       (e) => {
@@ -283,14 +256,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedCurrency =
           e.target.value;
 
-
-        // Update every price on the page
         updatePrices(
           selectedCurrency
         );
 
 
-        // Remember user's selection
         try {
 
           localStorage.setItem(
@@ -310,7 +280,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  // Initial price update
   updatePrices(
     currencySelect
       ? currencySelect.value
@@ -318,14 +287,16 @@ document.addEventListener('DOMContentLoaded', () => {
   );
 
 
+  // =========================================================
+  // 2. SCROLL REVEAL
+  // =========================================================
 
-  // =========================================================
-  // 2. SCROLL REVEAL ANIMATION
-  // =========================================================
+  // IMPORTANT:
+  // Your HTML uses .scroll-reveal, not .reveal.
 
   const revealElements =
     document.querySelectorAll(
-      '.reveal'
+      '.scroll-reveal'
     );
 
 
@@ -367,9 +338,9 @@ document.addEventListener('DOMContentLoaded', () => {
         );
       }
     );
+
   } else {
 
-    // Fallback for older browsers
     revealElements.forEach(
       (element) => {
 
@@ -379,7 +350,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     );
   }
-
 
 
   // =========================================================
@@ -413,7 +383,6 @@ document.addEventListener('DOMContentLoaded', () => {
           );
 
 
-        // Close all other FAQ items
         faqItems.forEach(
           (otherItem) => {
 
@@ -429,7 +398,6 @@ document.addEventListener('DOMContentLoaded', () => {
         );
 
 
-        // Toggle current item
         if (isOpen) {
 
           item.classList.remove(
@@ -445,7 +413,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     );
   });
-
 
 
   // =========================================================
@@ -597,135 +564,152 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
 
+  // IMPORTANT:
+  // Your HTML uses #baby-age-select.
+
   const ageSelect =
     document.getElementById(
-      'age-select'
+      'baby-age-select'
     );
 
 
   if (ageSelect) {
 
+    const updateCalculator = () => {
+
+      const selectedAge =
+        ageSelect.value;
+
+
+      const data =
+        wakeData[selectedAge];
+
+
+      if (!data) return;
+
+
+      // Wake window
+      const wakeWindow =
+        document.getElementById(
+          'res-wake-window'
+        );
+
+
+      if (wakeWindow) {
+
+        wakeWindow.textContent =
+          data.wake;
+      }
+
+
+      // Number of naps
+      const napCount =
+        document.getElementById(
+          'res-nap-count'
+        );
+
+
+      if (napCount) {
+
+        napCount.textContent =
+          data.naps;
+      }
+
+
+      // Day sleep
+      const daySleep =
+        document.getElementById(
+          'res-day-sleep'
+        );
+
+
+      if (daySleep) {
+
+        daySleep.textContent =
+          data.daySleep;
+      }
+
+
+      // Schedule
+      const scheduleContainer =
+        document.getElementById(
+          'res-schedule-list'
+        );
+
+
+      if (scheduleContainer) {
+
+        scheduleContainer.innerHTML =
+          '';
+
+
+        data.schedule.forEach(
+          ([time, activity]) => {
+
+            const row =
+              document.createElement(
+                'div'
+              );
+
+
+            row.className =
+              'schedule-row';
+
+
+            row.innerHTML = `
+              <span class="schedule-time">
+                ${time}
+              </span>
+
+              <span class="schedule-activity">
+                ${activity}
+              </span>
+            `;
+
+
+            scheduleContainer.appendChild(
+              row
+            );
+          }
+        );
+      }
+
+
+      // Expert tip
+      const tip =
+        document.getElementById(
+          'res-expert-tip'
+        );
+
+
+      if (tip) {
+
+        tip.innerHTML =
+          `💡 <strong>Troubleshooting Tip:</strong> ${data.tip}`;
+      }
+    };
+
+
     ageSelect.addEventListener(
       'change',
-      () => {
-
-        const selectedAge =
-          ageSelect.value;
-
-
-        const data =
-          wakeData[selectedAge];
-
-
-        if (!data) return;
-
-
-        // Wake window
-        const wakeWindow =
-          document.getElementById(
-            'wake-window'
-          );
-
-        if (wakeWindow) {
-          wakeWindow.textContent =
-            data.wake;
-        }
-
-
-        // Number of naps
-        const napCount =
-          document.getElementById(
-            'nap-count'
-          );
-
-        if (napCount) {
-          napCount.textContent =
-            data.naps;
-        }
-
-
-        // Day sleep
-        const daySleep =
-          document.getElementById(
-            'day-sleep'
-          );
-
-        if (daySleep) {
-          daySleep.textContent =
-            data.daySleep;
-        }
-
-
-        // Schedule
-        const scheduleContainer =
-          document.getElementById(
-            'schedule'
-          );
-
-
-        if (scheduleContainer) {
-
-          scheduleContainer.innerHTML =
-            '';
-
-
-          data.schedule.forEach(
-            ([time, activity]) => {
-
-              const row =
-                document.createElement(
-                  'div'
-                );
-
-
-              row.className =
-                'schedule-row';
-
-
-              row.innerHTML = `
-                <span class="schedule-time">
-                  ${time}
-                </span>
-
-                <span class="schedule-activity">
-                  ${activity}
-                </span>
-              `;
-
-
-              scheduleContainer.appendChild(
-                row
-              );
-            }
-          );
-        }
-
-
-        // Tip
-        const tip =
-          document.getElementById(
-            'schedule-tip'
-          );
-
-
-        if (tip) {
-
-          tip.textContent =
-            data.tip;
-        }
-      }
+      updateCalculator
     );
-  }
 
+
+    // Populate calculator immediately
+    updateCalculator();
+  }
 
 
   // =========================================================
   // 5. STICKY BOTTOM BAR
   // =========================================================
 
+  // Your HTML uses .sticky-bar.
+
   const stickyBar =
     document.querySelector(
-      '.sticky-bottom-bar'
+      '.sticky-bar'
     );
 
 
@@ -750,7 +734,6 @@ document.addEventListener('DOMContentLoaded', () => {
       );
     }
   }
-
 
 
   // =========================================================
@@ -804,32 +787,127 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-
   // =========================================================
   // 7. LEGAL MODAL
   // =========================================================
 
+  // Your HTML uses #legalModal.
+
   const legalModal =
     document.getElementById(
-      'legal-modal'
+      'legalModal'
     );
 
 
-  const legalOpenButtons =
-    document.querySelectorAll(
-      '[data-legal-open]'
+  const legalOverlay =
+    document.getElementById(
+      'legalOverlay'
     );
 
 
-  const legalCloseButtons =
+  const legalClose =
+    document.getElementById(
+      'legalClose'
+    );
+
+
+  const legalModalButtons =
     document.querySelectorAll(
-      '[data-legal-close]'
+      '[data-modal]'
     );
 
 
   if (legalModal) {
 
-    legalOpenButtons.forEach(
+    const closeLegalModal = () => {
+
+      legalModal.classList.remove(
+        'active'
+      );
+
+      legalModal.setAttribute(
+        'aria-hidden',
+        'true'
+      );
+
+      document.body.classList.remove(
+        'modal-open'
+      );
+    };
+
+
+    const openLegalModal = (type) => {
+
+      const modalBody =
+        document.getElementById(
+          'legalModalBody'
+        );
+
+
+      if (modalBody) {
+
+        if (type === 'terms') {
+
+          modalBody.innerHTML = `
+            <h2>Terms & Conditions</h2>
+
+            <p>
+              The Baby Sleep Detective is provided for informational and
+              educational purposes only.
+            </p>
+
+            <p>
+              By purchasing or using this guide, you agree to use the
+              information responsibly and understand that it does not
+              constitute medical advice.
+            </p>
+
+            <p>
+              Always consult your pediatrician or qualified healthcare
+              provider regarding your baby's individual health and sleep
+              needs.
+            </p>
+          `;
+
+        } else if (type === 'privacy') {
+
+          modalBody.innerHTML = `
+            <h2>Privacy Policy</h2>
+
+            <p>
+              We respect your privacy and only use information provided to
+              us for the purpose of delivering and supporting your purchase.
+            </p>
+
+            <p>
+              We do not sell your personal information to third parties.
+            </p>
+
+            <p>
+              If you contact us for support, your information may be retained
+              only as reasonably necessary to respond to your request.
+            </p>
+          `;
+        }
+      }
+
+
+      legalModal.classList.add(
+        'active'
+      );
+
+      legalModal.setAttribute(
+        'aria-hidden',
+        'false'
+      );
+
+      document.body.classList.add(
+        'modal-open'
+      );
+    };
+
+
+    legalModalButtons.forEach(
       (button) => {
 
         button.addEventListener(
@@ -838,65 +916,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
             event.preventDefault();
 
+            const type =
+              button.getAttribute(
+                'data-modal'
+              );
 
-            legalModal.classList.add(
-              'active'
-            );
-
-
-            document.body.classList.add(
-              'modal-open'
-            );
+            openLegalModal(type);
           }
         );
       }
     );
 
 
-    legalCloseButtons.forEach(
-      (button) => {
+    if (legalClose) {
 
-        button.addEventListener(
-          'click',
-          () => {
-
-            legalModal.classList.remove(
-              'active'
-            );
+      legalClose.addEventListener(
+        'click',
+        closeLegalModal
+      );
+    }
 
 
-            document.body.classList.remove(
-              'modal-open'
-            );
-          }
-        );
-      }
-    );
+    if (legalOverlay) {
+
+      legalOverlay.addEventListener(
+        'click',
+        closeLegalModal
+      );
+    }
 
 
-    // Close when clicking outside modal content
-    legalModal.addEventListener(
-      'click',
-      (event) => {
-
-        if (
-          event.target === legalModal
-        ) {
-
-          legalModal.classList.remove(
-            'active'
-          );
-
-
-          document.body.classList.remove(
-            'modal-open'
-          );
-        }
-      }
-    );
-
-
-    // Close with Escape key
     document.addEventListener(
       'keydown',
       (event) => {
@@ -908,14 +957,7 @@ document.addEventListener('DOMContentLoaded', () => {
           )
         ) {
 
-          legalModal.classList.remove(
-            'active'
-          );
-
-
-          document.body.classList.remove(
-            'modal-open'
-          );
+          closeLegalModal();
         }
       }
     );
