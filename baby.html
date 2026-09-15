@@ -29,9 +29,10 @@
   <div class="top-bar">
     <div class="container top-bar-container">
 
-      <span class="announcement-text">
-        ⚡ Early Access Pricing: Save 35% on the first 50 downloads
-      </span>
+    <span class="announcement-text">
+  ⚡ Early Access Pricing: Save <span id="discount-percentage">35%</span>
+  on the first 50 downloads
+    </span>
 
       <div class="currency-selector-container">
         <label for="currency-select">Currency:</label>
@@ -669,23 +670,24 @@
         </div>
 
 
-        <div class="price-container">
+<div class="price-container">
 
-          <span
-            class="original-price price-display"
-            data-base-price="29"
-          >
-            $29.00 USD
-          </span>
+  <span
+    class="original-price price-display"
+    data-price-type="original"
+  >
+    $18.45 USD
+  </span>
 
-          <span
-            class="current-price price-display"
-            data-base-price="11.99"
-          >
-            $11.99.00 USD
-          </span>
+  <span
+    class="current-price price-display"
+    data-base-price="11.99"
+    data-price-type="current"
+  >
+    $11.99 USD
+  </span>
 
-        </div>
+</div>
 
 
         <p class="price-framing">
