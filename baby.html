@@ -30,29 +30,30 @@
   <div class="top-bar">
     <div class="container top-bar-container">
 
-
-  <span class="announcement-text">
-    ⚡ Early Access Pricing: Save
-    <span id="discount-percentage">35%</span>
-    on the first 50 downloads
-  </span>
+<!-- Announcement -->
+<span class="announcement-text">
+  ⚡ Early Access Pricing: Save
+  <span id="discount-percentage">35%</span>
+  on the first 50 downloads
+</span>
 
   <div class="currency-selector-container">
     <label for="currency-select">Currency:</label>
 
-    <select id="currency-select">
-      <option value="USD">USD ($)</option>
-      <option value="GBP">GBP (£)</option>
-      <option value="EUR">EUR (€)</option>
-      <option value="CAD">CAD (C$)</option>
-      <option value="AUD">AUD (A$)</option>
-      <option value="JPY">JPY (¥)</option>
-      <option value="NGN">NGN (₦)</option>
-      <option value="ZAR">ZAR (R)</option>
-      <option value="GHS">GHS (GH₵)</option>
-      <option value="KES">KES (KSh)</option>
-      <option value="INR">INR (₹)</option>
-    </select>
+   <!-- Currency Selector -->
+<select id="currency-select">
+  <option value="USD">USD ($)</option>
+  <option value="GBP">GBP (£)</option>
+  <option value="EUR">EUR (€)</option>
+  <option value="CAD">CAD (C$)</option>
+  <option value="AUD">AUD (A$)</option>
+  <option value="JPY">JPY (¥)</option>
+  <option value="NGN">NGN (₦)</option>
+  <option value="ZAR">ZAR (R)</option>
+  <option value="GHS">GHS (GH₵)</option>
+  <option value="KES">KES (KSh)</option>
+  <option value="INR">INR (₹)</option>
+</select>
   </div>
 
 </div>
@@ -736,31 +737,22 @@
 
 
     <!-- DYNAMIC PRICING -->
-    <div class="price-container">
+   <div class="price-container">
+  <span
+    class="original-price price-display"
+    data-price-type="original"
+  >
+    $18.45 USD
+  </span>
 
-      <!--
-        Original price is calculated automatically by baby.js
-        from the current price and 35% discount.
-      -->
-      <span
-        class="original-price price-display"
-        data-price-type="original"
-      >
-        $18.45 USD
-      </span>
-
-
-      <!-- Current price -->
-      <span
-        class="current-price price-display"
-        data-base-price="11.99"
-        data-price-type="current"
-      >
-        $11.99 USD
-      </span>
-
-    </div>
-
+  <span
+    class="current-price price-display"
+    data-base-price="11.99"
+    data-price-type="current"
+  >
+    $11.99 USD
+  </span>
+</div>
 
     <p class="price-framing">
       Less than the cost of one hour with a sleep consultant.
