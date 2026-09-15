@@ -1,8 +1,8 @@
 /* --- RESET & VARIABLES --- */
 :root {
-  --primary-color: #2b5b84; /* Deep, calming blue */
+  --primary-color: #2b5b84;
   --primary-hover: #1f4260;
-  --accent-color: #e07a5f; /* Soft, inviting coral/peach */
+  --accent-color: #e07a5f;
   --accent-hover: #c9654c;
   --text-dark: #1a202c;
   --text-muted: #64748b;
@@ -34,7 +34,6 @@ html {
 
 body {
   background-color: var(--bg-white);
-  /* REMOVE or set to 0: padding-bottom: 70px; */
 }
 
 @media (min-width: 769px) {
@@ -93,7 +92,7 @@ img {
   font-weight: 700;
   text-align: center;
   text-decoration: none;
-  border-radius: 50px; /* Rounded pill shape */
+  border-radius: 50px;
   transition: var(--transition);
   cursor: pointer;
   border: none;
@@ -188,7 +187,7 @@ img {
 }
 
 .logo {
-  height: 35px; /* Adjust based on your logo shape */
+  height: 35px;
 }
 
 /* --- HERO SECTION --- */
@@ -247,10 +246,21 @@ img {
 }
 
 @keyframes rotateText {
-  0%, 30% { transform: translateY(0); }
-  33%, 63% { transform: translateY(-1.1em); }
-  66%, 96% { transform: translateY(-2.2em); }
-  100% { transform: translateY(0); }
+  0%, 30% {
+    transform: translateY(0);
+  }
+
+  33%, 63% {
+    transform: translateY(-1.1em);
+  }
+
+  66%, 96% {
+    transform: translateY(-2.2em);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
 }
 
 .hero-subtitle {
@@ -280,17 +290,24 @@ img {
 
 .hero-img {
   width: 100%;
-  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; /* Organic shape */
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
   box-shadow: var(--shadow-lg);
   border: 10px solid #fff;
 }
 
-/* --- SECTION IMAGE STYLES (Shared) --- */
-.section-side-image img, .section-main-image img {
+/* --- SECTION IMAGE STYLES --- */
+.section-side-image img,
+.section-main-image img {
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   object-fit: cover;
   width: 100%;
+}
+
+.section-side-image {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 /* --- PROBLEM SECTION --- */
@@ -420,7 +437,7 @@ img {
   color: var(--text-muted);
 }
 
-/* --- FOUNDING READERS SECTION (replaces prior testimonial marquee) --- */
+/* --- FOUNDING READERS SECTION --- */
 .founders-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -460,18 +477,6 @@ img {
   font-size: 0.9rem;
   color: var(--text-muted);
   line-height: 1.5;
-}
-
-@media (min-width: 640px) {
-  .founders-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 992px) {
-  .founders-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
 }
 
 /* --- FAQ SECTION --- */
@@ -539,7 +544,7 @@ img {
 }
 
 .faq-item.active .faq-answer {
-  max-height: 300px; /* Arbitrary high value for slide effect */
+  max-height: 300px;
 }
 
 /* --- PRICING SECTION --- */
@@ -581,6 +586,7 @@ img {
   align-items: baseline;
   gap: 12px;
   margin: 15px 0 5px;
+  flex-wrap: wrap;
 }
 
 .original-price {
@@ -617,8 +623,8 @@ img {
 }
 
 .checkout-btn {
-    text-transform: uppercase;
-    letter-spacing: 1px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .guarantee-box {
@@ -648,10 +654,11 @@ img {
 
 /* --- FINAL CTA --- */
 .final-cta {
-    text-align: center;
+  text-align: center;
 }
+
 .final-cta .cta-button {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 
 /* --- STICKY MOBILE BAR --- */
@@ -707,14 +714,26 @@ img {
 /* --- RESPONSIVE MEDIA QUERIES --- */
 
 @media (max-width: 600px) {
-    .top-bar-container {
-        font-size: 0.7rem;
-    }
+  .top-bar-container {
+    font-size: 0.7rem;
+  }
+
+  .section-side-image .first-pricing-img {
+    display: none;
+  }
 }
 
 @media (min-width: 640px) {
   .problem-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .founders-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .calc-result-metrics {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -722,36 +741,43 @@ img {
   .section-title {
     font-size: 2.6rem;
   }
-  
+
   .top-bar-container {
     flex-direction: row;
     font-size: 0.85rem;
   }
 
-  /* Hero Desktop Layout */
+  /* --- HERO DESKTOP LAYOUT --- */
   .hero {
     padding: 100px 0 80px;
   }
+
   .hero-container {
     flex-direction: row;
     text-align: left;
     gap: 60px;
   }
+
   .hero-title {
     font-size: 3.8rem;
   }
+
   .hero-subtitle {
     margin: 0 0 40px 0;
   }
+
   .hero-cta-group {
     align-items: flex-start;
   }
+
   .btn-large {
     width: auto;
   }
 
-  /* Layout grids for desktop */
-  .problem-grid-wrapper, .difference-wrapper, .inside-wrapper {
+  /* --- DESKTOP LAYOUT GRIDS --- */
+  .problem-grid-wrapper,
+  .difference-wrapper,
+  .inside-wrapper {
     grid-template-columns: 1fr 1fr;
   }
 
@@ -764,7 +790,7 @@ img {
   }
 
   .problem-grid-wrapper .section-side-image {
-    order: -1; /* Move image to left */
+    order: -1;
   }
 
   .inside-wrapper .section-side-image {
@@ -776,41 +802,29 @@ img {
   }
 
   .pricing-container-main {
-      grid-template-columns: 0.8fr 1.2fr;
+    grid-template-columns: 0.8fr 1.2fr;
   }
-.section-side-image {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-@media screen and (max-width: 600px) {
- .section-side-image .first-pricing-img {
-    display: none;
+
+  .section-side-image {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
-}
-
-
-/* Add space below the first image */
-.section-side-image img:not(:last-child) {
-  margin-bottom: 20px;
-}
-
-
 
   .final-cta .btn {
-      width: auto;
+    width: auto;
   }
 
   .sticky-bar {
-    display: none; /* Hide sticky bar on desktop view */
+    display: none;
   }
 }
 
 /* --- MAIN FOOTER --- */
 .main-footer {
-  background-color: #1e293b; /* Dark slate tone */
+  background-color: #1e293b;
   color: #cbd5e1;
-  padding: 60px 0 110px; /* 60px top, 0 left/right, 40px + 70px = 110px bottom */
+  padding: 60px 0 110px;
   border-top: 1px solid #334155;
   font-size: 0.9rem;
 }
@@ -899,9 +913,6 @@ img {
   }
 }
 
-
-
-
 /* --- CALCULATOR SECTION --- */
 .calculator-card {
   background: var(--bg-white);
@@ -952,7 +963,8 @@ img {
   background-size: 12px auto;
 }
 
-.calc-select:hover, .calc-select:focus {
+.calc-select:hover,
+.calc-select:focus {
   background-color: #fff;
   box-shadow: 0 0 0 4px rgba(43, 91, 132, 0.15);
 }
@@ -1037,12 +1049,6 @@ img {
   font-size: 0.9rem;
   color: #1e40af;
   line-height: 1.5;
-}
-
-@media (min-width: 640px) {
-  .calc-result-metrics {
-    grid-template-columns: repeat(3, 1fr);
-  }
 }
 
 /* --- LEGAL MODAL POPUP --- */
