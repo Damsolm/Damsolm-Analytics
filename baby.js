@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
 
     GHS: {
-      fixedPrice: 149,
+      fixedPrice: 112.52,
       symbol: 'GH₵',
       code: 'GHS'
     },
