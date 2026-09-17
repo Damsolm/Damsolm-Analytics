@@ -787,141 +787,180 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
+  // =========================================================
+  // 7. LEGAL MODAL
+  // =========================================================
 
-  // --- 5. STICKY BOTTOM BAR VISIBILITY LOGIC ---
+  // Your HTML uses #legalModal.
 
-  const stickyBar = document.getElementById('stickyBar');
-  const pricingSection = document.getElementById('pricing');
+  const legalModal =
+    document.getElementById(
+      'legalModal'
+    );
 
-  if (stickyBar && pricingSection) {
-    const handleScroll = () => {
-      if (window.innerWidth > 768) {
-        stickyBar.classList.remove('visible');
-        return;
-      }
 
-      const scrollPosition = window.scrollY + window.innerHeight;
-      const pricingSectionTop = pricingSection.offsetTop;
+  const legalOverlay =
+    document.getElementById(
+      'legalOverlay'
+    );
 
-      if (
-        window.scrollY > 400 &&
-        scrollPosition < pricingSectionTop + 200
-      ) {
-        stickyBar.classList.add('visible');
-      } else {
-        stickyBar.classList.remove('visible');
-      }
+
+  const legalClose =
+    document.getElementById(
+      'legalClose'
+    );
+
+
+  const legalModalButtons =
+    document.querySelectorAll(
+      '[data-modal]'
+    );
+
+
+  if (legalModal) {
+
+    const closeLegalModal = () => {
+
+      legalModal.classList.remove(
+        'active'
+      );
+
+      legalModal.setAttribute(
+        'aria-hidden',
+        'true'
+      );
+
+      document.body.classList.remove(
+        'modal-open'
+      );
     };
 
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', handleScroll);
 
-    handleScroll();
-  }
+    const openLegalModal = (type) => {
+
+      const modalBody =
+        document.getElementById(
+          'legalModalBody'
+        );
 
 
-  // --- 6. SMOOTH SCROLL HANDLER ---
+      if (modalBody) {
 
-  const anchorLinks = document.querySelectorAll(
-    'a[href^="#"]:not(.footer-link-modal)'
-  );
+        if (type === 'terms') {
 
-  anchorLinks.forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      const targetId = this.getAttribute('href');
+          modalBody.innerHTML = `
+            <h2>Terms & Conditions</h2>
 
-      if (!targetId || targetId === '#') return;
+            <p>
+              The Baby Sleep Detective is provided for informational and
+              educational purposes only.
+            </p>
 
-      const targetElement = document.querySelector(targetId);
+            <p>
+              By purchasing or using this guide, you agree to use the
+              information responsibly and understand that it does not
+              constitute medical advice.
+            </p>
 
-      if (targetElement) {
-        e.preventDefault();
+            <p>
+              Always consult your pediatrician or qualified healthcare
+              provider regarding your baby's individual health and sleep
+              needs.
+            </p>
+          `;
 
-        const headerEl = document.querySelector('.main-header');
-        const headerOffset = headerEl ? headerEl.offsetHeight : 70;
+        } else if (type === 'privacy') {
 
-        const elementPosition = targetElement.getBoundingClientRect().top;
+          modalBody.innerHTML = `
+            <h2>Privacy Policy</h2>
 
-        const offsetPosition =
-          elementPosition + window.scrollY - headerOffset;
+            <p>
+              We respect your privacy and only use information provided to
+              us for the purpose of delivering and supporting your purchase.
+            </p>
 
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
+            <p>
+              We do not sell your personal information to third parties.
+            </p>
+
+            <p>
+              If you contact us for support, your information may be retained
+              only as reasonably necessary to respond to your request.
+            </p>
+          `;
+        }
       }
-    });
-  });
 
 
-  // --- 7. LEGAL MODAL HANDLER ---
+      legalModal.classList.add(
+        'active'
+      );
 
-  const legalModal = document.getElementById('legalModal');
-  const legalModalBody = document.getElementById('legalModalBody');
-  const legalOverlay = document.getElementById('legalOverlay');
-  const legalClose = document.getElementById('legalClose');
-  const modalTriggers = document.querySelectorAll('.footer-link-modal');
+      legalModal.setAttribute(
+        'aria-hidden',
+        'false'
+      );
 
-  const legalTexts = {
-    terms: `
-      <h3>Terms & Conditions</h3>
-      <p>By purchasing and downloading <strong>The Baby Sleep Detective</strong>, you receive a non-exclusive, non-transferable personal license to access the PDF guide for personal use within your household.</p>
-      <p>Re-distribution, resale, or sharing digital copies with unauthorized third parties is prohibited. Due to the instant delivery nature of digital files, refunds are granted in accordance with our 7-Day Money-Back Guarantee upon written request to support.</p>
-    `,
+      document.body.classList.add(
+        'modal-open'
+      );
+    };
 
-    privacy: `
-      <h3>Privacy Policy</h3>
-      <p>At <strong>The Baby Sleep Detective Club</strong>, your privacy is extremely important to us. We collect minimal personal information, such as your email address and payment details, strictly necessary to process digital product downloads and deliver lifetime update communications.</p>
-      <p>We do not sell, rent, or trade your personal data to third parties. All financial processing is conducted via secure, encrypted payment processors.</p>
-    `
-  };
 
-  const openModal = (type) => {
-    if (legalTexts[type] && legalModal && legalModalBody) {
-      legalModalBody.innerHTML = legalTexts[type];
+    legalModalButtons.forEach(
+      (button) => {
 
-      legalModal.classList.add('open');
-      legalModal.setAttribute('aria-hidden', 'false');
+        button.addEventListener(
+          'click',
+          (event) => {
 
-      document.body.style.overflow = 'hidden';
+            event.preventDefault();
+
+            const type =
+              button.getAttribute(
+                'data-modal'
+              );
+
+            openLegalModal(type);
+          }
+        );
+      }
+    );
+
+
+    if (legalClose) {
+
+      legalClose.addEventListener(
+        'click',
+        closeLegalModal
+      );
     }
-  };
 
-  const closeModal = () => {
-    if (legalModal) {
-      legalModal.classList.remove('open');
-      legalModal.setAttribute('aria-hidden', 'true');
 
-      document.body.style.overflow = '';
+    if (legalOverlay) {
+
+      legalOverlay.addEventListener(
+        'click',
+        closeLegalModal
+      );
     }
-  };
 
-  modalTriggers.forEach(trigger => {
-    trigger.addEventListener('click', (e) => {
-      e.preventDefault();
 
-      const modalType = trigger.getAttribute('data-modal');
+    document.addEventListener(
+      'keydown',
+      (event) => {
 
-      openModal(modalType);
-    });
-  });
+        if (
+          event.key === 'Escape' &&
+          legalModal.classList.contains(
+            'active'
+          )
+        ) {
 
-  if (legalClose) {
-    legalClose.addEventListener('click', closeModal);
+          closeLegalModal();
+        }
+      }
+    );
   }
-
-  if (legalOverlay) {
-    legalOverlay.addEventListener('click', closeModal);
-  }
-
-  document.addEventListener('keydown', (e) => {
-    if (
-      e.key === 'Escape' &&
-      legalModal &&
-      legalModal.classList.contains('open')
-    ) {
-      closeModal();
-    }
-  });
 
 });
