@@ -787,180 +787,89 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-  // =========================================================
-  // 7. LEGAL MODAL
-  // =========================================================
+ // =========================================================
+// 7. LEGAL MODAL
+// =========================================================
 
-  // Your HTML uses #legalModal.
+const legalModal = document.getElementById('legalModal');
+const legalOverlay = document.getElementById('legalOverlay');
+const legalClose = document.getElementById('legalClose');
+const legalModalButtons = document.querySelectorAll('[data-modal]');
 
-  const legalModal =
-    document.getElementById(
-      'legalModal'
-    );
+if (legalModal) {
+  const closeLegalModal = () => {
+    legalModal.classList.remove('active');
+    legalModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+  };
 
+  const openLegalModal = (type) => {
+    const modalBody = document.getElementById('legalModalBody');
 
-  const legalOverlay =
-    document.getElementById(
-      'legalOverlay'
-    );
-
-
-  const legalClose =
-    document.getElementById(
-      'legalClose'
-    );
-
-
-  const legalModalButtons =
-    document.querySelectorAll(
-      '[data-modal]'
-    );
-
-
-  if (legalModal) {
-
-    const closeLegalModal = () => {
-
-      legalModal.classList.remove(
-        'active'
-      );
-
-      legalModal.setAttribute(
-        'aria-hidden',
-        'true'
-      );
-
-      document.body.classList.remove(
-        'modal-open'
-      );
-    };
-
-
-    const openLegalModal = (type) => {
-
-      const modalBody =
-        document.getElementById(
-          'legalModalBody'
-        );
-
-
-      if (modalBody) {
-
-        if (type === 'terms') {
-
-          modalBody.innerHTML = `
-            <h2>Terms & Conditions</h2>
-
-            <p>
-              The Baby Sleep Detective is provided for informational and
-              educational purposes only.
-            </p>
-
-            <p>
-              By purchasing or using this guide, you agree to use the
-              information responsibly and understand that it does not
-              constitute medical advice.
-            </p>
-
-            <p>
-              Always consult your pediatrician or qualified healthcare
-              provider regarding your baby's individual health and sleep
-              needs.
-            </p>
-          `;
-
-        } else if (type === 'privacy') {
-
-          modalBody.innerHTML = `
-            <h2>Privacy Policy</h2>
-
-            <p>
-              We respect your privacy and only use information provided to
-              us for the purpose of delivering and supporting your purchase.
-            </p>
-
-            <p>
-              We do not sell your personal information to third parties.
-            </p>
-
-            <p>
-              If you contact us for support, your information may be retained
-              only as reasonably necessary to respond to your request.
-            </p>
-          `;
-        }
+    if (modalBody) {
+      if (type === 'terms') {
+        modalBody.innerHTML = `
+          <h2>Terms & Conditions</h2>
+          <p>
+            The Baby Sleep Detective is provided for informational and
+            educational purposes only.
+          </p>
+          <p>
+            By purchasing or using this guide, you agree to use the
+            information responsibly and understand that it does not
+            constitute medical advice.
+          </p>
+          <p>
+            Always consult your pediatrician or qualified healthcare
+            provider regarding your baby's individual health and sleep
+            needs.
+          </p>
+        `;
+      } else if (type === 'privacy') {
+        modalBody.innerHTML = `
+          <h2>Privacy Policy</h2>
+          <p>
+            We respect your privacy and only use information provided to
+            us for the purpose of delivering and supporting your purchase.
+          </p>
+          <p>
+            We do not sell your personal information to third parties.
+          </p>
+          <p>
+            If you contact us for support, your information may be retained
+            only as reasonably necessary to respond to your request.
+          </p>
+        `;
       }
-
-
-      legalModal.classList.add(
-        'active'
-      );
-
-      legalModal.setAttribute(
-        'aria-hidden',
-        'false'
-      );
-
-      document.body.classList.add(
-        'modal-open'
-      );
-    };
-
-
-    legalModalButtons.forEach(
-      (button) => {
-
-        button.addEventListener(
-          'click',
-          (event) => {
-
-            event.preventDefault();
-
-            const type =
-              button.getAttribute(
-                'data-modal'
-              );
-
-            openLegalModal(type);
-          }
-        );
-      }
-    );
-
-
-    if (legalClose) {
-
-      legalClose.addEventListener(
-        'click',
-        closeLegalModal
-      );
     }
 
+    legalModal.classList.add('active');
+    legalModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+  };
 
-    if (legalOverlay) {
+  legalModalButtons.forEach((button) => {
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      const type = button.getAttribute('data-modal');
+      openLegalModal(type);
+    });
+  });
 
-      legalOverlay.addEventListener(
-        'click',
-        closeLegalModal
-      );
-    }
-
-
-    document.addEventListener(
-      'keydown',
-      (event) => {
-
-        if (
-          event.key === 'Escape' &&
-          legalModal.classList.contains(
-            'active'
-          )
-        ) {
-
-          closeLegalModal();
-        }
-      }
-    );
+  if (legalClose) {
+    legalClose.addEventListener('click', closeLegalModal);
   }
 
-});
+  if (legalOverlay) {
+    legalOverlay.addEventListener('click', closeLegalModal);
+  }
+
+  document.addEventListener('keydown', (event) => {
+    if (
+      event.key === 'Escape' &&
+      legalModal.classList.contains('active')
+    ) {
+      closeLegalModal();
+    }
+  });
+}
